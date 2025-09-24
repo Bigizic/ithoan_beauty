@@ -2,7 +2,6 @@ import React from "react";
 import { AboutUsSection } from "./sections/AboutUsSection/AboutUsSection";
 import { CallToActionSection } from "./sections/CallToActionSection/CallToActionSection";
 import { ClientFeedbackSection } from "./sections/ClientFeedbackSection/ClientFeedbackSection";
-import { FooterSection } from "./sections/FooterSection/FooterSection";
 import { HeaderSection } from "./sections/HeaderSection/HeaderSection";
 import { OfferingsSection } from "./sections/OfferingsSection/OfferingsSection";
 import { TestimonialsSection } from "./sections/TestimonialsSection/TestimonialsSection";
@@ -19,7 +18,6 @@ export const HomeDesktop = (): JSX.Element => {
       <AboutUsSection />
       <ClientFeedbackSection />
       <CallToActionSection />
-      <FooterSection />
     </main>
   );
 };

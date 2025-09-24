@@ -109,6 +109,24 @@ module.exports = {
           'background-size': 'cover',
           'background-repeat': 'no-repeat'
         },
+        '.bg-services-header': {
+          'background': "linear-gradient(0deg,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.5) 100%), url('/images/services_page/hero.jpg')",
+          'background-position': 'center',
+          'background-size': 'cover',
+          'background-repeat': 'no-repeat'
+        },
+        '.bg-services-call-to-action': {
+          'background': "linear-gradient(0deg,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.5) 100%), url('/images/services_page/newsletter.jpg)",
+          'background-position': 'center',
+          'background-size': 'cover',
+          'background-repeat': 'no-repeat'
+        },
+        '.bg-linear-black-transparent': {
+          'background': "linear-gradient(0deg,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.5) 100%)",
+          'background-position': 'center',
+          'background-size': 'cover',
+          'background-repeat': 'no-repeat'
+        },
         '.pd-default': { 'padding-left': "var(--pdl)", 'padding-right': "var(--pdr)" },
         '@screen md': {
           '.text-lg': {
