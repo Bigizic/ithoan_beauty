@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronDownIcon, MenuIcon, XIcon } from "lucide-react";
+import { ChevronDown as ChevronDownIcon, Menu as MenuIcon, Bone as XIcon } from "lucide-react";
 import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
