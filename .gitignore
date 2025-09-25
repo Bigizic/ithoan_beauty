@@ -3,7 +3,7 @@
 
 # production
 build
-dist
+*dist
 
 # misc
 package.json.bak
