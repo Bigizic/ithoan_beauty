@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 
-const services = [
+const servicesData = [
   {
     id: 1,
     category: "Facials",
@@ -46,7 +46,19 @@ const services = [
   },
 ];
 
-export const WhyChooseUsSection = (): JSX.Element => {
+interface WhyChooseUsProps {
+  services: [{
+    id: string,
+    category: string,
+    name: string,
+    image: string,
+    title: string,
+    description: string
+  }]
+}
+
+export const WhyChooseUsSection = (props: WhyChooseUsProps) => {
+  const { services } = props
   return (
     <section className="flex flex-col w-full items-center gap-20 pd-default py-28 relative bg-[#e6e1c9]">
       <div className="flex flex-col max-w-screen-xl items-center gap-20 relative w-full">
