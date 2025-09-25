@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Button } from "../../../../components/ui/button";
 
 export const HeaderSection = (): JSX.Element => {
@@ -18,16 +19,20 @@ export const HeaderSection = (): JSX.Element => {
           </div>
 
           <div className="inline-flex items-start gap-8 relative flex-[0_0_auto]">
-            <Button className="h-auto bg-[#eabe30] hover:bg-[#d4a82a] text-[#1c1c1c] px-6 py-3 rounded-lg font-text-regular-normal font-[number:var(--text-regular-normal-font-weight)] text-[length:var(--text-regular-normal-font-size)] tracking-[var(--text-regular-normal-letter-spacing)] leading-[var(--text-regular-normal-line-height)] [font-style:var(--text-regular-normal-font-style)]">
-              Book Appointment
-            </Button>
+            <Link href="/booking">
+              <Button className="h-auto bg-[#eabe30] hover:bg-[#d4a82a] text-[#1c1c1c] px-6 py-3 rounded-lg font-text-regular-normal font-[number:var(--text-regular-normal-font-weight)] text-[length:var(--text-regular-normal-font-size)] tracking-[var(--text-regular-normal-letter-spacing)] leading-[var(--text-regular-normal-line-height)] [font-style:var(--text-regular-normal-font-style)]">
+                Book Appointment
+              </Button>
+            </Link>
 
-            <Button
-              variant="outline"
-              className="h-auto bg-white hover:bg-gray-50 text-[#1c1c1c] border-2 border-[#eabe30] px-6 py-3 rounded-lg font-text-regular-normal font-[number:var(--text-regular-normal-font-weight)] text-[length:var(--text-regular-normal-font-size)] tracking-[var(--text-regular-normal-letter-spacing)] leading-[var(--text-regular-normal-line-height)] [font-style:var(--text-regular-normal-font-style)]"
-            >
-              View Services
-            </Button>
+            <Link href="/services">
+              <Button
+                variant="outline"
+                className="h-auto bg-white hover:bg-gray-50 text-[#1c1c1c] border-2 border-[#eabe30] px-6 py-3 rounded-lg font-text-regular-normal font-[number:var(--text-regular-normal-font-weight)] text-[length:var(--text-regular-normal-font-size)] tracking-[var(--text-regular-normal-letter-spacing)] leading-[var(--text-regular-normal-line-height)] [font-style:var(--text-regular-normal-font-style)]"
+              >
+                View Services
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
