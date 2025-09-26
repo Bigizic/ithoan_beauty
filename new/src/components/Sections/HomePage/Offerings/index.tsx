@@ -63,7 +63,7 @@ export const OfferingsSection = (props: WhyChooseUsProps) => {
   return (
     <section className="flex flex-col w-full items-center gap-20 pd-default py-[64px] sm:py-28 relative bg-[#e6e1c9]">
       <div className="flex flex-col max-w-screen-xl items-center gap-20 relative w-full">
-        <header className="flex flex-col max-w-screen-md items-center gap-[8px] relative w-full">
+        <header className="flex flex-col max-w-screen-md items-center gap-0 relative w-full">
           <div className="inline-flex items-center relative">
             <div className="w-fit text-[#1c1c1c] text-center whitespace-nowrap relative mt-[-1.00px] font-heading-tagline font-[number:var(--heading-tagline-font-weight)] text-[length:var(--heading-tagline-font-size)] tracking-[var(--heading-tagline-letter-spacing)] leading-[var(--heading-tagline-line-height)] [font-style:var(--heading-tagline-font-style)]">
               <p>Services</p>
