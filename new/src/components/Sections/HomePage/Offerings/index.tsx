@@ -62,15 +62,15 @@ export const OfferingsSection = (props: WhyChooseUsProps) => {
   const services = servicesData
   return (
     <section className="flex flex-col w-full items-center gap-20 pd-default py-[64px] sm:py-28 relative bg-[#e6e1c9]">
-      <div className="flex flex-col max-w-screen-xl items-center gap-20 relative w-full">
-        <header className="flex flex-col max-w-screen-md items-center gap-0 relative w-full">
+      <div className="flex flex-col max-w-screen-xl items-center gap-[48px] sm:gap-20 relative w-full">
+        <header className="flex flex-col max-w-screen-md items-center gap-0 sm:gap-4 relative w-full">
           <div className="inline-flex items-center relative">
             <div className="w-fit text-[#1c1c1c] text-center whitespace-nowrap relative mt-[-1.00px] font-heading-tagline font-[number:var(--heading-tagline-font-weight)] text-[length:var(--heading-tagline-font-size)] tracking-[var(--heading-tagline-letter-spacing)] leading-[var(--heading-tagline-line-height)] [font-style:var(--heading-tagline-font-style)]">
               <p>Services</p>
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-[8px] relative self-stretch w-full">
+          <div className="flex flex-col items-center gap-[8px] sm:gap-6 relative self-stretch w-full">
             <h2 data-aos="fade-right" className="relative self-stretch [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-[#1c1c1c] text-5xl text-center tracking-[0] leading-[57.6px]">
               Explore Our Offerings
             </h2>
