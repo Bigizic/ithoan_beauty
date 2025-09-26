@@ -280,3 +280,22 @@
     --heading-h2-font-size: 32px;
   }
 }
+
+.nav-dropdown:hover>.nav-dropdown-hover {
+  visibility: visible;
+}
+.nav-dropdown:hover>.nav-dropdown-chev-hover {
+  --tw-rotate: 180deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.nav-dropdown-m:hover>.nav-dropdown-hover-m {
+  display: block;
+}
+.nav-dropdown-m:focus-within > .nav-dropdown-chev-hover-m {
+  --tw-rotate: 180deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate))
+    skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
