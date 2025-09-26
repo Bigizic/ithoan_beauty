@@ -4,7 +4,7 @@ import { Card, CardContent } from "../../../ui/card";
 
 export const SpecialOffersSection = () => {
   return (
-    <section className="flex-[0_0_auto] bg-white flex flex-col w-full items-center gap-20 pd-default py-28 relative">
+    <section className="flex-[0_0_auto] bg-white flex flex-col w-full items-center gap-20 pd-default py-[64px] relative">
       <div className="flex-col max-w-screen-xl items-start gap-20 w-full flex-[0_0_auto] flex relative">
         <Card className="flex items-center gap-20 relative self-stretch w-full flex-col md:flex-row flex-[0_0_auto] border-0 shadow-none bg-transparent">
           <CardContent className="flex flex-col items-start gap-8 relative flex-1 grow p-0 md:w-[50%]">
@@ -15,8 +15,8 @@ export const SpecialOffersSection = () => {
                 src="/images/home_page/package.svg"
               />
 
-              <div className="flex flex-col items-start gap-6 relative self-stretch w-full flex-[0_0_auto]">
-                <h2 data-aos="fade-right" data-aos-delay="100" className="relative self-stretch mt-[-1.00px] [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-black text-5xl tracking-[0] leading-[57.6px]">
+              <div className="flex flex-col items-start gap-[16px] sm:gap-6 relative self-stretch w-full flex-[0_0_auto]">
+                <h2 data-aos="fade-right" data-aos-delay="100" className="relative self-stretch mt-[-1.00px] [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-black text-5xl tracking-[0] leading-[32px] sm:leading-[57.6px]">
                   Special offers and packages
                 </h2>
 
