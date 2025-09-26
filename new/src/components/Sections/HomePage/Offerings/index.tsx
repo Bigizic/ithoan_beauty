@@ -63,7 +63,7 @@ export const OfferingsSection = (props: WhyChooseUsProps) => {
   return (
     <section className="flex flex-col w-full items-center gap-20 pd-default py-[64px] sm:py-28 relative bg-[#e6e1c9]">
       <div className="flex flex-col max-w-screen-xl items-center gap-20 relative w-full">
-        <header className="flex flex-col max-w-screen-md items-center gap-4 relative w-full">
+        <header className="flex flex-col max-w-screen-md items-center gap-[12px] relative w-full">
           <div className="inline-flex items-center relative">
             <div className="w-fit text-[#1c1c1c] text-center whitespace-nowrap relative mt-[-1.00px] font-heading-tagline font-[number:var(--heading-tagline-font-weight)] text-[length:var(--heading-tagline-font-size)] tracking-[var(--heading-tagline-letter-spacing)] leading-[var(--heading-tagline-line-height)] [font-style:var(--heading-tagline-font-style)]">
               <p>Services</p>
@@ -71,13 +71,12 @@ export const OfferingsSection = (props: WhyChooseUsProps) => {
           </div>
 
           <div className="flex flex-col items-center gap-6 relative self-stretch w-full">
-            <p className="relative self-stretch mt-[-1.00px] [font-family:'Roboto',Helvetica] font-normal text-[#1c1c1c] text-lg text-center tracking-[0] leading-[27px]">
-              Indulge in our luxurious spa treatments.
-            </p>
-
             <h2 data-aos="fade-right" className="relative self-stretch [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-[#1c1c1c] text-5xl text-center tracking-[0] leading-[57.6px]">
               Explore Our Offerings
             </h2>
+            <p className="relative self-stretch mt-[-1.00px] [font-family:'Roboto',Helvetica] font-normal text-[#1c1c1c] text-lg text-center tracking-[0] leading-[27px]">
+              Indulge in our luxurious spa treatments.
+            </p>
           </div>
         </header>
 
