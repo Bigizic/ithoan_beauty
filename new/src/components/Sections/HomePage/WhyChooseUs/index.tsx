@@ -30,7 +30,7 @@ const features = [
 
 export const WhyChooseUsSection = () => {
   return (
-    <section className="min-h-[849px] why-choose-us-bg flex flex-col w-full items-center gap-20 pd-default py-28 relative">
+    <section className="min-h-[849px] why-choose-us-bg flex flex-col w-full items-center gap-20 pd-default py-[64px] sm:py-28 relative">
       <div className="max-w-screen-md items-center gap-6 w-full flex-[0_0_auto] flex flex-col relative">
         <h2 data-aos="fade-up" data-aos-delay="100" className="relative self-stretch mt-[-1.00px] [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-white text-5xl text-center tracking-[0] leading-[57.6px]">
           Why Choose Us
@@ -78,7 +78,7 @@ export const WhyChooseUsSection = () => {
                       src={feature.icon}
                     />
 
-                    <h4 data-aos="fade-right" data-aos-delay={100 * index + 300} className="relative self-stretch font-heading-h4 font-[number:var(--heading-h4-font-weight)] text-white text-[length:var(--heading-h4-font-size)] tracking-[var(--heading-h4-letter-spacing)] leading-[var(--heading-h4-line-height)] [font-style:var(--heading-h4-font-style)]">
+                    <h4 data-aos="fade-right" data-aos-delay={100 * index + 300} className="relative self-stretch font-heading-h4 font-[number:var(--heading-h4-font-weight)] text-white text-[24px] sm:text-[length:var(--heading-h4-font-size)] tracking-[var(--heading-h4-letter-spacing)] leading-[var(--heading-h4-line-height)] [font-style:var(--heading-h4-font-style)]">
                       {feature.title}
                     </h4>
 

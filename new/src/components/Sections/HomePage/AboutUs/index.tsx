@@ -3,7 +3,7 @@ import { Button } from "../../../ui/button";
 
 export const AboutUsSection = () => {
   return (
-    <section className="bg-white flex flex-col w-full items-center gap-20 pd-default py-[64px] relative">
+    <section className="bg-white flex flex-col w-full items-center gap-20 pd-default py-[64px] sm:py-28 relative">
       <div className="flex-col max-w-screen-xl items-start gap-20 w-full flex-[0_0_auto] flex relative">
         <div className="flex items-center gap-20 relative self-stretch w-full flex-[0_0_auto] flex-col-reverse md:flex-row">
           <img
