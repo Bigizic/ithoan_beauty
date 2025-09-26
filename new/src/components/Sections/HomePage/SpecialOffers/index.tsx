@@ -6,7 +6,7 @@ export const SpecialOffersSection = () => {
   return (
     <section className="flex-[0_0_auto] bg-white flex flex-col w-full items-center gap-20 pd-default py-28 relative">
       <div className="flex-col max-w-screen-xl items-start gap-20 w-full flex-[0_0_auto] flex relative">
-        <Card className="flex items-center gap-20 relative self-stretch w-full flex-col-reverse md:flex-row flex-[0_0_auto] border-0 shadow-none bg-transparent">
+        <Card className="flex items-center gap-20 relative self-stretch w-full flex-col md:flex-row flex-[0_0_auto] border-0 shadow-none bg-transparent">
           <CardContent className="flex flex-col items-start gap-8 relative flex-1 grow p-0 md:w-[50%]">
             <div className="items-start gap-6 self-stretch w-full flex-[0_0_auto] flex flex-col relative">
               <img

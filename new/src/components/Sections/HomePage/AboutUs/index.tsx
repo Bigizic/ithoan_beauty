@@ -3,9 +3,9 @@ import { Button } from "../../../ui/button";
 
 export const AboutUsSection = () => {
   return (
-    <section className="bg-white flex flex-col w-full items-center gap-20 pd-default py-28 relative">
+    <section className="bg-white flex flex-col w-full items-center gap-20 pd-default py-[64px] relative">
       <div className="flex-col max-w-screen-xl items-start gap-20 w-full flex-[0_0_auto] flex relative">
-        <div className="flex items-center gap-20 relative self-stretch w-full flex-[0_0_auto] flex-col md:flex-row">
+        <div className="flex items-center gap-20 relative self-stretch w-full flex-[0_0_auto] flex-col-reverse md:flex-row">
           <img
             className="relative flex-1 grow h-full w-full md:h-[640px] rounded-[10px] object-cover md:w-[50%]"
             alt="Placeholder image"
@@ -13,14 +13,14 @@ export const AboutUsSection = () => {
           />
 
           <div className="flex flex-col items-start gap-8 relative flex-1 grow md:w-[50%]">
-            <div className="items-start gap-4 self-stretch w-full flex-[0_0_auto] flex flex-col relative">
+            <div className="items-start gap-[8px] sm:gap-4 self-stretch w-full flex-[0_0_auto] flex flex-col relative">
               <div className="inline-flex items-center relative flex-[0_0_auto]">
                 <h2 data-aos="fade-left" data-aos-delay="100" className="w-fit [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-[#1c1c1c] text-5xl leading-[72px] whitespace-nowrap relative mt-[-1.00px] tracking-[0]">
                   About Us
                 </h2>
               </div>
 
-              <div className="flex flex-col items-start gap-6 relative self-stretch w-full flex-[0_0_auto]">
+              <div className="flex flex-col items-start gap-[16px] sm:gap-6 relative self-stretch w-full flex-[0_0_auto]">
                 <h3 className="relative self-stretch mt-[-1.00px] font-heading-h2 font-[number:var(--heading-h2-font-weight)] text-[#eabe30] text-[length:var(--heading-h2-font-size)] tracking-[var(--heading-h2-letter-spacing)] leading-[var(--heading-h2-line-height)] [font-style:var(--heading-h2-font-style)]">
                   A place to relax and feel renewed.
                 </h3>

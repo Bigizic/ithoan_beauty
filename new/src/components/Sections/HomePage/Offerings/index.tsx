@@ -86,7 +86,7 @@ export const OfferingsSection = (props: WhyChooseUsProps) => {
               {services.slice(0, 2).map((service, idx) => (
                 <Card
                   key={service.id}
-                  className="flex flex-col w-full md:w-[306px] bg-[#e6e1c9] rounded-[10px] overflow-hidden border border-solid border-[#1c1c1c]"
+                  className="flex flex-col bg-[#e6e1c9] rounded-[10px] overflow-hidden border border-solid border-[#1c1c1c]"
                 >
                   <div className="flex flex-col items-center justify-end relative self-stretch w-full">
                     <img

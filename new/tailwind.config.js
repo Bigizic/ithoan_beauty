@@ -132,7 +132,7 @@ module.exports = {
           'background-repeat': 'no-repeat'
         },
         '.pd-default': { 'padding-left': "var(--pdl)", 'padding-right': "var(--pdr)" },
-        '@screen md': {
+        '@screen sm': {
           '.text-lg': {
             'font-size': '18px',
             'line-height': '28px'
