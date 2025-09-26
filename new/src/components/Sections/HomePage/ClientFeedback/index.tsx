@@ -28,7 +28,7 @@ const testimonials = [
 
 export const ClientFeedbackSection = () => {
   return (
-    <section className="flex flex-col w-full items-center gap-20 pd-default py-28 relative bg-[#e6e1c9]">
+    <section className="flex flex-col w-full items-center gap-20 pd-default py-[64px] sm:py-28 relative bg-[#e6e1c9]">
       <div className="flex flex-col max-w-screen-xl items-center gap-20 relative w-full">
         <header className="flex flex-col max-w-screen-md items-center gap-4 relative w-full">
           <h2 data-aos="fade-up" data-aos-delay="700" className="[font-family:'Bricolage_Grotesque',Helvetica] text-[#1c1c1c] text-5xl text-center leading-[57.6px] font-bold tracking-[0]">

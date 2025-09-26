@@ -5,7 +5,7 @@ import ScrollTranslateOthers from "../../../Common/ScrollTranslateOthers";
 
 export const CallToActionSection = () => {
   return (
-    <section className="flex flex-col w-full items-center gap-20 pd-default py-28 relative call-to-action-bg">
+    <section className="flex flex-col w-full items-center gap-20 pd-default py-[64px] sm:py-28 relative call-to-action-bg">
       <div className="flex-col max-w-screen-xl items-start gap-20 w-full flex-[0_0_auto] flex relative">
         <div className="flex items-center gap-20 relative self-stretch w-full flex-[0_0_auto]">
           <div className="flex items-start gap-8 flex-1 grow flex-col relative">
