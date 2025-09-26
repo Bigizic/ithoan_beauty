@@ -70,7 +70,7 @@ export const OfferingsSection = (props: WhyChooseUsProps) => {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-[16px] relative self-stretch w-full">
+          <div className="flex flex-col items-center gap-[8px] relative self-stretch w-full">
             <h2 data-aos="fade-right" className="relative self-stretch [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-[#1c1c1c] text-5xl text-center tracking-[0] leading-[57.6px]">
               Explore Our Offerings
             </h2>
