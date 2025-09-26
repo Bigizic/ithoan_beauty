@@ -20,7 +20,7 @@ export const SpecialOffersSection = () => {
                   Special offers and packages
                 </h2>
 
-                <p className="relative self-stretch font-text-medium-normal font-[number:var(--text-medium-normal-font-weight)] text-black text-[length:var(--text-medium-normal-font-size)] tracking-[var(--text-medium-normal-letter-spacing)] leading-[var(--text-medium-normal-line-height)] [font-style:var(--text-medium-normal-font-style)]">
+                <p className="relative self-stretch [font-family:'Roboto',Helvetica] font-normal text-[#1c1c1c] text-lg tracking-[0] leading-[27px]">
                   Unlock exclusive wellness experiences with our seasonal spa
                   packages. Treat yourself to unbeatable value and
                   transformative treatments.
