@@ -61,7 +61,7 @@ export const OfferingsSection = (props: WhyChooseUsProps) => {
   //const { services } = props
   const services = servicesData
   return (
-    <section className="flex flex-col w-full items-center gap-20 pd-default py-28 relative bg-[#e6e1c9]">
+    <section className="flex flex-col w-full items-center gap-20 pd-default py-[64px] sm:py-28 relative bg-[#e6e1c9]">
       <div className="flex flex-col max-w-screen-xl items-center gap-20 relative w-full">
         <header className="flex flex-col max-w-screen-md items-center gap-4 relative w-full">
           <div className="inline-flex items-center relative">
