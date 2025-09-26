@@ -186,7 +186,7 @@ export const OfferingsSection = (props: WhyChooseUsProps) => {
               />
             </div>
 
-            <CardContent className="flex flex-col items-start justify-center gap-6 md:gap-8 p-12 pl-6 flex-1">
+            <CardContent className="flex flex-col items-start justify-center gap-6 md:gap-8 p-6 sm:p-12 pl-6 flex-1">
               <div className="flex flex-col items-start gap-2 relative self-stretch w-full">
                 <div className="inline-flex items-center relative">
                   <div data-aos="fade-right" data-aos-delay={100 * 0 + 100} className="relative w-fit mt-[-1.00px] font-heading-tagline font-[number:var(--heading-tagline-font-weight)] text-[#1c1c1c] text-[length:var(--heading-tagline-font-size)] tracking-[var(--heading-tagline-letter-spacing)] leading-[var(--heading-tagline-line-height)] whitespace-nowrap [font-style:var(--heading-tagline-font-style)]">
@@ -194,8 +194,8 @@ export const OfferingsSection = (props: WhyChooseUsProps) => {
                   </div>
                 </div>
 
-                <div className="flex flex-col items-start gap-6 relative self-stretch w-full">
-                  <h3 data-aos="fade-right" data-aos-delay={100 * 1 + 100} className="mt-[-1.00px] [font-family:'Bricolage_Grotesque',Helvetica] text-[#1c1c1c] text-[24px] sm:text-[32px] md:text-[40px] leading-[48.0px] relative self-stretch font-bold tracking-[0]">
+                <div className="flex flex-col items-start gap-2 sm:gap-6 relative self-stretch w-full">
+                  <h3 data-aos="fade-right" data-aos-delay={100 * 1 + 100} className="mt-[-1.00px] [font-family:'Bricolage_Grotesque',Helvetica] text-[#1c1c1c] text-[24px] sm:text-[32px] md:text-[40px] leading-[32px] sm:leading-[48.0px] relative self-stretch font-bold tracking-[0]">
                     {services[4].title}
                   </h3>
 
