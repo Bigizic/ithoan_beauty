@@ -178,9 +178,9 @@ export const OfferingsSection = (props: WhyChooseUsProps) => {
           </div>
 
           <Card className="flex flex-col flex-1 self-stretch bg-[#e6e1c9] rounded-[10px] overflow-hidden border border-solid border-[#1c1c1c]">
-            <div className="h-[360px] flex flex-col items-center justify-end relative self-stretch w-full">
+            <div className="h-fit sm:h-[360px] flex flex-col items-center justify-end relative self-stretch w-full">
               <img
-                className="relative self-stretch w-full h-[360px] object-cover"
+                className="relative self-stretch w-full h-[171px] sm:h-[360px] object-cover"
                 alt="Lashes service"
                 src={services[4].image}
               />
@@ -195,7 +195,7 @@ export const OfferingsSection = (props: WhyChooseUsProps) => {
                 </div>
 
                 <div className="flex flex-col items-start gap-6 relative self-stretch w-full">
-                  <h3 data-aos="fade-right" data-aos-delay={100 * 1 + 100} className="mt-[-1.00px] [font-family:'Bricolage_Grotesque',Helvetica] text-[#1c1c1c] text-[32px] md:text-[40px] leading-[48.0px] relative self-stretch font-bold tracking-[0]">
+                  <h3 data-aos="fade-right" data-aos-delay={100 * 1 + 100} className="mt-[-1.00px] [font-family:'Bricolage_Grotesque',Helvetica] text-[#1c1c1c] text-[24px] sm:text-[32px] md:text-[40px] leading-[48.0px] relative self-stretch font-bold tracking-[0]">
                     {services[4].title}
                   </h3>
 
