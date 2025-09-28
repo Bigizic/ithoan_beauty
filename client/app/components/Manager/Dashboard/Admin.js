@@ -26,6 +26,8 @@ import Review from '../../../containers/Review';
 import Wishlist from '../../../containers/WishList';
 import Banner from '../../../containers/Banner';
 import Campaign from '../../../containers/Campaign';
+import Services from '@/containers/Services';
+import Service from '@/containers/Service';
 
 const Admin = props => {
   return (
@@ -42,6 +44,8 @@ const Admin = props => {
               <Route path='security' element={<AccountSecurity />} />
               <Route path='address' element={<Address />} />
               <Route path='product/*' element={<Product />} />
+              <Route path='services/*' element={<Services />} />
+              <Route path='service/*' element={<Service />} />
               <Route path='category/*' element={<Category />} />
               <Route path='brand/*' element={<Brand />} />
               <Route path='users' element={<Users />} />

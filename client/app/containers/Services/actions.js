@@ -1,0 +1,266 @@
+/*
+ *
+ * Services actions
+ *
+ */
+
+import { goBack } from 'connected-react-router';
+import { success } from 'react-notification-system-redux';
+import axios from 'axios';
+
+import {
+  FETCH_SERVICES_LIST,
+  FETCH_SERVICES_ITEM,
+  SERVICES_CHANGE,
+  SERVICES_EDIT_CHANGE,
+  SET_SERVICES_FORM_ERRORS,
+  SET_SERVICES_FORM_EDIT_ERRORS,
+  ADD_SERVICES,
+  REMOVE_SERVICES,
+  FETCH_SERVICES_SELECT,
+  SET_SERVICES_LIST_LOADING,
+  RESET_SERVICES
+} from './constants';
+
+import handleError from '../../utils/error';
+import { formatSelectOptions } from '../../utils/select';
+import { allFieldsValidation } from '../../utils/validation';
+import { API_URL } from '../../constants';
+
+export const servicesChange = (name, value) => {
+  let formData = {};
+  formData[name] = value;
+
+  return {
+    type: SERVICES_CHANGE,
+    payload: formData
+  };
+};
+
+export const servicesEditChange = (name, value) => {
+  let formData = {};
+  formData[name] = value;
+
+  return {
+    type: SERVICES_EDIT_CHANGE,
+    payload: formData
+  };
+};
+
+export const resetServices = () => {
+  return async (dispatch, getState) => {
+    dispatch({ type: RESET_SERVICES });
+  };
+};
+
+export const setServicesLoading = value => {
+  return {
+    type: SET_SERVICES_LIST_LOADING,
+    payload: value
+  };
+};
+
+// fetch services list api
+export const fetchServicesList = () => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({ type: SET_SERVICES_LIST_LOADING, payload: true });
+
+      const response = await axios.get(`${API_URL}/services`);
+
+      dispatch({
+        type: FETCH_SERVICES_LIST,
+        payload: response.data.services
+      });
+    } catch (error) {
+      handleError(error, dispatch);
+    } finally {
+      dispatch({ type: SET_SERVICES_LIST_LOADING, payload: false });
+    }
+  };
+};
+
+// fetch services item api
+export const fetchServicesItem = servicesId => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await axios.get(`${API_URL}/services/${servicesId}`);
+
+      dispatch({
+        type: FETCH_SERVICES_ITEM,
+        payload: response.data.services
+      });
+    } catch (error) {
+      handleError(error, dispatch);
+    }
+  };
+};
+
+// fetch services select api
+export const fetchServicesSelect = () => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await axios.get(`${API_URL}/services/list/select`);
+
+      const formattedServices = formatSelectOptions(response.data.services, true);
+
+      dispatch({
+        type: FETCH_SERVICES_SELECT,
+        payload: formattedServices
+      });
+    } catch (error) {
+      handleError(error, dispatch);
+    }
+  };
+};
+
+// add services api
+export const addServices = () => {
+  return async (dispatch, getState) => {
+    try {
+      const rules = {
+        name: 'required',
+        description: 'required|max:5000'
+      };
+
+      const services = getState().services.servicesFormData;
+
+      const { isValid, errors } = allFieldsValidation(services, rules, {
+        'required.name': 'Name is required.',
+        'required.description': 'Description is required.',
+        'max.description': 'Description may not be greater than 5000 characters.'
+      });
+
+      if (!isValid) {
+        return dispatch({ type: SET_SERVICES_FORM_ERRORS, payload: errors });
+      }
+
+      const formData = new FormData();
+      for (const key in services) {
+        if (services.hasOwnProperty(key)) {
+          if (key === 'services' && Array.isArray(services[key])) {
+            formData.set(key, JSON.stringify(services[key]));
+          } else if (key === 'images' && services[key]) {
+            for (let i = 0; i < services[key].length; i++) {
+              formData.append('images', services[key][i]);
+            }
+          } else {
+            formData.set(key, services[key]);
+          }
+        }
+      }
+
+      const response = await axios.post(`${API_URL}/services/add`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+
+      const successfulOptions = {
+        title: `${response.data.message}`,
+        position: 'tr',
+        autoDismiss: 1
+      };
+
+      if (response.data.success === true) {
+        dispatch(success(successfulOptions));
+        dispatch({
+          type: ADD_SERVICES,
+          payload: response.data.services
+        });
+
+        dispatch(goBack());
+        dispatch({ type: RESET_SERVICES });
+      }
+    } catch (error) {
+      handleError(error, dispatch);
+    }
+  };
+};
+
+// update services api
+export const updateServices = () => {
+  return async (dispatch, getState) => {
+    try {
+      const rules = {
+        name: 'required',
+        slug: 'required|alpha_dash',
+        description: 'required|max:5000'
+      };
+
+      const services = getState().services.servicesItem;
+
+      const newServices = {
+        name: services.name,
+        slug: services.slug,
+        description: services.description,
+        isActive: services.isActive,
+        services: services.services
+      };
+
+      const { isValid, errors } = allFieldsValidation(newServices, rules, {
+        'required.name': 'Name is required.',
+        'required.slug': 'Slug is required.',
+        'alpha_dash.slug': 'Slug may have alpha-numeric characters, as well as dashes and underscores only.',
+        'required.description': 'Description is required.',
+        'max.description': 'Description may not be greater than 5000 characters.'
+      });
+
+      if (!isValid) {
+        return dispatch({ type: SET_SERVICES_FORM_EDIT_ERRORS, payload: errors });
+      }
+
+      const formData = new FormData();
+      for (const key in newServices) {
+        if (newServices.hasOwnProperty(key)) {
+          if (key === 'services' && Array.isArray(newServices[key])) {
+            formData.set(key, JSON.stringify(newServices[key]));
+          } else {
+            formData.set(key, newServices[key]);
+          }
+        }
+      }
+
+      const response = await axios.put(`${API_URL}/services/${services._id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+
+      const successfulOptions = {
+        title: `${response.data.message}`,
+        position: 'tr',
+        autoDismiss: 1
+      };
+
+      if (response.data.success === true) {
+        dispatch(success(successfulOptions));
+        dispatch(goBack());
+      }
+    } catch (error) {
+      handleError(error, dispatch);
+    }
+  };
+};
+
+// delete services api
+export const deleteServices = id => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await axios.delete(`${API_URL}/services/delete/${id}`);
+
+      const successfulOptions = {
+        title: `${response.data.message}`,
+        position: 'tr',
+        autoDismiss: 1
+      };
+
+      if (response.data.success === true) {
+        dispatch(success(successfulOptions));
+        dispatch({
+          type: REMOVE_SERVICES,
+          payload: id
+        });
+        dispatch(goBack());
+      }
+    } catch (error) {
+      handleError(error, dispatch);
+    }
+  };
+};

@@ -40,6 +40,8 @@ import adminDashboardReducer from './containers/AdminDashboard/reducers';
 import campaignReducer from './containers/Campaign/reducer';
 import paymentReducer from './containers/PaymentGateway/reducer';
 import newsletterUnsubscribeReducer from './containers/NewsletterUnsubscribe/reducer';
+import servicesReducer from './containers/Services/reducer';
+import serviceReducer from './containers/Service/reducer';
 
 const createReducer = history =>
   combineReducers({
@@ -76,6 +78,8 @@ const createReducer = history =>
     wishlist: wishListReducer,
     shipping: shippingReducer,
     newsletterUnsubscribe: newsletterUnsubscribeReducer,
+    services: servicesReducer,
+    service: serviceReducer,
   });
 
 export default createReducer;
