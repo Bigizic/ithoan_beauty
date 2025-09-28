@@ -219,12 +219,11 @@ const AddProduct = props => {
 
           <Col xs='12' md='12'>
             <Input
-              type={'file'}
+              type={'image'}
               error={formErrors['file']}
               name={'image'}
               label={'file'}
               placeholder={'Please Upload Image'}
-              value={image}
               onInputChange={(name, value) => {
                 productChange(name, value);
               }}

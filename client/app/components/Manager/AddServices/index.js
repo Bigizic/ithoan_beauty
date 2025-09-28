@@ -112,12 +112,11 @@ const AddServices = props => {
 
           <Col xs='12' md='12'>
             <Input
-              type={'file'}
+              type={'images'}
               error={formErrors['images']}
               name={'images'}
               label={'Services Images (Multiple)'}
               placeholder={'Upload Services Images'}
-              multiple
               onInputChange={(name, value) => {
                 servicesChange(name, value);
               }}

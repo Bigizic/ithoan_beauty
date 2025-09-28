@@ -122,12 +122,11 @@ const AddCampaign = props => {
 
           <Col xs='12' md='12'>
             <Input
-              type={'file'}
+              type={'image'}
               error={formErrors['image']}
               name={'image'}
               label={'Campaign Image'}
               placeholder={'Upload Campaign Image'}
-              value={image}
               onInputChange={(name, value) => {
                 campaignChange(name, value);
               }}

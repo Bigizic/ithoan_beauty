@@ -6,6 +6,7 @@
 
 import React from 'react';
 import ReactStars from 'react-rating-stars-component';
+import AdvancedImageUpload from '../AdvancedImageUpload';
 
 const Input = props => {
   const {
@@ -168,6 +169,19 @@ const Input = props => {
         />
         <span className='invalid-message'>{error && error[0]}</span>
       </div>
+    );
+  } else if (type === 'image' || type === 'images') {
+    return (
+      <AdvancedImageUpload
+        name={name}
+        label={label}
+        error={error}
+        onInputChange={onInputChange}
+        multiple={type === 'images'}
+        maxFiles={5}
+        maxSize={5 * 1024 * 1024} // 5MB
+        accept="image/*"
+      />
     );
   } else {
     const styles = `input-box${inlineElement ? ` inline-btn-box` : ''} ${
