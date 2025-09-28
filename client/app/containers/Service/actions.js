@@ -223,7 +223,20 @@ export const updateService = () => {
       const formData = new FormData();
       for (const key in newService) {
         if (newService.hasOwnProperty(key)) {
+          if (key === 'images' && newService[key]) {
+            // Handle new image files
+            if (newService[key].newFiles) {
+              for (let i = 0; i < newService[key].newFiles.length; i++) {
+                formData.append('images', newService[key].newFiles[i]);
+              }
+            }
+            // Keep existing images
+            if (newService[key].existingImages) {
+              formData.set('existingImages', JSON.stringify(newService[key].existingImages));
+            }
+          } else {
           formData.set(key, newService[key]);
+          }
         }
       }
 

@@ -114,24 +114,6 @@ export const fetchServicesForSelect = () => {
   };
 };
 
-// fetch individual services for dropdown (renamed for clarity)
-export const fetchServicesForSelect = () => {
-  return async (dispatch, getState) => {
-    try {
-      const response = await axios.get(`${API_URL}/service/list/select`);
-
-      const formattedServices = formatSelectOptions(response.data.services, true);
-
-      dispatch({
-        type: FETCH_SERVICES_SELECT,
-        payload: formattedServices
-      });
-    } catch (error) {
-      handleError(error, dispatch);
-    }
-  };
-};
-
 // add services api
 export const addServices = () => {
   return async (dispatch, getState) => {
@@ -236,7 +218,18 @@ export const updateServices = () => {
       const formData = new FormData();
       for (const key in newServices) {
         if (newServices.hasOwnProperty(key)) {
-          if (key === 'serviceArray' && Array.isArray(newServices[key])) {
+          if (key === 'images' && newServices[key]) {
+            // Handle new image files
+            if (newServices[key].newFiles) {
+              for (let i = 0; i < newServices[key].newFiles.length; i++) {
+                formData.append('images', newServices[key].newFiles[i]);
+              }
+            }
+            // Keep existing images
+            if (newServices[key].existingImages) {
+              formData.set('existingImages', JSON.stringify(newServices[key].existingImages));
+            }
+          } else if (key === 'serviceArray' && Array.isArray(newServices[key])) {
             // Convert select option format to just IDs if needed
             const serviceIds = newServices[key].map(service => 
               typeof service === 'object' ? service.value : service
