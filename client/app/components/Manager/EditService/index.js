@@ -106,6 +106,20 @@ const EditService = props => {
 
           <Col xs='12' lg='6' className='p-0 m-0'>
             <Input
+              type={'images'}
+              error={formErrors['images']}
+              name={'images'}
+              label={'Service Images (Multiple)'}
+              placeholder={'Upload Service Images'}
+              value={service.imageUrl} // Pass existing images
+              onInputChange={(name, value) => {
+                serviceChange(name, value);
+              }}
+            />
+          </Col>
+
+          <Col xs='12' lg='6' className='p-0 m-0'>
+            <Input
               type={'number'}
               error={formErrors['price']}
               label={'Price'}

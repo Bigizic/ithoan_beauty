@@ -15,6 +15,7 @@ const AdvancedImageUpload = props => {
     label,
     error,
     onInputChange,
+    value, // Support existing images
     multiple = false,
     maxFiles = 5,
     maxSize = 5 * 1024 * 1024, // 5MB
@@ -27,6 +28,34 @@ const AdvancedImageUpload = props => {
   const [uploadError, setUploadError] = useState('');
   const fileInputRef = useRef(null);
 
+  // Initialize files from value prop (for editing existing images)
+  React.useEffect(() => {
+    if (value) {
+      if (multiple && Array.isArray(value)) {
+        // Handle array of existing image URLs
+        const existingFiles = value.map((url, index) => ({
+          id: `existing-${index}`,
+          preview: url,
+          name: `Existing Image ${index + 1}`,
+          size: 0,
+          isExisting: true,
+          url: url
+        }));
+        setFiles(existingFiles);
+      } else if (!multiple && typeof value === 'string') {
+        // Handle single existing image URL
+        const existingFile = {
+          id: 'existing-0',
+          preview: value,
+          name: 'Existing Image',
+          size: 0,
+          isExisting: true,
+          url: value
+        };
+        setFiles([existingFile]);
+      }
+    }
+  }, [value, multiple]);
   const validateFile = useCallback((file) => {
     // Check file type
     if (!file.type.startsWith('image/')) {
@@ -117,13 +146,20 @@ const AdvancedImageUpload = props => {
     
     // Clean up object URL
     const fileToRemove = files.find(f => f.id === fileId);
-    if (fileToRemove) {
+    if (fileToRemove && !fileToRemove.isExisting) {
       URL.revokeObjectURL(fileToRemove.preview);
     }
 
     // Update parent component
-    const fileObjects = updatedFiles.map(f => f.file);
-    onInputChange(name, multiple ? fileObjects : (fileObjects[0] || null));
+    const fileObjects = updatedFiles.map(f => f.file).filter(Boolean);
+    const existingUrls = updatedFiles.filter(f => f.isExisting).map(f => f.url);
+    
+    // Combine new files and existing URLs
+    const combinedValue = multiple ? 
+      { newFiles: fileObjects, existingImages: existingUrls } : 
+      (fileObjects[0] || existingUrls[0] || null);
+      
+    onInputChange(name, combinedValue);
   }, [files, name, onInputChange, multiple]);
 
   const openFileDialog = () => {
@@ -185,6 +221,11 @@ const AdvancedImageUpload = props => {
               <div key={file.id} className="file-preview">
                 <div className="image-container">
                   <img src={file.preview} alt={file.name} className="preview-image" />
+                  {file.isExisting && (
+                    <div className="existing-badge">
+                      <span>Current</span>
+                    </div>
+                  )}
                   <button
                     type="button"
                     className="remove-button"
@@ -198,7 +239,9 @@ const AdvancedImageUpload = props => {
                 </div>
                 <div className="file-info">
                   <p className="file-name">{file.name}</p>
-                  <p className="file-size">{formatFileSize(file.size)}</p>
+                  <p className="file-size">
+                    {file.isExisting ? 'Existing' : formatFileSize(file.size)}
+                  </p>
                 </div>
               </div>
             ))}
@@ -231,9 +274,13 @@ const AdvancedImageUpload = props => {
             size="sm"
             text="Clear All"
             onClick={() => {
-              files.forEach(file => URL.revokeObjectURL(file.preview));
+              files.forEach(file => {
+                if (!file.isExisting) {
+                  URL.revokeObjectURL(file.preview);
+                }
+              });
               setFiles([]);
-              onInputChange(name, multiple ? [] : null);
+              onInputChange(name, multiple ? { newFiles: [], existingImages: [] } : null);
             }}
           />
           <span className="file-count">

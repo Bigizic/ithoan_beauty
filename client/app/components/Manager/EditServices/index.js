@@ -121,6 +121,20 @@ const EditServices = props => {
           </Col>
 
           <Col xs='12' md='12'>
+            <Input
+              type={'images'}
+              error={formErrors['images']}
+              name={'images'}
+              label={'Services Images (Multiple)'}
+              placeholder={'Upload Services Images'}
+              value={servicesItem.imageUrl} // Pass existing images
+              onInputChange={(name, value) => {
+                servicesChange(name, value);
+              }}
+            />
+          </Col>
+
+          <Col xs='12' md='12'>
             <SelectOption
               error={formErrors['serviceArray']}
               label={'Select Services'}
