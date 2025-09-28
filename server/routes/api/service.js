@@ -146,21 +146,38 @@ router.put(
   async (req, res) => {
     try {
       const { name, description, slug, price, discount, duration, isActive } = req.body;
+      const { existingImages } = req.body;
 
       let updateData = { name, description, slug, price, discount, duration, isActive };
 
+      let finalImageUrls = [];
+      
+      // Keep existing images if provided
+      if (existingImages) {
+        try {
+          const existing = JSON.parse(existingImages);
+          finalImageUrls = Array.isArray(existing) ? existing : [];
+        } catch (e) {
+          // If parsing fails, ignore existing images
+        }
+      }
+      
+      // Add new uploaded images
       if (req.files && req.files.length > 0) {
-        let imageUrls = [];
         for (const file of req.files) {
           if (keys.upload.type === 'cloud_storage') {
             const result = await cloudinaryFileStorage(file, 'service/');
-            imageUrls.push(result.imageUrl);
+            finalImageUrls.push(result.imageUrl);
           } else {
             const { imageUrl } = await s3Upload(file);
-            imageUrls.push(imageUrl);
+            finalImageUrls.push(imageUrl);
           }
         }
-        updateData.imageUrl = imageUrls;
+      }
+      
+      // Update imageUrl only if we have images
+      if (finalImageUrls.length > 0) {
+        updateData.imageUrl = finalImageUrls;
       }
 
       const updatedDoc = await Service.findOneAndUpdate(
