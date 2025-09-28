@@ -12,7 +12,7 @@ import SubPage from '../../components/Manager/SubPage';
 
 class Add extends React.PureComponent {
   componentDidMount() {
-    this.props.fetchServices();
+    this.props.fetchServicesForSelect();
   }
 
   render() {
@@ -47,7 +47,7 @@ const mapStateToProps = state => {
   return {
     servicesFormData: state.services.servicesFormData,
     formErrors: state.services.formErrors,
-    services: state.service.services,
+    services: state.services.servicesSelect,
     isLoading: state.services.isLoading
   };
 };

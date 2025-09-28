@@ -13,6 +13,69 @@ const Service = require('../../models/service'); // treatment
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
+// fetch all services api
+router.get(
+  '/',
+  auth,
+  role.check(ROLES.Admin, ROLES.Merchant),
+  async (req, res) => {
+    try {
+      const services = await Service.find({}).sort('-created');
+
+      return res.status(200).json({
+        services
+      });
+    } catch (error) {
+      return res.status(400).json({
+        error: 'Your request could not be processed. Please try again.'
+      });
+    }
+  }
+);
+
+// fetch service api
+router.get(
+  '/:id',
+  auth,
+  role.check(ROLES.Admin, ROLES.Merchant),
+  async (req, res) => {
+    try {
+      const serviceId = req.params.id;
+
+      const serviceDoc = await Service.findOne({ _id: serviceId });
+
+      if (!serviceDoc) {
+        return res.status(404).json({
+          message: 'No service found.'
+        });
+      }
+
+      return res.status(200).json({
+        service: serviceDoc
+      });
+    } catch (error) {
+      return res.status(400).json({
+        error: 'Your request could not be processed. Please try again.'
+      });
+    }
+  }
+);
+
+// fetch services select api
+router.get('/list/select', auth, async (req, res) => {
+  try {
+    const services = await Service.find({}, 'name');
+
+    return res.status(200).json({
+      services
+    });
+  } catch (error) {
+    return res.status(400).json({
+      error: 'Your request could not be processed. Please try again.'
+    });
+  }
+});
+
 // create service
 router.post(
   '/add',
@@ -33,6 +96,10 @@ router.post(
         return res.status(400).json({ error: 'name and description are required' });
       }
 
+      if (!price || !duration) {
+        return res.status(400).json({ error: 'price and duration are required' });
+      }
+
       let imageUrls = [];
       if (req.files && req.files.length > 0) {
         for (const file of req.files) {
@@ -46,17 +113,12 @@ router.post(
         }
       }
 
-      //const discountPrice = discount > 0 ? price - (price * discount / 100) : price;
-
       const newService = new Service({
-        service: serviceGroup,
         name,
-        slug,
         description,
-        imageUrls,
+        imageUrl: imageUrls,
         price,
         discount,
-        //discountPrice,
         duration,
         isActive,
         isDiscounted
@@ -87,10 +149,6 @@ router.put(
 
       let updateData = { name, description, slug, price, discount, duration, isActive };
 
-      if (price && discount >= 0) {
-        updateData.discountPrice = discount > 0 ? price - (price * discount / 100) : price;
-      }
-
       if (req.files && req.files.length > 0) {
         let imageUrls = [];
         for (const file of req.files) {
@@ -102,7 +160,7 @@ router.put(
             imageUrls.push(imageUrl);
           }
         }
-        updateData.imageUrls = imageUrls;
+        updateData.imageUrl = imageUrls;
       }
 
       const updatedDoc = await Service.findOneAndUpdate(

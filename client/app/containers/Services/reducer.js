@@ -22,14 +22,17 @@ const initialState = {
   servicesList: [],
   servicesItem: {
     name: '',
+    title: '',
     description: '',
-    services: []
+    serviceArray: []
   },
   servicesSelect: [],
   servicesFormData: {
     name: '',
+    title: '',
+    title: '',
     description: '',
-    services: [],
+    serviceArray: [],
     images: [],
     isActive: true
   },
@@ -106,10 +109,24 @@ const servicesReducer = (state = initialState, action) => {
         ...state,
         servicesFormData: {
           name: '',
+          title: '',
+          title: '',
           description: '',
-          services: [],
+          serviceArray: [],
           images: [],
           isActive: true
+        },
+        servicesItem: {
+          name: '',
+          title: '',
+          description: '',
+          serviceArray: []
+        },
+        servicesItem: {
+          name: '',
+          title: '',
+          description: '',
+          serviceArray: []
         },
         formErrors: {}
       };

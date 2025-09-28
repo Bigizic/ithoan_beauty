@@ -34,9 +34,8 @@ const initialState = {
     price: 0,
     duration: 0,
     discount: 0,
-    images: [],
     isActive: true,
-    serviceGroup: null
+    isDiscounted: false
   },
   formErrors: {},
   editFormErrors: {},
@@ -115,9 +114,8 @@ const serviceReducer = (state = initialState, action) => {
           price: 0,
           duration: 0,
           discount: 0,
-          images: [],
           isActive: true,
-          serviceGroup: null
+          isDiscounted: false
         },
         formErrors: {}
       };

@@ -17,7 +17,6 @@ class Edit extends React.PureComponent {
     this.props.resetService();
     const serviceId = this.props.match.params.id;
     this.props.fetchService(serviceId);
-    this.props.fetchServicesSelect();
   }
 
   componentDidUpdate(prevProps) {
@@ -51,7 +50,6 @@ class Edit extends React.PureComponent {
             serviceChange={serviceEditChange}
             updateService={updateService}
             deleteService={deleteService}
-            servicesSelect={servicesSelect}
             isLoading={isLoading}
           />
         ) : (
@@ -66,7 +64,6 @@ const mapStateToProps = state => {
   return {
     service: state.service.service,
     formErrors: state.service.editFormErrors,
-    servicesSelect: state.services.servicesSelect,
     isLoading: state.service.isLoading
   };
 };

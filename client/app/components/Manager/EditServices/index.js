@@ -22,7 +22,7 @@ import 'react-quill/dist/quill.snow.css';
  * Description Box Component
  */
 const DescriptionBox = (props) => {
-  const { error, servicesChange, services } = props;
+  const { error, servicesChange, servicesItem } = props;
 
   return (
     <div style={{ margin: '10px 0px 80px 0px' }}>
@@ -30,7 +30,7 @@ const DescriptionBox = (props) => {
       <ReactQuill
         theme="snow"
         style={{ height: '200px', marginTop: "10px" }}
-        value={services.description}
+        value={servicesItem.description}
         name={'description'}
         onChange={(value) => {
           servicesChange('description', value)
@@ -44,12 +44,12 @@ const DescriptionBox = (props) => {
 
 const EditServices = props => {
   const {
-    services,
+    servicesItem,
     servicesChange,
     formErrors,
     updateServices,
     deleteServices,
-    servicesList,
+    services,
     isLoading
   } = props;
 
@@ -63,8 +63,8 @@ const EditServices = props => {
       {isLoading && <LoadingIndicator />}
       <div className='d-flex flex-row mx-0 mb-3'>
         <label className='mr-1'>Services link </label>
-        <Link to={`/services/${services.slug}`} className='default-link'>
-          {services.slug}
+        <Link to={`/services/${servicesItem.slug}`} className='default-link'>
+          {servicesItem.slug}
         </Link>
       </div>
 
@@ -77,7 +77,7 @@ const EditServices = props => {
               label={'Name'}
               name={'name'}
               placeholder={'Services Name'}
-              value={services.name}
+              value={servicesItem.name}
               onInputChange={(name, value) => {
                 servicesChange(name, value);
               }}
@@ -91,7 +91,7 @@ const EditServices = props => {
               label={'Slug'}
               name={'slug'}
               placeholder={'Services Slug'}
-              value={services.slug}
+              value={servicesItem.slug}
               onInputChange={(name, value) => {
                 servicesChange(name, value);
               }}
@@ -105,7 +105,7 @@ const EditServices = props => {
               label={'Title'}
               name={'title'}
               placeholder={'Services Title'}
-              value={services.title}
+              value={servicesItem.title}
               onInputChange={(name, value) => {
                 servicesChange(name, value);
               }}
@@ -116,7 +116,7 @@ const EditServices = props => {
             <DescriptionBox
               error={formErrors['description']}
               servicesChange={servicesChange}
-              services={services}
+             servicesItem={servicesItem}
             />
           </Col>
 
@@ -125,8 +125,8 @@ const EditServices = props => {
               error={formErrors['serviceArray']}
               label={'Select Services'}
               multi={true}
-              defaultValue={services.serviceArray}
-              options={servicesList}
+              defaultValue={servicesItem.serviceArray}
+              options={services}
               handleSelectChange={value => {
                 servicesChange('serviceArray', value);
               }}
@@ -135,10 +135,10 @@ const EditServices = props => {
 
           <Col xs='12' md='12' className='mt-3 mb-2 p-0'>
             <Switch
-              id={`enable-services-${services._id}`}
+              id={`enable-services-${servicesItem._id}`}
               name={'isActive'}
               label={'Active?'}
-              checked={services?.isActive}
+              checked={servicesItem?.isActive}
               toggleCheckboxChange={value => {
                 servicesChange('isActive', value);
               }}
@@ -155,7 +155,7 @@ const EditServices = props => {
           <Button
             variant='danger'
             text='Delete'
-            onClick={() => deleteServices(services._id)}
+            onClick={() => deleteServices(servicesItem._id)}
           />
         </div>
       </form>

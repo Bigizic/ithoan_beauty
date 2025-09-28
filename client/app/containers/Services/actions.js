@@ -96,11 +96,29 @@ export const fetchServicesItem = servicesId => {
   };
 };
 
-// fetch services select api
-export const fetchServicesSelect = () => {
+// fetch individual services for dropdown
+export const fetchServicesForSelect = () => {
   return async (dispatch, getState) => {
     try {
-      const response = await axios.get(`${API_URL}/services/list/select`);
+      const response = await axios.get(`${API_URL}/service/list/select`);
+
+      const formattedServices = formatSelectOptions(response.data.services, true);
+
+      dispatch({
+        type: FETCH_SERVICES_SELECT,
+        payload: formattedServices
+      });
+    } catch (error) {
+      handleError(error, dispatch);
+    }
+  };
+};
+
+// fetch individual services for dropdown (renamed for clarity)
+export const fetchServicesForSelect = () => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await axios.get(`${API_URL}/service/list/select`);
 
       const formattedServices = formatSelectOptions(response.data.services, true);
 
@@ -120,7 +138,8 @@ export const addServices = () => {
     try {
       const rules = {
         name: 'required',
-        description: 'required|max:5000'
+        description: 'required|max:5000',
+        title: 'required'
       };
 
       const services = getState().services.servicesFormData;
@@ -128,7 +147,8 @@ export const addServices = () => {
       const { isValid, errors } = allFieldsValidation(services, rules, {
         'required.name': 'Name is required.',
         'required.description': 'Description is required.',
-        'max.description': 'Description may not be greater than 5000 characters.'
+        'max.description': 'Description may not be greater than 5000 characters.',
+        'required.title': 'Title is required.'
       });
 
       if (!isValid) {
@@ -138,8 +158,10 @@ export const addServices = () => {
       const formData = new FormData();
       for (const key in services) {
         if (services.hasOwnProperty(key)) {
-          if (key === 'services' && Array.isArray(services[key])) {
-            formData.set(key, JSON.stringify(services[key]));
+          if (key === 'serviceArray' && Array.isArray(services[key])) {
+            // Convert select option format to just IDs
+            const serviceIds = services[key].map(service => service.value);
+            formData.set(key, JSON.stringify(serviceIds));
           } else if (key === 'images' && services[key]) {
             for (let i = 0; i < services[key].length; i++) {
               formData.append('images', services[key][i]);
@@ -183,17 +205,19 @@ export const updateServices = () => {
       const rules = {
         name: 'required',
         slug: 'required|alpha_dash',
-        description: 'required|max:5000'
+        description: 'required|max:5000',
+        title: 'required'
       };
 
-      const services = getState().services.servicesItem;
+      const servicesItem = getState().services.servicesItem;
 
       const newServices = {
-        name: services.name,
-        slug: services.slug,
-        description: services.description,
-        isActive: services.isActive,
-        services: services.services
+        name: servicesItem.name,
+        slug: servicesItem.slug,
+        title: servicesItem.title,
+        description: servicesItem.description,
+        isActive: servicesItem.isActive,
+        serviceArray: servicesItem.serviceArray
       };
 
       const { isValid, errors } = allFieldsValidation(newServices, rules, {
@@ -201,7 +225,8 @@ export const updateServices = () => {
         'required.slug': 'Slug is required.',
         'alpha_dash.slug': 'Slug may have alpha-numeric characters, as well as dashes and underscores only.',
         'required.description': 'Description is required.',
-        'max.description': 'Description may not be greater than 5000 characters.'
+        'max.description': 'Description may not be greater than 5000 characters.',
+        'required.title': 'Title is required.'
       });
 
       if (!isValid) {
@@ -211,15 +236,19 @@ export const updateServices = () => {
       const formData = new FormData();
       for (const key in newServices) {
         if (newServices.hasOwnProperty(key)) {
-          if (key === 'services' && Array.isArray(newServices[key])) {
-            formData.set(key, JSON.stringify(newServices[key]));
+          if (key === 'serviceArray' && Array.isArray(newServices[key])) {
+            // Convert select option format to just IDs if needed
+            const serviceIds = newServices[key].map(service => 
+              typeof service === 'object' ? service.value : service
+            );
+            formData.set(key, JSON.stringify(serviceIds));
           } else {
             formData.set(key, newServices[key]);
           }
         }
       }
 
-      const response = await axios.put(`${API_URL}/services/${services._id}`, formData, {
+      const response = await axios.put(`${API_URL}/services/${servicesItem._id}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 

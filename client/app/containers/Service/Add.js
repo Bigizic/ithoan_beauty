@@ -12,7 +12,7 @@ import SubPage from '../../components/Manager/SubPage';
 
 class Add extends React.PureComponent {
   componentDidMount() {
-    this.props.fetchServicesSelect();
+    // No need to fetch services select for individual service creation
   }
 
   render() {
@@ -21,7 +21,6 @@ class Add extends React.PureComponent {
       formErrors,
       serviceChange,
       addService,
-      servicesSelect,
       isLoading
     } = this.props;
 
@@ -35,7 +34,6 @@ class Add extends React.PureComponent {
           formErrors={formErrors}
           serviceChange={serviceChange}
           addService={addService}
-          servicesSelect={servicesSelect}
           isLoading={isLoading}
         />
       </SubPage>
@@ -47,7 +45,6 @@ const mapStateToProps = state => {
   return {
     serviceFormData: state.service.serviceFormData,
     formErrors: state.service.formErrors,
-    servicesSelect: state.services.servicesSelect,
     isLoading: state.service.isLoading
   };
 };

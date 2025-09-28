@@ -128,20 +128,6 @@ const AddService = props => {
           </Col>
 
           <Col xs='12' md='12'>
-            <Input
-              type={'file'}
-              error={formErrors['images']}
-              name={'images'}
-              label={'Service Images (Multiple)'}
-              placeholder={'Upload Service Images'}
-              multiple
-              onInputChange={(name, value) => {
-                serviceChange(name, value);
-              }}
-            />
-          </Col>
-
-          <Col xs='12' md='12' className='my-2'>
             <Switch
               id={'active-service'}
               name={'isActive'}

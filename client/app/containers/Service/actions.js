@@ -96,11 +96,11 @@ export const fetchService = serviceId => {
   };
 };
 
-// fetch services select api
+// fetch services select api (for dropdown)
 export const fetchServicesSelect = () => {
   return async (dispatch, getState) => {
     try {
-      const response = await axios.get(`${API_URL}/service/list/select`);
+      const response = await axios.get(`${API_URL}/services/list/select`);
 
       const formattedServices = formatSelectOptions(response.data.services, true);
 
