@@ -54,21 +54,6 @@ const Achievement = () => {
 
           <span className='heading-inherit-text'>Care&nbsp;</span>
           <span data-aos="fade-left" data-aos-once="true" className='heading-inherit-text'>Essential Products</span>
-
-          
-            {/*<span className="w-[17px] h-[10px] md:w-[60px] md:h-[20px]
-                             bg-[url('/upload/images/banners/banner_6.jpg')]
-                             bg-no-repeat bg-cover rounded-[20px]
-                             p-[25px] pl-[50px] pr-[50px] flex bg-center
-                             ">
-            </span>*/}
-
-          {/*<span className="w-[17px] h-[10px] md:w-[60px] md:h-[20px]
-                             bg-[url('/upload/images/products/pure_radiance_body_cream.jpg')]
-                             bg-no-repeat bg-cover rounded-[20px]
-                             p-[25px] pl-[50px] pr-[50px] flex bg-center
-                             ">
-            </span>*/}
         </div>
 
         <div data-aos="fade-up" className='text-center subHead-text' data-aos-once="false">

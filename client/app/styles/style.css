@@ -1,3 +1,5 @@
+@tailwind utilities;
+
 :root {
   --body-background: #fff;
   --background-black: #242424;
