@@ -61,6 +61,7 @@ const Input = props => {
     return (
       <div className={styles}>
         {label && <label>{label}</label>}
+        }
         <textarea
           type={'textarea'}
           onChange={e => {
@@ -82,6 +83,7 @@ const Input = props => {
       <div className={styles} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <div style={{display: 'flex', alignItems: 'baseline', gap: '5px'}}>
         {label && <label>{label}</label>}
+        }
         <button
           type="button"
           onClick={handleDecrement}
@@ -125,6 +127,7 @@ const Input = props => {
     return (
       <div className={styles}>
         {label && <label>{label}</label>}
+        }
         <input
           autoComplete={autoComplete}
           step='step'
@@ -151,6 +154,7 @@ const Input = props => {
     return (
       <div className={styles}>
         {label && <label>{label}</label>}
+        }
         <ReactStars
           name={name}
           starCount={5}
@@ -191,6 +195,7 @@ const Input = props => {
     return (
       <div className={styles}>
         {label && <label>{label}</label>}
+        }
         <div className='input-text-block'>
           <input
             className={className && `${className} input-text` || 'input-text'}

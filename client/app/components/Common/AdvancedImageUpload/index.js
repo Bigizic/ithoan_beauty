@@ -141,6 +141,7 @@ const AdvancedImageUpload = props => {
   return (
     <div className={`advanced-image-upload ${className}`}>
       {label && <label className="upload-label">{label}</label>}
+      }
       
       <div
         className={`upload-area ${isDragOver ? 'drag-over' : ''} ${files.length > 0 ? 'has-files' : ''}`}
