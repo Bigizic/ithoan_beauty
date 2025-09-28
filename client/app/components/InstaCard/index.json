@@ -1,0 +1,40 @@
+{
+  "instaProducts": [
+    {
+      "title": "Hydrating Facial Wash",
+      "embed": "/upload/images/others/hydrating_facial_wash.jpg",
+      "imageUrl": "https://res.cloudinary.com/dduai6ryd/image/upload/v1739305865/ithoan/images/product/hydrating%20facial%20wash.jpg",
+      "slug": "/product/hydrating-facial-wash"
+    },
+    {
+      "title": "Hydrating Face Toner",
+      "embed": "upload/images/others/hydrating_face_toner.jpg",
+      "imageUrl": "https://res.cloudinary.com/dduai6ryd/image/upload/v1743967494/ithoan/images/product/temp-1743967493926-IMG_9686.png",
+      "slug": "/product/hydrating-face-toner"
+    },
+    {
+      "title": "Luminous Glow Face Cream",
+      "embed": "upload/images/others/luminos_glow_face_cream.jpg",
+      "imageUrl": "https://res.cloudinary.com/dduai6ryd/image/upload/v1739369038/ithoan/images/product/luminous_glow_face_cream.jpg",
+      "slug": "/product/luminous-glow-face-cream"
+    },
+    {
+      "title": "Flawless Glow Body Cream",
+      "embed": "upload/images/others/flawless_glow_body_cream.jpg",
+      "imageUrl": "https://res.cloudinary.com/dduai6ryd/image/upload/v1739348767/ithoan/images/product/Flawless%20glow%20body%20cream.jpg",
+      "slug": "/product/flawless-glow-body-cream"
+    },
+    {
+      "title": "Reactivating Serum",
+      "embed": "upload/images/others/reactivating_serum.jpg",
+      "imageUrl": "https://res.cloudinary.com/dduai6ryd/image/upload/v1739299436/ithoan/images/product/Reactivating%20serum.jpg",
+      "slug": "/product/reactivating-serum-30ml"
+    },
+    {
+      "title": "Moisturizing Body Butter",
+      "embed": "upload/images/others/moisturising_body_butter.jpg",
+      "imageUrl": "https://res.cloudinary.com/dduai6ryd/image/upload/v1739306053/ithoan/images/product/moisturizing%20body%20butter.jpg",
+      "slug": "/product/moisturizing-body-butter"
+    }
+  ]
+}

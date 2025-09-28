@@ -3,7 +3,7 @@
 
 # production
 build
-*dist
+dist
 
 # misc
 package.json.bak
@@ -26,4 +26,4 @@ yarn-error.log*
 
 # logs
 logs
-.env
+*public/

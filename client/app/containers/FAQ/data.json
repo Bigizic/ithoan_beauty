@@ -1,0 +1,153 @@
+{
+    "generalData": {
+        "rows": [
+            {
+                "title": "How do I create an account?",
+                "content": "Visit our website, click on 'My Account' in the header, then select 'Sign Up.' Or go directly <a target='_blank' href='https://tohannieesskincare.com/register'>here</a> to create your account."
+            },
+            {
+                "title": "What is this website about?",
+                "content": "Tohanniees Skincare offers natural skincare products to enhance beauty confidence."
+            },
+            {
+                "title": "What are your hours of operation?",
+                "content": "Our online store is open 24/7."
+            },
+            {
+                "title": "How can I contact customer support?",
+                "content": "You can reach us via WhatsApp or through our website's contact form."
+            }
+        ]
+    },
+
+    "productData": {
+        "rows": [
+            {
+                "title": "What products do you offer?",
+                "content": "We provide natural skincare products, including face creams, toners, and more. <a target='_blank' href='https://tohannieesskincare.com/shop' >See our shop</a>"
+            },
+            {
+                "title": "How does your product work?",
+                "content": "Our products nourish and improve skin appearance using natural ingredients."
+            },
+            {
+                "title": "What makes your products different?",
+                "content": "We focus on natural formulations designed to enhance beauty confidence."
+            },
+            {
+                "title": "Do you offer a free trial or demo?",
+                "content": "Currently, we do not offer free trials or demos."
+            },
+            {
+                "title": "Do you provide refunds or exchanges?",
+                "content": "No, please refer to our <a target='_blank' href='https://tohannieesskincare.com/terms'>return policy</a> on the website for details."
+            }
+        ]
+    },
+
+    "billingData": {
+        "rows": [
+            {
+                "title": "What payment methods do you accept?",
+                "content": "Currently, we accept bank transfers. The account number will be provided at checkout, and customers must upload a payment receipt before completing their order."
+            },
+            {
+                "title": "Is my payment information secure?",
+                "content": "Yes, we use secure payment gateways to protect your information."
+            },
+            {
+                "title": "Can I get an invoice for my purchase?",
+                "content": "Invoices are provided upon completing your order; contact customer support if needed."
+            },
+            {
+                "title": "Do you offer discounts or promotions?",
+                "content": "Yes, follow our social media for updates on promotions."
+            },
+            {
+                "title": "What should I do if my payment fails?",
+                "content": "If your payment fails, please contact us via WhatsApp or email support for assistance."
+            }
+        ]
+    },
+
+    "shippingAndDelivery": {
+        "rows": [
+            {
+                "title": "Do you offer international shipping?",
+                "content": "Yes, we offer international shipping. Shipping costs and times vary based on location. Send a dm for shipping rates"
+            },
+            {
+                "title": "How long does delivery take?",
+                "content": "Delivery times vary depending on your location. "
+            },
+            {
+                "title": "Can I track my order?",
+                "content": "Tracking information would be sent to you once your order has been sent for delivery/shipping"
+            },
+            {
+                "title": "What do I do if my order is delayed or lost?",
+                "content": "If your order is delayed or lost, please contact customer support for assistance."
+            },
+            {
+                "title": "What is your return policy?",
+                "content": "Please refer to our return policy on the website for details on returns and exchanges. You can find it <a target='_blank' href='https://tohannieesskincare.com/terms'>here</a>"
+            }
+        ]
+    },
+    "technicalSupport": {
+        "rows": [
+            {
+                "title": "I'm having trouble logging in—what should I do?",
+                "content": "Use the 'Forgot Password' option or contact customer support for help."
+            },
+            {
+                "title": "How do I reset my password?",
+                "content": "Click 'Forgot Password' on the login page and follow the instructions to reset your password."
+            },
+            {
+                "title": "Why am I not receiving emails from you?",
+                "content": "Check your spam folder or ensure your email address is correct in your account settings."
+            },
+            {
+                "title": "How can I report a bug or issue?",
+                "content": "Report any issues via our website's contact form or reach out to customer support."
+            },
+            {
+                "title": "How do I update my account information?",
+                "content": "Log in and navigate to 'Account Settings' to update your information."
+            },
+            {
+                "title": "How do I update my address?",
+                "content": "On mobile, go to the dashboard menu, select 'Address,' and click on the address you wish to edit. On PC or desktop, access the dashboard menu from the left panel, click on 'Address' in the left menu, and select an address to edit. Your default address is likely to be used for checkout, so make sure it is your current address."
+            },
+            {
+                "title": "How do I change my default address?",
+                "content": "If a default address is already selected, you need to remove it before setting a new one. Click on the current default address, uncheck the 'Default' option, and save. After that, you can select any other address and set it as the default. If no default address is set, the first address you created will likely be used for checkout."
+            }
+        ]
+    },
+    "privacyAndSecurity": {
+        "rows": [
+            {
+                "title": "How do you protect my personal data?",
+                "content": "We implement security measures to protect your personal data and privacy."
+            },
+            {
+                "title": "Do you share my information with third parties?",
+                "content": "We do not share your personal information with third parties without your consent."
+            },
+            {
+                "title": "Can I delete my account?",
+                "content": "Yes, you can request account deletion by contacting customer support."
+            },
+            {
+                "title": "How do I unsubscribe from emails?",
+                "content": "Click 'Unsubscribe' at the bottom of our emails to stop receiving messages."
+            },
+            {
+                "title": "Where can I find your privacy policy?",
+                "content": "You can find it <a target='_blank' href='https://tohannieesskincare.com/terms'>here</a>"
+            }
+        ]
+    }
+}

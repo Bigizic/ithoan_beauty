@@ -1,0 +1,136 @@
+/* shimmer base */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: #e2e5e7;
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150px;
+  width: 150px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+/* brand shimmer text */
+.brand-name.shimmer-text {
+  display: inline-block;
+  background: linear-gradient(90deg, #cfcfcf 25%, #f5f5f5 50%, #cfcfcf 75%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerText 2s infinite;
+}
+@keyframes shimmerText {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* product card layout (from earlier) */
+.insta-card {
+  --radius: 16px;
+  --bg: #f6f7f3;
+  --chip-bg: #e9efe5;
+  --muted: #6b7567;
+
+  background: var(--bg);
+  border-radius: calc(var(--radius) + 4px);
+  padding: 12px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06) inset;
+  margin-bottom: 20px;
+}
+
+.media {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: #ddd;
+}
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.media-shimmer {
+  width: 100%;
+  height: 100%;
+}
+
+.ig-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 8px;
+  background: rgba(255,255,255,.9);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+}
+
+.product-chip {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  text-decoration: none;
+  background: var(--chip-bg);
+  border-radius: 14px;
+  padding: 10px;
+}
+
+.thumb {
+  width: 40%;
+  height: 56px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #dfe6dc;
+}
+.thumb-shimmer {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+}
+
+.meta .name {
+  font-weight: normal;
+  color: #000000;
+  font-size: 13px;
+  line-height: 1.2;
+  overflow: scroll;
+  scrollbar-width: none;
+}
+.text-shimmer {
+  width: 120px;
+  height: 16px;
+  border-radius: 4px;
+}
+.meta .cta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.brand-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.product-grid {
+  display: grid;
+  gap: 20px;
+}

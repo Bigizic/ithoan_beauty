@@ -1,0 +1,1 @@
+export const SET_AUTH = 'src/Authentication/SET_AUTH';
