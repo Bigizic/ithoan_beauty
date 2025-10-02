@@ -145,7 +145,7 @@ class CategoryShop extends React.PureComponent {
     }
     return (
       <div className='mb-[6em]'>
-        {isLoading && <LoadingIndicator />}
+        {/*isLoading && <LoadingIndicator />*/}
         <div className='bg-linear overflow-hidden'>
           <Banners
             useBackground={true}
@@ -155,9 +155,7 @@ class CategoryShop extends React.PureComponent {
             imageWidth='object-cover w-full h-[60vh] sm:h-full sm:w-full'
             imageContainerWidth='w-[100%]'
             scrollClass={'flex flex-col justify-center items-center w-full'}
-            textWrapper="absolute flex left-0 top-0 w-full h-full
-                           bg-gradient-to-b from-black/0 via-black/40 to-black/70
-                           z-10 sm:pb-0"
+            textWrapper="overlay-full"
           />
         </div>
         <div className='pd-default'>

@@ -22,25 +22,25 @@ const variants = {
 const Button = props => {
   const {
     id,
-    size,
-    variant,
+    size = 'md',
+    variant = 'secondary',
     tabIndex,
     ariaLabel,
     ariaExpanded,
-    type,
+    type = 'button',
     disabled,
-    className,
+    className = '',
     text,
     role,
     icon,
-    iconDirection,
-    iconClassName,
-    borderless,
-    round,
+    iconDirection = 'left',
+    iconClassName = '',
+    borderless = false,
+    round = 5,
     onClick,
-    tooltip,
+    tooltip = false,
     tooltipContent,
-    popover,
+    popover = false,
     popoverContent,
     popoverTitle,
     left,
@@ -102,19 +102,6 @@ const Button = props => {
       )}
     </button>
   );
-};
-
-Button.defaultProps = {
-  type: 'button',
-  variant: 'secondary',
-  size: 'md',
-  className: '',
-  iconDirection: 'left',
-  iconClassName: '',
-  borderless: false,
-  round: 20,
-  tooltip: false,
-  popover: false
 };
 
 export default Button;

@@ -2,6 +2,7 @@ import React from "react";
 import ProductList from "../../List/ProductList";
 import RowCarousel from "@/components/Store/Others/RowCarousel";
 import HyperLink from "@/components/Store/Tags/Link";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   id: string;
@@ -30,6 +31,7 @@ const Trending: React.FC<TrendingProps> = (props: TrendingProps) => {
     shopFormErrors, handleRemoveFromCart,
     handleAddToCart,
   } = props;
+  const navigate = useNavigate()
   return (
     <section className="trending mt-[48px] sm:mt-[80px] pd-carousel flex flex-col gap-[2em] text-center">
       <h2 className="heading-text text-center">
@@ -52,11 +54,13 @@ const Trending: React.FC<TrendingProps> = (props: TrendingProps) => {
           </div>
         </RowCarousel>
 
-        <HyperLink to={'shop/category/all'}>
+        <a
+          onClick={() => navigate('shop/category/all')}
+        >
           <button className="rounded-[5px] bg-other text-white p-[4px] sm:p-[8px] pl-[8px] pr-[8px] sm:pl-[16px] sm:pr-[16px] text-[14px] sm:text-[16px]">
             VIEW ALL
           </button>
-        </HyperLink>
+        </a>
       </div>
     </section>
   );

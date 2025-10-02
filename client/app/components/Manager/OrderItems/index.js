@@ -66,7 +66,7 @@ const OrderItems = props => {
 
   return (
     <div className='order-items pt-3'>
-      <h2>Order Items</h2>
+      <h2 className='text-xl font-extrabold'>Order Items</h2>
       <Row>
         {order.products.map((item, index) => (
           <Col xs='12' key={index} className='item'>
@@ -75,11 +75,10 @@ const OrderItems = props => {
                 <div className='d-flex align-items-center box'>
                   <img
                     className='item-image'
-                    src={`${
-                      item.product && item.product.imageUrl
-                        ? item.product.imageUrl
-                        : '/images/placeholder-image.png'
-                    }`}
+                    src={`${item.product && item.product.imageUrl
+                      ? item.product.imageUrl
+                      : '/images/placeholder-image.png'
+                      }`}
                   />
                   <div className='d-md-flex flex-1 align-items-start ml-4 item-box'>
                     <div className='item-details'>
@@ -95,31 +94,32 @@ const OrderItems = props => {
                           </Link>
                           <div className='d-flex align-items-center justify-content-between'>
                             <span className='price'>
-                            {
-                          item.product.discountPrice > 0 ?
-                          (
-                            <div>
-                            <div style={{ display: 'flex' }}>
-                            <p style={{ textDecoration: 'line-through', textDecorationColor: '#da3e8e' }} className='price mb-0'>
-                            {all_currency[order.currency]}{(item.product.price).toLocaleString()}
-                            </p>
-                            <span  style={{
-                                    color: '#fff',
-                                    background: 'black',
-                                    marginLeft: '10px',
-                                    height: 'fit-content',
-                                    padding: '0px 3px' }}>-{(item.discountPrice).toFixed(2)}%</span>
-                            </div>
-                            <p className='price mb-0'>{all_currency[order.currency]} { (item.product.price - ( item.product.price * ( item.discountPrice / 100 ))).toLocaleString() }
-                            </p>
-                          </div>
-                          )
-                          :
-                          (
-                            <span className='price order-label'>{all_currency[order.currency]}{(item.purchasePrice).toLocaleString() || item.product.price.toLocaleString()}</span>
-                          )
-                        }
-                        </span>
+                              {
+                                item.product.discountPrice > 0 ?
+                                  (
+                                    <div>
+                                      <div style={{ display: 'flex' }}>
+                                        <p style={{ textDecoration: 'line-through', textDecorationColor: '#da3e8e' }} className='price mb-0'>
+                                          {all_currency[order.currency]}{(item.product.price).toLocaleString()}
+                                        </p>
+                                        <span style={{
+                                          color: '#fff',
+                                          background: 'black',
+                                          marginLeft: '10px',
+                                          height: 'fit-content',
+                                          padding: '0px 3px'
+                                        }}>-{(item.discountPrice).toFixed(2)}%</span>
+                                      </div>
+                                      <p className='price mb-0'>{all_currency[order.currency]} {(item.product.price - (item.product.price * (item.discountPrice / 100))).toLocaleString()}
+                                      </p>
+                                    </div>
+                                  )
+                                  :
+                                  (
+                                    <span className='price order-label'>{all_currency[order.currency]}{(item.purchasePrice).toLocaleString() || item.product.price.toLocaleString()}</span>
+                                  )
+                              }
+                            </span>
                           </div>
                         </>
                       ) : (
@@ -136,32 +136,33 @@ const OrderItems = props => {
                         <span className='order-label'>{` ${item.quantity}`}</span>
                       </p>
                       <div>
-                        Total Price
+                        <p style={{ fontSize: '14px' }}>Total Price</p>
                         {
                           item.product && item.product.discountPrice > 0 ?
-                          (
-                            <div>
-                            <div style={{ display: 'flex' }}>
-                            <p style={{ textDecoration: 'line-through', textDecorationColor: '#da3e8e' }} className='price mb-0'>
-                            {all_currency[order.currency]}{(item.totalPrice).toLocaleString()}
-                            </p>
-                            <span  style={{
+                            (
+                              <div>
+                                <div style={{ display: 'flex' }}>
+                                  <p style={{ textDecoration: 'line-through', textDecorationColor: '#da3e8e' }} className='price mb-0'>
+                                    {all_currency[order.currency]}{(item.totalPrice).toLocaleString()}
+                                  </p>
+                                  <span style={{
                                     color: '#fff',
                                     background: 'black',
                                     marginLeft: '10px',
                                     height: 'fit-content',
-                                    padding: '0px 3px' }}>-{(item.discountPrice).toFixed(2)}%</span>
-                            </div>
-                            <p className='price mb-0'>{all_currency[order.currency]} { (item.totalPrice - ( item.totalPrice * ( item.discountPrice / 100 ))).toLocaleString() }
-                            </p>
-                          </div>
-                          )
-                          :
-                          (
-                            <span className='order-label'>{all_currency[order.currency]} {(item.totalPrice.toFixed(2)).toLocaleString()}</span>
-                          )
+                                    padding: '0px 3px'
+                                  }}>-{(item.discountPrice).toFixed(2)}%</span>
+                                </div>
+                                <p className='price mb-0'>{all_currency[order.currency]} {(item.totalPrice - (item.totalPrice * (item.discountPrice / 100))).toLocaleString()}
+                                </p>
+                              </div>
+                            )
+                            :
+                            (
+                              <span style={{ fontSize: '12px' }} className='order-label'>{all_currency[order.currency]} {item.totalPrice.toLocaleString()}</span>
+                            )
                         }
-                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -178,30 +179,31 @@ const OrderItems = props => {
                   </div>
 
                   <div className='text-center'>
-                  {
-                          item.product && item.product.discountPrice > 0 ?
-                          (
-                            <div>
+                    {
+                      item.product && item.product.discountPrice > 0 ?
+                        (
+                          <div>
                             <div style={{ display: 'flex' }}>
-                            <p style={{ textDecoration: 'line-through', textDecorationColor: '#da3e8e' }} className='price mb-0'>
-                            {all_currency[order.currency]}{(item.totalPrice).toLocaleString()}
-                            </p>
-                            <span  style={{
-                                    color: '#fff',
-                                    background: 'black',
-                                    marginLeft: '10px',
-                                    height: 'fit-content',
-                                    padding: '0px 3px' }}>-{(item.discountPrice).toFixed(2)}%</span>
+                              <p style={{ textDecoration: 'line-through', textDecorationColor: '#da3e8e' }} className='price mb-0'>
+                                {all_currency[order.currency]}{(item.totalPrice).toLocaleString()}
+                              </p>
+                              <span style={{
+                                color: '#fff',
+                                background: 'black',
+                                marginLeft: '10px',
+                                height: 'fit-content',
+                                padding: '0px 3px'
+                              }}>-{(item.discountPrice).toFixed(2)}%</span>
                             </div>
-                            <p className='price mb-0'>{all_currency[order.currency]} { (item.totalPrice - ( item.totalPrice * ( item.discountPrice / 100 ))).toLocaleString() }
+                            <p className='price mb-0'>{all_currency[order.currency]} {(item.totalPrice - (item.totalPrice * (item.discountPrice / 100))).toLocaleString()}
                             </p>
                           </div>
-                          )
-                          :
-                          (
-                            <span className='order-label'>{all_currency[order.currency]} {(item.totalPrice).toLocaleString()}</span>
-                          )
-                        }
+                        )
+                        :
+                        (
+                          <span className='order-label'>{all_currency[order.currency]} {(item.totalPrice).toLocaleString()}</span>
+                        )
+                    }
                     <p>Total Price</p>
                   </div>
                 </div>
@@ -213,8 +215,8 @@ const OrderItems = props => {
               )}
 
               {item.product && (
-                  <div className='text-right mt-2 mt-md-0'>
-                  </div>
+                <div className='text-right mt-2 mt-md-0'>
+                </div>
               )}
             </div>
           </Col>

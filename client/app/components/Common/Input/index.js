@@ -10,21 +10,21 @@ import AdvancedImageUpload from '../AdvancedImageUpload';
 
 const Input = props => {
   const {
-    autoComplete,
+    autoComplete = 'on',
     type,
     value,
     error,
-    step,
-    decimals,
+    step = 1,
+    decimals = true,
     min,
     max,
     disabled,
     placeholder,
-    rows,
+    rows = 4,
     label,
     name,
     onInputChange,
-    inlineElement,
+    inlineElement = null,
     className
   } = props;
 
@@ -61,7 +61,6 @@ const Input = props => {
     return (
       <div className={styles}>
         {label && <label>{label}</label>}
-        }
         <textarea
           type={'textarea'}
           onChange={e => {
@@ -81,37 +80,36 @@ const Input = props => {
 
     return (
       <div className={styles} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <div style={{display: 'flex', alignItems: 'baseline', gap: '5px'}}>
-        {label && <label>{label}</label>}
-        }
-        <button
-          type="button"
-          onClick={handleDecrement}
-          disabled={disabled || value <= min}
-          style={{ padding: '5px 10px', marginRight: '5px', }}
-        >
-          -
-        </button>
-        <input
-          type="number"
-          min={min || 0}
-          max={max || null}
-          disabled={disabled}
-          name={name}
-          value={value}
-          onChange={(e) => {
-            newOnChange(e)
-          }}
-          style={{ textAlign: 'center', width: '60px' }}
-        />
-        <button
-          type="button"
-          onClick={handleIncrement}
-          disabled={disabled || value >= max}
-          style={{ padding: '5px 10px', marginLeft: '5px', }}
-        >
-          +
-        </button>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '5px' }}>
+          {label && <label>{label}</label>}
+          <button
+            type="button"
+            onClick={handleDecrement}
+            disabled={disabled || value <= min}
+            style={{ padding: '5px 10px', marginRight: '5px', }}
+          >
+            -
+          </button>
+          <input
+            type="number"
+            min={min || 0}
+            max={max || null}
+            disabled={disabled}
+            name={name}
+            value={value}
+            onChange={(e) => {
+              newOnChange(e)
+            }}
+            style={{ textAlign: 'center', width: '60px' }}
+          />
+          <button
+            type="button"
+            onClick={handleIncrement}
+            disabled={disabled || value >= max}
+            style={{ padding: '5px 10px', marginLeft: '5px', }}
+          >
+            +
+          </button>
         </div>
         <span className='invalid-message'>{error && error[0]}</span>
       </div>
@@ -127,7 +125,6 @@ const Input = props => {
     return (
       <div className={styles}>
         {label && <label>{label}</label>}
-        }
         <input
           autoComplete={autoComplete}
           step='step'
@@ -154,7 +151,6 @@ const Input = props => {
     return (
       <div className={styles}>
         {label && <label>{label}</label>}
-        }
         <ReactStars
           name={name}
           starCount={5}
@@ -181,6 +177,7 @@ const Input = props => {
         label={label}
         error={error}
         onInputChange={onInputChange}
+        value={value}
         multiple={type === 'images'}
         maxFiles={5}
         maxSize={5 * 1024 * 1024} // 5MB
@@ -188,14 +185,12 @@ const Input = props => {
       />
     );
   } else {
-    const styles = `input-box${inlineElement ? ` inline-btn-box` : ''} ${
-      error ? 'invalid' : ''
-    }`;
+    const styles = `input-box${inlineElement ? ` inline-btn-box` : ''} ${error ? 'invalid' : ''
+      }`;
 
     return (
       <div className={styles}>
         {label && <label>{label}</label>}
-        }
         <div className='input-text-block'>
           <input
             className={className && `${className} input-text` || 'input-text'}
@@ -215,14 +210,6 @@ const Input = props => {
       </div>
     );
   }
-};
-
-Input.defaultProps = {
-  step: 1,
-  decimals: true,
-  rows: '4',
-  inlineElement: null,
-  autoComplete: 'on'
 };
 
 export default Input;

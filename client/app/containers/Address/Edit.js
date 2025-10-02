@@ -13,6 +13,7 @@ import actions from '../../actions';
 import EditAddress from '../../components/Manager/EditAddress';
 import SubPage from '../../components/Manager/SubPage';
 import NotFound from '../../components/Common/NotFound';
+import { withRouter } from '@/withRouter';
 
 class Edit extends React.PureComponent {
   componentDidMount() {
@@ -42,7 +43,6 @@ class Edit extends React.PureComponent {
       <SubPage
         title='Edit Address'
         actionTitle='Cancel'
-        handleAction={() => history.goBack()}
       >
         {address?._id ? (
           <EditAddress
@@ -68,4 +68,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, actions)(Edit);
+export default connect(mapStateToProps, actions)(withRouter(Edit));

@@ -15,12 +15,12 @@ const ProductReviews = props => {
   return (
     <div className='mt-md-4 product-reviews'>
       <Row className='flex-row'>
-        <Col xs='12' md='5' lg='5' className='mb-3 px-3 px-md-2'>
+        <Col xs='12' md='5' lg='5' className='md:px-3'>
           {Object.keys(props.reviewsSummary).length > 0 && (
             <ReviewSummary reviewsSummary={props.reviewsSummary} />
           )}
         </Col>
-        <Col xs='12' md='7' lg='7' className='mb-3 px-3 px-md-2'>
+        <Col xs='12' md='7' lg='7' className='mb-3 md:px-3'>
           {props.reviews.length > 0 && <ReviewList reviews={props.reviews} />}
           <AddReview
             reviewFormData={props.reviewFormData}

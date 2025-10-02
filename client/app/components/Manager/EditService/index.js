@@ -36,7 +36,7 @@ const DescriptionBox = (props) => {
         }}
         placeholder="Enter service description..."
       />
-      <span style={{color: 'red'}} className='invalid-message'>{error && error[0]}</span>
+      <span style={{ color: 'red' }} className='invalid-message'>{error && error[0]}</span>
     </div>
   );
 };
@@ -81,40 +81,12 @@ const EditService = props => {
               }}
             />
           </Col>
-
-          <Col xs='12' className='p-0 m-0'>
-            <Input
-              type={'text'}
-              error={formErrors['slug']}
-              label={'Slug'}
-              name={'slug'}
-              placeholder={'Service Slug'}
-              value={service.slug}
-              onInputChange={(name, value) => {
-                serviceChange(name, value);
-              }}
-            />
-          </Col>
-
+          
           <Col xs='12' lg='6' className='p-0 m-0'>
             <DescriptionBox
               error={formErrors['description']}
               serviceChange={serviceChange}
               service={service}
-            />
-          </Col>
-
-          <Col xs='12' lg='6' className='p-0 m-0'>
-            <Input
-              type={'images'}
-              error={formErrors['images']}
-              name={'images'}
-              label={'Service Images (Multiple)'}
-              placeholder={'Upload Service Images'}
-              value={service.imageUrl} // Pass existing images
-              onInputChange={(name, value) => {
-                serviceChange(name, value);
-              }}
             />
           </Col>
 
@@ -163,6 +135,20 @@ const EditService = props => {
               }}
             />
           </Col>
+
+          {/*<Col xs='12' md='12'>
+            <Input
+              type={'images'}
+              error={formErrors['images']}
+              name={'images'}
+              label={'Images'}
+              value={service.imageUrl}
+              placeholder={'Select multiple or one'}
+              onInputChange={(name, value) => {
+                serviceChange(name, value);
+              }}
+            />
+          </Col>*/}
 
           <Col xs='12' md='12' className='mt-3 mb-2 p-0'>
             <Switch

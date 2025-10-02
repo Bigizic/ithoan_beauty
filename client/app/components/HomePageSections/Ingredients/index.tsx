@@ -4,63 +4,32 @@ import ProductList from '../../List/ProductList';
 import RowCarousel from '../../Store/Others/RowCarousel';
 import ProductImgResolve from '../../Store/utils/productImgResolve';
 import Button from '../../Store/Tags/Button';
-
-interface Product {
-  _id: string;
-  count: number;
-  name: string;
-  imageUrl?: string;
-}
-
-interface Collection {
-  _id: string;
-  name: string;
-  slug: string;
-  products: string[];
-}
-
-interface ShopCollectionProps {
-  collection: Collection[];
-  mostBoughtProducts: Product[];
-}
-
-const ShopCollection: React.FC<ShopCollectionProps> = (props) => {
-  let { collection, mostBoughtProducts } = props;
-  if (!collection || collection.length === 0) return null;
-
-  const sortedProducts = mostBoughtProducts.sort((a, b) => b.count - a.count);
-  let mostBoughtCollection = collection?.filter(c => c.name !== 'All' && c.products.includes(sortedProducts[0]?._id))[0];
-  
-  if (!mostBoughtCollection) return null;
-
-  const mostBoughtCollectionProducts = sortedProducts
-    .filter(p => mostBoughtCollection?.products.includes(p._id))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 6);
+import { VitaminCFrame } from './VitaminC';
+import { FacialWashFrame } from './FacialWash';
+import { FaceTonerFrame } from './FaceToner';
+import { BodySoapFrame } from './BodySoap';
+const Ingredients = () => {
 
   return (
-    <div className='shop_a_collection'>
-      <div className='collection_image p-[1em] md:p-[0]' data-aos="fade-right">
-        <HyperLink type={"product"} to={`/category/${mostBoughtCollection.slug}`}>
-          <video autoPlay muted playsInline loop src='/upload/skincare_video_1.mp4'>
-            video not supported by browser
-          </video>
-        </HyperLink>
-
-        <div className='collection_details font-black'>
-          <p className='text-[3em] font-italiano text-white'>{mostBoughtCollection.name}</p>
-          <p className='text-[2em] font-italiano text-white'>Shop Our Most Bought Collection</p>
-          <HyperLink text={"Shop Now"} to={`/category/${mostBoughtCollection.slug}`} />
-        </div>
+    <section className='ingredients mt-[48px] sm:mt-[80px] px-0'>
+      <div className='text-center flex flex-col gap-[8px] pd-default'>
+        <h2 className='text-center font-spectral heading-text font-extrabold'>Ingredients That Deliver Results</h2>
+        <p className='text-center subHead-text'>Every ingredients chosen with purpose, every result refined</p>
       </div>
-
-      <div className='shop_a_collection_products'>
-        <RowCarousel buttonClassName={"carousel-buttons-2-z-index"}>
-          <ProductList products={mostBoughtCollectionProducts} />
+      <div className='ingredients_container bg-white py-6 mt-4'>
+        <RowCarousel
+          buttonClassName={"carousel-buttons-2-z-index"}
+          buttonClassLeftName={"left-[10px]"}
+          buttonClassRightName={"right-[10px]"}
+        >
+          <VitaminCFrame />
+          <FacialWashFrame />
+          <FaceTonerFrame />
+          <BodySoapFrame />
         </RowCarousel>
-      </div>
-    </div>
+      </div >
+    </section >
   );
 }
 
-export default ShopCollection;
+export default Ingredients;

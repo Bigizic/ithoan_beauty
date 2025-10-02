@@ -51,17 +51,16 @@ export const FadeSlider = (props) => {
   )
 }
 
-
 const CarouselSlider = props => {
   const {
-    swipeable,
-    draggable,
-    showDots,
-    infinite,
-    autoPlay,
-    keyBoardControl,
-    autoPlaySpeed,
-    ssr,
+    swipeable = false,
+    draggable = false,
+    showDots = false,
+    infinite = true,
+    autoPlay = false,
+    keyBoardControl = true,
+    autoPlaySpeed = 2000,
+    ssr = false,
     responsive,
     children
   } = props;
@@ -86,17 +85,6 @@ const CarouselSlider = props => {
       {children}
     </Carousel>
   );
-};
-
-CarouselSlider.defaultProps = {
-  swipeable: false,
-  draggable: false,
-  showDots: false,
-  infinite: true,
-  autoPlay: false,
-  keyBoardControl: true,
-  ssr: false,
-  autoPlaySpeed: 2000
 };
 
 export default CarouselSlider;

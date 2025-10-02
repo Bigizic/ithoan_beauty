@@ -100,17 +100,21 @@ const AdvancedImageUpload = props => {
 
     if (errorMessage) {
       setUploadError(errorMessage);
-      setTimeout(() => setUploadError(''), 3000);
+      setTimeout(() => setUploadError(''), 2000);
       return;
     }
 
     setUploadError('');
     const updatedFiles = multiple ? [...files, ...newFiles] : newFiles;
     setFiles(updatedFiles);
-    
+
     // Pass files to parent component
-    const fileObjects = updatedFiles.map(f => f.file);
-    onInputChange(name, multiple ? fileObjects : fileObjects[0]);
+    const fileObjects = updatedFiles.filter(f => typeof(f.file) === "object");
+    const existingUrls = updatedFiles.filter(f => f.isExisting).map(f => f.url);
+    const combinedValue = multiple ? 
+      { newFiles: fileObjects, existingImages: existingUrls } : 
+      (fileObjects[0] || existingUrls[0] || null);
+    onInputChange(name, combinedValue);
   }, [files, multiple, maxFiles, validateFile, name, onInputChange]);
 
   const handleFileSelect = useCallback((e) => {
@@ -144,12 +148,6 @@ const AdvancedImageUpload = props => {
     const updatedFiles = files.filter(f => f.id !== fileId);
     setFiles(updatedFiles);
     
-    // Clean up object URL
-    const fileToRemove = files.find(f => f.id === fileId);
-    if (fileToRemove && !fileToRemove.isExisting) {
-      URL.revokeObjectURL(fileToRemove.preview);
-    }
-
     // Update parent component
     const fileObjects = updatedFiles.map(f => f.file).filter(Boolean);
     const existingUrls = updatedFiles.filter(f => f.isExisting).map(f => f.url);
@@ -177,8 +175,6 @@ const AdvancedImageUpload = props => {
   return (
     <div className={`advanced-image-upload ${className}`}>
       {label && <label className="upload-label">{label}</label>}
-      }
-      
       <div
         className={`upload-area ${isDragOver ? 'drag-over' : ''} ${files.length > 0 ? 'has-files' : ''}`}
         onDrop={handleDrop}

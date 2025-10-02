@@ -26,9 +26,9 @@ class Address extends React.PureComponent {
     return (
       <div className='address-dashboard'>
         <Routes>
-          <Route exact path='/dashboard/address' element={<List />} />
-          <Route exact path='/dashboard/address/edit/:id' element={<Edit />} />
-          <Route exact path='/dashboard/address/add' element={<Add />} />
+          <Route exact path='' element={<List />} />
+          <Route exact path='edit/:id' element={<Edit />} />
+          <Route exact path='add' element={<Add />} />
           <Route path='*' element={<Page404 />} />
         </Routes>
       </div>

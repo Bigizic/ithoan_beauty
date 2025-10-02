@@ -38,7 +38,7 @@ class Switch extends React.Component {
   }
 
   render() {
-    const { className, style, id, label, tooltip, tooltipContent } = this.props;
+    const { className = '', style, id, label, tooltip, tooltipContent } = this.props;
     const { checked } = this.state;
 
     const tooltipId = `tooltip-${id}`;
@@ -63,9 +63,5 @@ class Switch extends React.Component {
     );
   }
 }
-
-Switch.defaultProps = {
-  className: ''
-};
 
 export default Switch;

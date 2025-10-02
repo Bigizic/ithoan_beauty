@@ -14,10 +14,10 @@ const ServicesList = (props) => {
 
   return (
     <div className="services-list overflow-x-scroll">
+      <p className='text-lg'>{servicesList.length} Services</p>
       <table className="table table-striped table-bordered">
         <thead>
           <tr>
-            <th>#</th>
             <th>Name</th>
             <th>Title</th>
             <th>Description</th>
@@ -29,11 +29,12 @@ const ServicesList = (props) => {
         <tbody>
           {servicesList.map((services, index) => (
             <tr key={services?._id || index} className='cursor-pointer' onClick={() => navigate(`/dashboard/services/edit/${services._id}`)}>
-              <td>{index + 1}</td>
               <td>{services?.name}</td>
               <td>{services?.title}</td>
               <td>
-                <DescriptionComponent content={services?.description} />
+                <p style={{ height: '50px', overflowY: 'hidden' }}>
+                  <DescriptionComponent content={services?.description} />
+                </p>
               </td>
               <td>{services?.serviceArray?.length || 0}</td>
               <td>

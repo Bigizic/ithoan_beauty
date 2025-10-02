@@ -32,6 +32,8 @@ import HomePageReview from '@/components/HomePageSections/Reviews';
 import Marquee from '@/components/HomePageSections/Marquee';
 import InstagramCard from '@/components/InstaCard';
 import { STORE_NAME } from '@/constants';
+import ReviewSection from '@/components/HomePageSections/ReviewNew/ReviewSection';
+import Ingredients from '@/components/HomePageSections/Ingredients';
 
 const CustomNextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -114,6 +116,8 @@ class Homepage extends React.PureComponent {
           all_currency={all_currency}
         />
 
+        <Ingredients />
+
         <RestockedProducts
           products={newArrivals}
           current_currency={current_currency}
@@ -125,8 +129,6 @@ class Homepage extends React.PureComponent {
           handleRemoveFromCart={handleRemoveFromCart}
           handleAddToCart={handleAddToCart}
         />
-
-        {/*<Ingredients collection={categories} mostBoughtProducts={trendingProducts} />*/}
 
         <Trending
           products={bestSelling}
@@ -140,12 +142,13 @@ class Homepage extends React.PureComponent {
           handleAddToCart={handleAddToCart}
         />
 
-        <HomePageReview />
+        {/*<HomePageReview />*/}
+        <ReviewSection />
 
         <Marquee
           times={6}
           onHover={true}
-          text={<span>&copy; {new Date().getFullYear()} {STORE_NAME}</span>}
+          text={<span className='text-white'>&copy; {new Date().getFullYear()} {STORE_NAME}</span>}
         />
         <div className="pd-default">
           <InstagramCard products={allProducts} brandHandle={"tohanniees_skincare"} />

@@ -3,7 +3,10 @@ export const PAYSTACK_KEY = process.env.PAYSTACK_PUBLIC_KEY;
 export const OPEN_EXCHANGE_API_KEY = process.env.OPEN_EXCHANGE_RATES_KEY;
 export const STORE_NAME = "Tohanniees Skincare"
 export const CURRENCY = "₦"
-export const TH_BEAUTY_LINK="https://beauty.tohannieesskincare.com"
+export const TH_BEAUTY_LINK="https://beauty.tohannieesskincare.com";
+export const INSTAGRAM_LINK="https://www.instagram.com/tohanniees_skincare";
+export const SNAPCHAT_LINK="https://snapchat.com/t/VE8G18OV";
+export const WHATSAPP_URL="https://wa.me/2349077692506";
 
 export const SOCKET_URL =
   window.location.host.indexOf('localhost') >= 0

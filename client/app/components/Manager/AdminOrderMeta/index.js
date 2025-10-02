@@ -11,6 +11,7 @@ import { formatDate } from '../../../utils/date';
 import Button from '../../Common/Button';
 import { ArrowBackIcon, CheckIcon } from '../../Common/Icon';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { useNavigate } from 'react-router-dom';
 
 /**
    * - generates receipt
@@ -180,6 +181,8 @@ const AdminOrderMeta = props => {
         .length < 1;
   };
 
+  const navigate = useNavigate()
+
   return (
     <div className='order-meta'>
       <div className='d-flex align-items-center justify-content-between mb-3 title'>
@@ -189,7 +192,7 @@ const AdminOrderMeta = props => {
           icon={<ArrowBackIcon />}
           size='sm'
           text='Back to orders'
-          onClick={onBack}
+          onClick={() => navigate('dashboard/orders')}
         />
       </div>
 

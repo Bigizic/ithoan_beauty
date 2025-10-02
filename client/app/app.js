@@ -48,7 +48,7 @@ const app = () => (
   <Provider store={store}>
     <BrowserRouter>
       <SocketProvider>
-        <ScrollToTop />
+        <ScrollToTop/>
         <Application />
       </SocketProvider>
     </BrowserRouter>

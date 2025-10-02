@@ -5,8 +5,8 @@
  */
 
 import {
-  FETCH_SERVICES,
-  FETCH_SERVICE,
+  FETCH_ALL_SERVICE,
+  FETCH_A_SERVICE,
   SERVICE_CHANGE,
   SERVICE_EDIT_CHANGE,
   SET_SERVICE_FORM_ERRORS,
@@ -19,7 +19,7 @@ import {
 } from './constants';
 
 const initialState = {
-  services: [],
+  all_service: [],
   service: {
     name: '',
     description: '',
@@ -34,8 +34,8 @@ const initialState = {
     price: 0,
     duration: 0,
     discount: 0,
+    images: [],
     isActive: true,
-    isDiscounted: false
   },
   formErrors: {},
   editFormErrors: {},
@@ -44,12 +44,12 @@ const initialState = {
 
 const serviceReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_SERVICES:
+    case FETCH_ALL_SERVICE:
       return {
         ...state,
-        services: action.payload
+        all_service: action.payload
       };
-    case FETCH_SERVICE:
+    case FETCH_A_SERVICE:
       return {
         ...state,
         service: action.payload,
@@ -63,15 +63,15 @@ const serviceReducer = (state = initialState, action) => {
     case ADD_SERVICE:
       return {
         ...state,
-        services: [...state.services, action.payload]
+        services: [...state.all_service, action.payload]
       };
     case REMOVE_SERVICE:
-      const index = state.services.findIndex(s => s._id === action.payload);
+      const index = state.all_service.findIndex(s => s._id === action.payload);
       return {
         ...state,
         services: [
-          ...state.services.slice(0, index),
-          ...state.services.slice(index + 1)
+          ...state.all_service.slice(0, index),
+          ...state.all_service.slice(index + 1)
         ]
       };
     case SERVICE_CHANGE:
@@ -114,8 +114,8 @@ const serviceReducer = (state = initialState, action) => {
           price: 0,
           duration: 0,
           discount: 0,
+          images: [],
           isActive: true,
-          isDiscounted: false
         },
         formErrors: {}
       };

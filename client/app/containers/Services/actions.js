@@ -83,6 +83,7 @@ export const fetchServicesList = () => {
 // fetch services item api
 export const fetchServicesItem = servicesId => {
   return async (dispatch, getState) => {
+    dispatch(setServicesLoading(true))
     try {
       const response = await axios.get(`${API_URL}/services/${servicesId}`);
 
@@ -92,6 +93,8 @@ export const fetchServicesItem = servicesId => {
       });
     } catch (error) {
       handleError(error, dispatch);
+    } finally {
+      dispatch(setServicesLoading(false))
     }
   };
 };
@@ -102,7 +105,7 @@ export const fetchServicesForSelect = () => {
     try {
       const response = await axios.get(`${API_URL}/service/list/select`);
 
-      const formattedServices = formatSelectOptions(response.data.services, true);
+      const formattedServices = formatSelectOptions(response.data.services);
 
       dispatch({
         type: FETCH_SERVICES_SELECT,
@@ -117,6 +120,7 @@ export const fetchServicesForSelect = () => {
 // add services api
 export const addServices = () => {
   return async (dispatch, getState) => {
+    dispatch(setServicesLoading(true))
     try {
       const rules = {
         name: 'required',
@@ -145,8 +149,8 @@ export const addServices = () => {
             const serviceIds = services[key].map(service => service.value);
             formData.set(key, JSON.stringify(serviceIds));
           } else if (key === 'images' && services[key]) {
-            for (let i = 0; i < services[key].length; i++) {
-              formData.append('images', services[key][i]);
+            for (let i = 0; i < services[key].newFiles.length; i++) {
+              formData.append('images', services[key].newFiles[i].file || services[key].newFiles[i]);
             }
           } else {
             formData.set(key, services[key]);
@@ -176,6 +180,8 @@ export const addServices = () => {
       }
     } catch (error) {
       handleError(error, dispatch);
+    } finally {
+      dispatch(setServicesLoading(false))
     }
   };
 };
@@ -183,6 +189,7 @@ export const addServices = () => {
 // update services api
 export const updateServices = () => {
   return async (dispatch, getState) => {
+    dispatch(setServicesLoading(true))
     try {
       const rules = {
         name: 'required',
@@ -199,7 +206,8 @@ export const updateServices = () => {
         title: servicesItem.title,
         description: servicesItem.description,
         isActive: servicesItem.isActive,
-        serviceArray: servicesItem.serviceArray
+        serviceArray: servicesItem.serviceArray,
+        images: servicesItem.images
       };
 
       const { isValid, errors } = allFieldsValidation(newServices, rules, {
@@ -222,7 +230,7 @@ export const updateServices = () => {
             // Handle new image files
             if (newServices[key].newFiles) {
               for (let i = 0; i < newServices[key].newFiles.length; i++) {
-                formData.append('images', newServices[key].newFiles[i]);
+                formData.append('images', newServices[key].newFiles[i].file || newServices[key].newFiles[i]);
               }
             }
             // Keep existing images
@@ -231,7 +239,7 @@ export const updateServices = () => {
             }
           } else if (key === 'serviceArray' && Array.isArray(newServices[key])) {
             // Convert select option format to just IDs if needed
-            const serviceIds = newServices[key].map(service => 
+            const serviceIds = newServices[key].map(service =>
               typeof service === 'object' ? service.value : service
             );
             formData.set(key, JSON.stringify(serviceIds));
@@ -257,6 +265,8 @@ export const updateServices = () => {
       }
     } catch (error) {
       handleError(error, dispatch);
+    } finally {
+      dispatch(setServicesLoading(false))
     }
   };
 };
@@ -264,6 +274,7 @@ export const updateServices = () => {
 // delete services api
 export const deleteServices = id => {
   return async (dispatch, getState) => {
+    dispatch(setServicesLoading(true))
     try {
       const response = await axios.delete(`${API_URL}/services/delete/${id}`);
 
@@ -283,6 +294,8 @@ export const deleteServices = id => {
       }
     } catch (error) {
       handleError(error, dispatch);
+    } finally {
+      dispatch(setServicesLoading(false))
     }
   };
 };

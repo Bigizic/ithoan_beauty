@@ -162,7 +162,7 @@ export function initializeApplication(options = {}) {
 
       if (maintenanceStatus && !user && location.pathname.startsWith("/login")) {
         return (
-          <main className="main" style={{ paddingTop: `${paddingTop}px` }}>
+          <main className="main application" style={{ paddingTop: `${paddingTop}px` }}>
             <Container>
               <div className="wrapper">
                 <Routes>

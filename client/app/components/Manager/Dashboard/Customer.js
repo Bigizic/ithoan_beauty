@@ -33,11 +33,11 @@ const Customer = props => {
             <Routes>
               <Route exact path='' element={<Account />} />
               {!isProviderAllowed(user.provider) && (
-                <Route path='/security' element={<AccountSecurity />} />
+                <Route path='/security/*' element={<AccountSecurity />} />
               )}
-              <Route path='/address' element={<Address />} />
-              <Route path='/orders' element={<Order />} />
-              <Route path='/wishlist' element={<Wishlist />} />
+              <Route path='/address/*' element={<Address />} />
+              <Route path='/orders/*' element={<Order />} />
+              <Route path='/wishlist/*' element={<Wishlist />} />
               <Route path='*' element={<Page404 />} />
             </Routes>
           </div>

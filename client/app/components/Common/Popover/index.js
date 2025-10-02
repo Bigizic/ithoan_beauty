@@ -9,7 +9,7 @@ import React from 'react';
 import { UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
 
 const Popover = props => {
-  const { target, placement, popoverTitle, children } = props;
+  const { target, placement = 'top', popoverTitle, children } = props;
 
   return (
     <UncontrolledPopover placement={placement} target={target} trigger='legacy'>
@@ -17,10 +17,6 @@ const Popover = props => {
       <PopoverBody>{children}</PopoverBody>
     </UncontrolledPopover>
   );
-};
-
-Popover.defaultProps = {
-  placement: 'top'
 };
 
 export default Popover;

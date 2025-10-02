@@ -2,6 +2,7 @@ import React from "react";
 import CollectionList from "@/components/List/CollectionList";
 import RowCarousel from "../../Store/Others/RowCarousel";
 import HyperLink from "@/components/Store/Tags/Link";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   _id: string;
@@ -27,6 +28,7 @@ interface PopularCollectionsProps {
 }
 
 const PopularCollections: React.FC<PopularCollectionsProps> = (props) => {
+  const navigate = useNavigate()
   const { collections, current_currency, all_currency } = props;
   if (!collections || collections.length === 0) return null;
   const newCollection = collections.filter(i => i.categoryName !== 'All')
@@ -45,11 +47,13 @@ const PopularCollections: React.FC<PopularCollectionsProps> = (props) => {
         </div>
       </RowCarousel>
 
-      <HyperLink to={'shop/category/all'}>
+      <a
+        onClick={() => navigate('shop/category/all')}
+      >
         <button className="rounded-[5px] bg-other text-white p-[4px] sm:p-[8px] pl-[8px] pr-[8px] sm:pl-[16px] sm:pr-[16px] text-[14px] sm:text-[16px]">
           VIEW ALL
         </button>
-      </HyperLink>
+      </a>
     </div>
   );
 };

@@ -13,6 +13,7 @@ import actions from '../../actions';
 
 import NotFound from '../../components/Common/NotFound';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
+import { withRouter } from '@/withRouter';
 
 class OrderSuccess extends React.PureComponent {
   componentDidMount() {
@@ -31,17 +32,17 @@ class OrderSuccess extends React.PureComponent {
     const { order, isLoading } = this.props;
 
     return (
-      <div className='order-success'>
+      <div className='order-success margin-top-compact'>
         {isLoading ? (
           <LoadingIndicator />
         ) : order._id ? (
           <div className='order-message'>
-            <h2>Thank you for your order.</h2>
+            <h2 className='text-xl'>Thank you for your order!</h2>
             <p>
               Order{' '}
               <Link
                 to={{
-                  pathname: `/order/${order._id}?success`,
+                  pathname: `/order/${order._id}`,
                   state: { prevPath: location.pathname }
                 }}
                 // to={`/order/${order._id}?success`}
@@ -77,4 +78,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, actions)(OrderSuccess);
+export default connect(mapStateToProps, actions)(withRouter(OrderSuccess));

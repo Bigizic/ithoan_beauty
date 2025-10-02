@@ -23,7 +23,7 @@ class List extends React.PureComponent {
     return (
       <>
         <SubPage
-          title='Services Groups'
+          title='Services'
           actionTitle='Add'
           handleAction={'/dashboard/services/add'}
         >

@@ -14,16 +14,15 @@ import NotFound from '../../components/Common/NotFound';
 
 class List extends React.PureComponent {
   componentDidMount() {
-    this.props.fetchServices();
+    this.props.fetchAllService();
   }
 
   render() {
     const { services, isLoading } = this.props;
-
     return (
       <>
         <SubPage
-          title='Services'
+          title='Service'
           actionTitle='Add'
           handleAction={'/dashboard/service/add'}
         >
@@ -32,7 +31,7 @@ class List extends React.PureComponent {
           ) : services.length > 0 ? (
             <ServiceList services={services} />
           ) : (
-            <NotFound message='No services found.' />
+            <NotFound message='No service found.' />
           )}
         </SubPage>
       </>
@@ -42,7 +41,7 @@ class List extends React.PureComponent {
 
 const mapStateToProps = state => {
   return {
-    services: state.service.services,
+    services: state.service.all_service,
     isLoading: state.service.isLoading
   };
 };

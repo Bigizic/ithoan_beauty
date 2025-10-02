@@ -68,7 +68,7 @@ const OrderDetails = props => {
     );
   } else {
     return (
-      <div className='order-details pd-default'>
+      <div className='order-details'>
         <Row>
           <Col xs='12' md='12'>
             <OrderMeta

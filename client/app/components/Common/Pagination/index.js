@@ -7,10 +7,21 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 
+const scrollToTop = (height = 1000, behavior = 'auto') => {
+  const el = document.querySelector('application')
+  if (el) {
+    el.scrollTo({ top: height, behavior })
+  } else {
+    window.scrollTo({ top: height, behavior })
+  }
+}
+
+
 const Pagination = props => {
   const { totalPages, onPagination, currentPage } = props;
   const handlePageClick = event => {
     onPagination('pagination', event.selected + 1);
+    scrollToTop()
   };
 
   return (

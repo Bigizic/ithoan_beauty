@@ -35,6 +35,7 @@ interface InputProps {
   renderSuggestion?: (suggestion: any) => React.ReactNode;
   inputProps?: any;
   onSearch?: any;
+  toggleMenu?: any;
 }
 
 const Input: React.FC<InputProps> = (props) => {
@@ -64,6 +65,7 @@ const Input: React.FC<InputProps> = (props) => {
     getSuggestionValue,
     renderSuggestion,
     suggestions,
+    toggleMenu,
     ...restProps
   } = props;
   const inputRef = useRef<HTMLDivElement>(null);
@@ -175,6 +177,9 @@ const Input: React.FC<InputProps> = (props) => {
             }}
             onSuggestionSelected={(_: any, { suggestion }: any) => {
               if (suggestion?.slug && history) {
+                if (toggleMenu) {
+                  toggleMenu()
+                }
                 history(`/product/${suggestion.slug}`);
               }
             }}

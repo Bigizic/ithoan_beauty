@@ -1,15 +1,21 @@
 'use client'
 
 import React, { useState } from 'react'
-import Link from 'next/link'
 import { Instagram } from 'lucide-react'
 import RowCarousel from "../Store/Others/RowCarousel"
 import './style.css';
 import instaProductsData from './index.json'
 import ProductImgResolve from '../Store/utils/productImgResolve'
+import { useNavigate } from 'react-router-dom'
 
 const instaUrl = 'https://www.instagram.com/'
-
+{/*<div
+      className="insta-card w-[18em] h-[fit-content]"
+      data-aos="flip-left"
+      data-aos-easing="ease-out-cubic"
+      data-aos-duration="2000"
+      data-aos-once="true"
+    >*/}
 type InstaProduct = {
   title: string
   embed: string
@@ -40,9 +46,9 @@ function findMatchingProducts(
       )
       return match
         ? {
-            ...match,
-            instaImage: insta.embed || insta.imageUrl
-          }
+          ...match,
+          instaImage: insta.embed || insta.imageUrl
+        }
         : null
     })
     .filter((x): x is MatchedProduct => x !== null)
@@ -55,14 +61,11 @@ function Shimmer({ className }: { className: string }) {
 function SingleProductCard({ product }: { product: MatchedProduct }) {
   const [loadedEmbed, setLoadedEmbed] = useState(false)
   const [loadedThumb, setLoadedThumb] = useState(false)
+  const navigate = useNavigate()
 
   return (
     <div
       className="insta-card w-[18em] h-[fit-content]"
-      data-aos="flip-left"
-      data-aos-easing="ease-out-cubic"
-      data-aos-duration="2000"
-      data-aos-once="true"
     >
       {/* Media */}
       <div className="media w-full h-[18em]">
@@ -80,9 +83,9 @@ function SingleProductCard({ product }: { product: MatchedProduct }) {
         </span>
       </div>
 
-      <Link
-        className="product-chip"
-        href={'/product/' + product.slug}
+      <a
+        className="product-chip cursor-pointer"
+        onClick={() => navigate('/product/' + product.slug)}
         aria-label={`Shop ${product.name}`}
       >
         {!loadedThumb && <Shimmer className="thumb-shimmer" />}
@@ -102,7 +105,7 @@ function SingleProductCard({ product }: { product: MatchedProduct }) {
           </div>
           <div className="cta">Tap to Shop</div>
         </div>
-      </Link>
+      </a>
     </div>
   )
 }
@@ -119,11 +122,11 @@ export default function InstagramCard({ products, brandHandle }: InstagramCardPr
     <div className="mb-[2em]">
       {brandHandle && (
         <div>
-          <h2 className="text-xl">Connect with us</h2>
+          <h2 className="text-xl font-extralight">Connect with us</h2>
           <div className="brand-row">
             <Instagram size={16} />
             <span className="brand-name">
-              @ <a target="_blank" href={instaUrl + brandHandle}>{brandHandle}</a>
+              @ <a  className="text-gray-600" target="_blank" href={instaUrl + brandHandle}>{brandHandle}</a>
             </span>
           </div>
         </div>

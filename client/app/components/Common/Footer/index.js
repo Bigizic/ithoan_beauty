@@ -9,7 +9,7 @@ import {
 } from '../../Store/Icons/Socials/index.jsx'
 import { LuInstagram } from "react-icons/lu";
 import { Mail, Phone, MapPin } from 'lucide-react'
-import { STORE_NAME } from '../../../constants/index.js'
+import { INSTAGRAM_LINK, SNAPCHAT_LINK, STORE_NAME, WHATSAPP_URL } from '../../../constants/index.js'
 import Image from 'next/image'
 import Newsletter from '@/containers/Newsletter/index.js'
 import ProductImgResolve from '@/components/Store/utils/productImgResolve'
@@ -42,15 +42,15 @@ export default function Footer() {
               height={100}
               className='h-[40px] w-[48px]'
             />
-            <h3 className='text-lg font-semibold text-white'>{STORE_NAME}</h3>
+            <h3 className='text-lg font-semibold text-white m-0'>{STORE_NAME}</h3>
           </div>
           <p className='text-sm mt-3 text-white'>
             Discover elegant skincare crafted with clean ingredients, delivering timeless radiance, gentle nourishment and confidence every day.
           </p>
           <div className='flex gap-4 mt-4 text-white items-center'>
-            <HyperLink to='/' text={<LuInstagram size={24} />} />
-            <HyperLink to='/' text={<WhatsappIcon />} />
-            <HyperLink to='/' text={<SnapchatIcon />} />
+            <HyperLink to={INSTAGRAM_LINK} text={<LuInstagram size={24} />} />
+            <HyperLink to={WHATSAPP_URL} text={<WhatsappIcon />} />
+            <HyperLink to={SNAPCHAT_LINK} text={<SnapchatIcon />} />
           </div>
         </div>
 
@@ -58,11 +58,11 @@ export default function Footer() {
         <div>
           <h4 className='font-semibold mb-3 text-white'>Company</h4>
           <ul className='space-y-2 text-sm text-white'>
-            <li><HyperLink to='/' text={'About Us'} /></li>
-            <li><HyperLink to='/' text={'Our Ingredients'} /></li>
+            <li><HyperLink to='/about' text={'About Us'} /></li>
+            {/*<li><HyperLink to='/' text={'Our Ingredients'} /></li>*/}
             {/*<li><HyperLink to='/' text={'Sustainability'} /></li>
             <li><HyperLink to='/' text={'blog & tips'} /></li>*/}
-            <li><HyperLink to='/' text={"FAQs"} /></li>
+            <li><HyperLink to='/faq' text={"FAQs"} /></li>
           </ul>
         </div>
 
@@ -70,11 +70,10 @@ export default function Footer() {
         <div>
           <h4 className='font-semibold mb-3 text-white'>Products</h4>
           <ul className='space-y-2 text-sm text-white'>
-            <li><HyperLink to='/' text={'Cleansers'} /></li>
-            <li><HyperLink to='/' text={'Serums'} /></li>
-            <li><HyperLink to='/' text={'Skincare Kits'} /></li>
-            <li><HyperLink to='/' text={'Eye Care'} /></li>
-            <li><HyperLink to='/' text={'Sunscreens'} /></li>
+            <li><HyperLink to='/product/face-cleanser' text={'Cleansers'} /></li>
+            <li><HyperLink to='/product/vitamin-c-face-serum-30ml' text={'Serums'} /></li>
+            <li><HyperLink to='/shop/category/kit' text={'Skincare Kits'} /></li>
+            <li><HyperLink to='/product/sunscreen' text={'Sunscreens'} /></li>
           </ul>
         </div>
 
@@ -83,9 +82,9 @@ export default function Footer() {
           <h4 className='font-semibold mb-3 text-white'>Solutions</h4>
           <ul className='space-y-2 text-sm text-white'>
             <li><HyperLink to='/' text={'Anti-aging Care'} /></li>
-            <li><HyperLink to='/' text={'Hydration & Glow'} /></li>
+            <li><HyperLink to='/product/hydrating-face-toner' text={'Hydration & Glow'} /></li>
             <li><HyperLink to='/' text={'Sensitive Skin Relief'} /></li>
-            <li><HyperLink to='/' text={'Sunburn Oils'} /></li>
+            <li><HyperLink to='/product/sunburn-kit' text={'Sunburn Oils'} /></li>
           </ul>
         </div>
 
@@ -94,7 +93,7 @@ export default function Footer() {
           <h4 className='font-semibold mb-3 text-white'>Contact Information</h4>
           <ul className='space-y-3 text-sm text-white'>
             <li className='flex items-center gap-2'><Phone size={16} />+234 907 769 2506</li>
-            <li className='flex items-center gap-2'><MapPin size={16} />Badore, Ajah, Lagos State</li>
+            <li className='flex items-center gap-2'><MapPin size={16} />Ikorodu, Badore, Ajah, Lagos State</li>
             <li className='flex items-center gap-2'><Mail size={16} />support@tohannieesskincare.com</li>
           </ul>
         </div>

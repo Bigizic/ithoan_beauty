@@ -27,7 +27,6 @@ class Add extends React.PureComponent {
       <SubPage
         title='Add Address'
         actionTitle='Cancel'
-        handleAction={() => history.goBack()}
       >
         <AddAddress
           addressFormData={addressFormData}

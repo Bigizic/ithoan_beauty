@@ -5,6 +5,7 @@ import HyperLink from "../../Store/Tags/Link";
 import ProductImgResolve from "@/components/Store/utils/productImgResolve";
 import Input from "@/components/Store/Tags/Input";
 import { CURRENCY } from "@/constants";
+import { useNavigate } from "react-router-dom";
 
 interface CollectionListProps {
   collections: any[];
@@ -14,33 +15,28 @@ interface CollectionListProps {
 }
 
 const CollectionList = ({ collections, showImage, current_currency, all_currency }: CollectionListProps) => {
+  const navigate = useNavigate()
   if (showImage) {
     return (
       <div className="flex justify-start gap-6 z-20 w-full bg-white">
         {collections?.map((collection, index) => (
-          <div key={index} className="flex flex-col items-start w-[158px] lg:w-[296px]">
-            <HyperLink
-              className="block"
-              type="product"
-              to={`shop/category/${collection.categorySlug}`}
+          <div key={index} className="flex flex-col items-start product-width-controller lg:w-[296px]">
+            <a
+              className="block cursor-pointer"
+              onClick={() => navigate(`shop/category/${collection.categorySlug}`)}
             >
               <ProductImgResolve product={collection.product} />
-            </HyperLink>
+            </a>
 
-            <HyperLink
-              to={`/collection/${collection.categorySlug}`}
-              className="text-xs sm:text-[17px] mt-[1em] w-full overflow-hidden text-left gap-[10px] flex flex-col"
+            <a
+              onClick={() => navigate(`shop/category/${collection.categorySlug}`)}
+              className="text-xs sm:text-[17px] mt-[1em] w-full overflow-hidden text-left gap-[10px] flex flex-col cursor-pointer"
             >
               <Input type="stars" lock={true} value={5} />
               <p className="overflow-x-scroll" style={{ scrollbarWidth: 'none' }}>{collection.categoryName}</p>
-              {/**
-               * <p dangerouslySetInnerHTML={{ __html: collection.products[0].description }}
-                className="overflow-hidden text-ellipsis line-clamp-3"
-              >
-               */}
-               <p className="overflow-x-scroll" style={{ scrollbarWidth: 'none' }}>{collection.product.name}</p>
+              <p className="overflow-x-scroll" style={{ scrollbarWidth: 'none' }}>{collection.product.name}</p>
               <p>{all_currency[current_currency]} {collection.product.price.toLocaleString()}</p>
-            </HyperLink>
+            </a>
           </div>
         ))}
       </div>
@@ -57,10 +53,11 @@ const CollectionList = ({ collections, showImage, current_currency, all_currency
     >
       {collections?.map((collection, index) => (
         <div key={index} className="flex items-center">
-          <HyperLink
-            text={collection.name}
-            to={`/category/${collection.slug}`}
-          />
+          <a
+            onClick={() => navigate(`shop/category/${collection.categorySlug}`)}
+          >
+            {collection.name}
+          </a>
         </div>
       ))}
     </div>

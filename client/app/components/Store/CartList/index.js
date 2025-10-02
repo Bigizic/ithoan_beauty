@@ -6,13 +6,14 @@
 
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 
 import Button from '../../Common/Button';
 
 const CartList = (props) => {
   const { cartItems, handleRemoveFromCart, all_currency, selectCurrency } = props;
+  const navigate = useNavigate()
 
   const handleProductClick = () => {
     props.toggleCart();
@@ -23,7 +24,7 @@ const CartList = (props) => {
   return (
     <div className='cart-list'>
       {cartItems.map((item, index) => (
-        <div key={index} className='item-box'>
+        <div key={index} className='item-box' style={{ marginTop: '2em' }}>
           <div className='item-details'>
             <Container>
               <Row className='mb-2 align-items-center'>
@@ -38,15 +39,17 @@ const CartList = (props) => {
                       }`}
                     />
 
-                    <Link
-                      to={`/product/${item.slug}`}
-                      className='item-link one-line-ellipsis'
-                      onClick={handleProductClick}
+                    <a
+                      className='item-link one-line-ellipsis cursor-pointer'
+                      onClick={() => {
+                        navigate(`/product/${item.slug}`)
+                        handleProductClick()
+                      }}
                     >
                       <h2 className='item-name one-line-ellipsis'>
                         {item.name}
                       </h2>
-                    </Link>
+                    </a>
                   </div>
                 </Col>
                 <Col xs='2' className='text-right'>
@@ -60,14 +63,14 @@ const CartList = (props) => {
                 </Col>
               </Row>
               <Row className='mb-2 align-items-center'>
-                <Col xs='9'>
+                <Col xs='9' style={{ marginTop: '2em' }}>
                   <p className='item-label'>price</p>
                 </Col>
-                <Col xs='3' className='text-right'>
+                <Col style={{ marginTop: '2em' }} xs='3' className='text-right'>
                   <p className='cart_item_price value price'>{all_currency[selectCurrency]}{`${item?.totalPrice.toLocaleString()}`}</p>
                 </Col>
               </Row>
-              <Row className='mb-2 align-items-center'>
+              <Row className='mb-2 align-items-center' style={{ marginBottom: '2em' }}>
                 <Col xs='9'>
                   <p className='item-label'>quantity</p>
                 </Col>

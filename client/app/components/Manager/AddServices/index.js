@@ -65,7 +65,7 @@ const AddServices = props => {
             <Input
               type={'text'}
               error={formErrors['name']}
-              label={'Services Name'}
+              label={'Name'}
               name={'name'}
               placeholder={'Services Category Name'}
               value={servicesFormData.name}
@@ -100,7 +100,7 @@ const AddServices = props => {
           <Col xs='12' md='12'>
             <SelectOption
               error={formErrors['serviceArray']}
-              label={'Select Services'}
+              label={'Select Service'}
               multi={true}
               value={servicesFormData.serviceArray}
               options={services}
@@ -115,8 +115,8 @@ const AddServices = props => {
               type={'images'}
               error={formErrors['images']}
               name={'images'}
-              label={'Services Images (Multiple)'}
-              placeholder={'Upload Services Images'}
+              label={'Images'}
+              placeholder={'Select multiple or one'}
               onInputChange={(name, value) => {
                 servicesChange(name, value);
               }}

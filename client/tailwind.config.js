@@ -30,6 +30,22 @@ module.exports = {
     './app/components/Manager/UserList/index.js',
     './app/components/Manager/AdminOrderAddress/index.js',
     './app/components/Manager/AccountMenu/index.js',
+    './app/containers/Login/index.js',
+    './app/components/HomePageSections/Marquee/index.tsx',
+    './app/components/HomePageSections/ReviewNew/ReviewSection.tsx',
+    './app/components/HomePageSections/ReviewNew/ReviewCard/index.tsx',
+    './app/components/HomePageSections/Ingredients/index.tsx',
+    './app/components/HomePageSections/Ingredients/VitaminC/index.tsx',
+    './app/components/HomePageSections/Ingredients/VitaminC/card.tsx',
+    './app/components/HomePageSections/Ingredients/FacialWash/index.tsx',
+    './app/components/HomePageSections/Ingredients/FacialWash/card.tsx',
+    './app/components/HomePageSections/Ingredients/FaceToner/index.tsx',
+    './app/components/HomePageSections/Ingredients/FaceToner/card.tsx',
+    './app/components/HomePageSections/Ingredients/BodySoap/index.tsx',
+    './app/components/Store/Others/RowCarousel/index.tsx',
+    './app/components/Manager/OrderMeta/index.js',
+    './app/components/Store/ProductReviews/index.js',
+    './app/containers/ProductPage/index.js',
     './app/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
@@ -45,7 +61,8 @@ module.exports = {
       },
       screens: {
         'xss': { 'min': '425px', 'max': '453px' },
-        'xsss': { 'min': '475px', 'max': '765px' }
+        'xsss': { 'min': '475px', 'max': '765px' },
+        'ip': { 'min': '425px', 'max': '765px' }
       },
       colors: {
         body_background: "#fff",
@@ -54,6 +71,7 @@ module.exports = {
         signature: "#da3e8e",
         signaturee: "#da3e8e",
         primary: "#f8effc",
+        primaryy: "#f8effc",
         other: "#ff3860",
         t_beauty: "#F8F0DA",
         text_color: "black",
@@ -84,6 +102,26 @@ module.exports = {
     require("tailwindcss-animate"),
     function ({ addUtilities }) {
       addUtilities({
+        '.bg-other': {
+          'background': '#ff3860',
+          'line-height': '31.2px',
+          'font-weight': '400'
+        },
+        '.custom-overlay': {
+          '@apply absolute md:relative bottom-0 md:top-0 left-0 w-full md:w-[50%] h-fit z-10 pd-default pb-[1em] sm:pb-0': {}
+        },
+        '.overlay-full': {
+          '@apply absolute flex left-0 top-0 w-full h-full z-10 sm:pb-0': {}
+        },
+        '.product-width-controller': {
+          'width': '150px',
+          '@screen ip': {
+            'width': '158px'
+          },
+          '@screen lg': {
+            'width': '296px'
+          }
+        },
         '.margin-top-compact': {
           'margin-top': '10em',
           '@screen lg': {

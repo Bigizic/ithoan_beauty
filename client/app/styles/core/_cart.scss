@@ -55,23 +55,31 @@
 
   .item-box {
     border-bottom: $border-default;
-    padding: 10px 20px;
+    //padding: 10px 20px;
     margin-bottom: 5px;
+    padding: 0 0 10px 0;
 
     &:last-child {
       border-bottom: none;
     }
 
+    .item-name {
+      font-size: 14px !important;
+      @include media-breakpoint-up(md) {
+        font-size: 16px !important;
+      }
+    }
+
     .value {
       color: $font-custom-color;
-      font-weight: $font-weight-normal;
-      font-size: $font-size-xx-large;
+      font-weight: 100 !important;
+      font-size: 14px;
     }
 
     .item-details {
       .item-image {
-        width: 80px;
-        height: 80px;
+        width: 68px;
+        height: 68px;
         object-fit: cover;
         border-radius: $border-radius-default;
       }
@@ -84,6 +92,8 @@
 
       p {
         margin-bottom: 0;
+        font-size: 14px !important;
+        font-weight: 500 !important;
       }
     }
   }

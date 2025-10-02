@@ -31,7 +31,7 @@ class Review extends React.PureComponent {
       rejectReview,
       deleteReview
     } = this.props;
-
+    const { currentPage } = advancedFilters;
     const displayPagination = advancedFilters.totalPages > 1;
     const displayReviews = reviews && reviews.length > 0;
 
@@ -44,6 +44,7 @@ class Review extends React.PureComponent {
             <Pagination
               totalPages={advancedFilters.totalPages}
               onPagination={fetchReviews}
+              currentPage={currentPage}
             />
           )}
           {displayReviews && (

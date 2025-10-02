@@ -4,8 +4,8 @@
  *
  */
 
-export const FETCH_SERVICES = 'src/Service/FETCH_SERVICES';
-export const FETCH_SERVICE = 'src/Service/FETCH_SERVICE';
+export const FETCH_ALL_SERVICE = 'src/Service/FETCH_ALL_SERVICE';
+export const FETCH_A_SERVICE = 'src/Service/FETCH_A_SERVICE';
 export const SERVICE_CHANGE = 'src/Service/SERVICE_CHANGE';
 export const SERVICE_EDIT_CHANGE = 'src/Service/SERVICE_EDIT_CHANGE';
 export const SET_SERVICE_FORM_ERRORS = 'src/Service/SET_SERVICE_FORM_ERRORS';

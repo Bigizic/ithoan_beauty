@@ -9,6 +9,8 @@ interface RowCarouselProps {
   buttonClassRightName?: string;
   leftArrow?: boolean;
   rightArrow?: boolean;
+  className?: string;
+  secClassName?: string;
 }
 
 const RowCarousel: React.FC<RowCarouselProps> = ({ 
@@ -16,8 +18,10 @@ const RowCarousel: React.FC<RowCarouselProps> = ({
   buttonClassName = "", 
   buttonClassLeftName = "", 
   buttonClassRightName = "", 
-  leftArrow, 
-  rightArrow 
+  leftArrow,
+  rightArrow,
+  className,
+  secClassName
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +38,7 @@ const RowCarousel: React.FC<RowCarouselProps> = ({
   };
 
   return (
-    <div className="relative w-full overflow-hidden flex flex-row">
+    <div className={className ? className : "relative w-full overflow-hidden flex flex-row"}>
       {/* left button */}
       <div
         onClick={scrollLeft}
@@ -43,7 +47,7 @@ const RowCarousel: React.FC<RowCarouselProps> = ({
           absolute top-1/2 -translate-y-1/2 
           bg-white text-black rounded-full cursor-pointer 
           p-4 w-10 h-10 justify-center items-center 
-          hidden sm:flex
+          hidden sm:flex left-0
           ${buttonClassName} ${buttonClassLeftName}
         `}
       >
@@ -53,7 +57,7 @@ const RowCarousel: React.FC<RowCarouselProps> = ({
       {/* scrollable content */}
       <div
         ref={scrollRef}
-        className="flex gap-8 overflow-x-auto scroll-smooth whitespace-nowrap sm:px-0 no-scrollbar"
+        className={secClassName ? secClassName : "flex gap-8 overflow-x-auto scroll-smooth whitespace-nowrap sm:px-0 no-scrollbar"}
       >
         {children}
       </div>

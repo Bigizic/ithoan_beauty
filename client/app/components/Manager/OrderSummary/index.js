@@ -13,7 +13,7 @@ const OrderSummary = props => {
 
   return (
     <Col className='order-summary pt-3'>
-      <h2>Order Summary</h2>
+      <h2 className='text-xl font-extrabold'>Order Summary</h2>
       <div className='d-flex align-items-center summary-item'>
         <p className='summary-label'>Subtotal: </p>
         <p className='summary-value ml-auto'>{all_currency[order.currency]}{(subTotal).toLocaleString()}</p>

@@ -30,7 +30,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         />
         <div className="flex-1 pl-3">
           <div className="flex justify-between items-center">
-            <h3 className="m-0 text-lg font-bold">{review.user.name}</h3>
+            <h3 className="m-0 text-md font-bold text-white">{review.user.name}</h3>
             {review.link && (
               <HyperLink
                 target="_blank"
@@ -40,7 +40,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
               />
             )}
           </div>
-          <p className="m-0 text-sm italic text-gray-300">customer</p>
+          <p className="m-0 text-xs italic text-gray-300">customer</p>
         </div>
         <span className="text-pink-500 text-3xl font-bold ml-2">❝</span>
       </div>

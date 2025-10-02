@@ -7,6 +7,7 @@ import bannerConfig from "../../Store/utils/bannersSettings"
 import HyperLink from "../../Store/Tags/Link"
 import ProductImgResolve from "@/components/Store/utils/productImgResolve"
 import ScrollTranslate from "@/components/Common/ScrollTranslate"
+import { useNavigate } from "react-router-dom"
 
 interface Banner {
   imageUrl: string
@@ -38,8 +39,9 @@ const Banners: React.FC<BannersProps> = (props) => {
     imageContainerWidth, textWrapper,
     scrollClass, hmm,
     subDataAosDelay, titleDataAosDelay,
-    useBackground=false, backgroundClassName,
-  } = props
+    useBackground = false, backgroundClassName,
+  } = props;
+  const navigate = useNavigate()
   let bannerSetting = bannerConfig(banners) || {}
 
   if (banners) {
@@ -70,10 +72,7 @@ const Banners: React.FC<BannersProps> = (props) => {
             >
               {/* text wrapper with background */}
               <div
-                className={`${textWrapper ? textWrapper : `absolute md:relative bottom-0 md:top-0 left-0 w-full md:w-[50%] h-fit 
-                           bg-gradient-to-b from-black/0 via-black/40 to-black/70 
-                           md:bg-gradient-to-b md:from-black/0 md:via-black/0 md:to-black/0 
-                           z-10 pd-default pb-[1em] sm:pb-0` }`}
+                className={`${textWrapper ? textWrapper : `custom-overlay`}`}
               >
                 {/* moving text content */}
                 <ScrollTranslate multiplier={0.2} className={scrollClass ? scrollClass : "flex flex-col justify-center items-center md:items-start"}>
@@ -92,7 +91,7 @@ const Banners: React.FC<BannersProps> = (props) => {
                     {item.sub}
                   </p>
                   {item.link &&
-                    <HyperLink to={item.link} className="mt-4 mb-4 p-0">
+                    <a onClick={() => navigate(item.link)} className="mt-4 mb-4 p-0">
                       {item.btnText &&
                         <button
                           className="rounded-[5px] bg-other text-white p-[4px] sm:p-[8px] px-[8px] sm:px-[16px] text-[14px] sm:text-[16px]"
@@ -100,7 +99,7 @@ const Banners: React.FC<BannersProps> = (props) => {
                           {item.btnText}
                         </button>
                       }
-                    </HyperLink>
+                    </a>
                   }
                 </ScrollTranslate>
               </div>

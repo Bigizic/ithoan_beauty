@@ -18,7 +18,7 @@ const ProductImgResolve: React.FC<ProductImgResolveProps> = ({
   if (product?.imageUrl) {
     return (
       <img
-        className="w-[158px] h-[189px] lg:w-[296px] lg:h-[364.8px] rounded-[10px]"
+        className="product-width-controller h-[189px] lg:w-[296px] lg:h-[364.8px] rounded-[10px]"
         alt="product image"
         src={product.imageUrl}
         {...restProps}

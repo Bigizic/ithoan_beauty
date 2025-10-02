@@ -36,11 +36,11 @@ const AddBanner = props => {
         <Row>
           <Col xs='12' md='12'>
             <Input
-              type={'image'}
-              error={formErrors.image}
-              name={'image'}
-              label={'Upload Image'}
-              placeholder={'Please Upload Image'}
+              type={'images'}
+              error={formErrors['images']}
+              name={'images'}
+              label={'Images'}
+              placeholder={'Select multiple or one'}
               onInputChange={(name, value) => {
                 bannerChange(name, value);
               }}

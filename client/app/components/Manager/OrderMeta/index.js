@@ -13,9 +13,11 @@ import { formatDate } from '../../../utils/date';
 import Button from '../../Common/Button';
 import { ArrowBackIcon } from '../../Common/Icon';
 import PaymentGateway from '../../../containers/PaymentGateway';
+import { useNavigate } from 'react-router-dom';
 
 const OrderMeta = props => {
   const { order, cancelOrder, onBack, makePaymentUnpaidOrder } = props;
+  const navigate = useNavigate()
   const [isPaymentGatewayActive, setIsPaymentGatewayActive] = useState(false);
 
   const subTotal = order.products.reduce((sum, product) => {
@@ -32,43 +34,44 @@ const OrderMeta = props => {
 
   const OrderStatusAction = (orderId, orderStatus, subTotal) => {
     return (
-        <div style={{ width: 'fit-content', marginBottom: '15px', marginLeft: '0px' }} className='d-flex flex-column align-items-left justify-content-left p-2'>
-          <Button
-            variant='primary'
-            id='CancelOrderItemPopover'
-            size='sm'
-            text={orderStatus === 'false' && 'Make payment'}
-            role='menuitem'
-            className='cancel-order-btn'
-            onClick={() => {
-              setIsPaymentGatewayActive(true);
-              makePaymentUnpaidOrder(orderId, subTotal);
-            }}
-          />
-        </div>
+      <div style={{ width: 'fit-content', marginBottom: '15px', marginLeft: '0px' }} className='d-flex flex-column align-items-left justify-content-left p-2'>
+        <Button
+          variant='primary'
+          id='CancelOrderItemPopover'
+          size='sm'
+          text={orderStatus === 'false' && 'Make payment'}
+          role='menuitem'
+          className='cancel-order-btn'
+          onClick={() => {
+            setIsPaymentGatewayActive(true);
+            makePaymentUnpaidOrder(orderId, subTotal);
+          }}
+        />
+      </div>
     );
   };
 
   return (
     <div className='order-meta'>
-      <div>
-        { order.status === 'false' &&
-          <div className='text-left mt-2 mt-md-0'>
-            <h2>You can make payment for this order</h2>
-              {OrderStatusAction(order._id, order.status, subTotal)}
-          </div>
-        }
-        {isPaymentGatewayActive && <PaymentGateway />}
-      </div>
       <div className='d-flex align-items-center justify-content-between mb-3 title'>
-        <h2 className='mb-0'>Order Details</h2>
+        <h2 className='mb-0 text-xl font-extrabold'>Order Details</h2>
         <Button
           variant='link'
           icon={<ArrowBackIcon />}
           size='sm'
           text='Back to orders'
-          onClick={onBack}
+          onClick={() => navigate('/dashboard/orders')}
         ></Button>
+      </div>
+
+      <div>
+        {order.status === 'false' &&
+          <div className='mt-2 mt-md-0 flex flex-col items-center'>
+            <h2 className='font-bold font-2xl'>You can make payment for this order</h2>
+            {OrderStatusAction(order._id, order.status, subTotal)}
+          </div>
+        }
+        {isPaymentGatewayActive && <PaymentGateway />}
       </div>
 
       <Row>

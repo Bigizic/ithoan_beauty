@@ -35,6 +35,9 @@
 .order-success {
   .order-message {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .order-success-actions {
@@ -126,7 +129,14 @@
     }
 
     .item-details {
-      max-width: 200px;
+      //max-width: 200px;
+      width: 100%;
+
+      .item-link {
+        .item-name {
+          font-size: 16px !important;
+        }
+      }
     }
 
     .item-image {

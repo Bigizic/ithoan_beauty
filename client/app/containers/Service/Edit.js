@@ -16,14 +16,14 @@ class Edit extends React.PureComponent {
   componentDidMount() {
     this.props.resetService();
     const serviceId = this.props.match.params.id;
-    this.props.fetchService(serviceId);
+    this.props.fetchAService(serviceId);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.id !== prevProps.match.params.id) {
       this.props.resetService();
       const serviceId = this.props.match.params.id;
-      this.props.fetchService(serviceId);
+      this.props.fetchAService(serviceId);
     }
   }
 

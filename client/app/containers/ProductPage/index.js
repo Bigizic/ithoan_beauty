@@ -23,6 +23,7 @@ import SocialShare from '../../components/Store/SocialShare';
 import { currencyFunction } from '../../components/Common/currency/currency_function';
 import { Shimmer } from '../../components/Common/shimmerEffect';
 import RelatedProducts from '../RelatedProducts';
+import { ShoppingCart } from 'lucide-react';
 
 const MyComponent = (props) => {
   const { all_currency, selectCurrency, productPrice, productDiscountPrice } = props;
@@ -147,19 +148,19 @@ class ProductPage extends React.PureComponent {
     let filteredRelatedProducts = relatedProducts.filter(x => x.name !== product.name);
 
     return (
-      <div className='product-shop mt-[12em] lg:mt-[18em]'>
+      <div className='product-shop mt-[12em] lg:mt-[18em] pd-default'>
         {isLoading ? (
           <LoadingIndicator />
         ) : Object.keys(product).length > 0 ? (
           <>
             <Row className='flex-row'>
-              <Col xs='12' md='5' lg='5' className='mb-3 px-3 px-md-2'>
+              <Col xs='12' md='5' lg='5' className='mb-3 md:px-3'>
                 <div className='position-relative'>
                   <img
                     className='item-image'
                     src={`${product.imageUrl
-                        ? product.imageUrl
-                        : '/images/placeholder-image.png'
+                      ? product.imageUrl
+                      : '/images/placeholder-image.png'
                       }`}
                   />
                   {product.inventory <= 0 && !shopFormErrors['quantity'] ? (
@@ -169,7 +170,7 @@ class ProductPage extends React.PureComponent {
                   )}
                 </div>
               </Col>
-              <Col xs='12' md='7' lg='7' className='mb-3 px-3 px-md-2'>
+              <Col xs='12' md='7' lg='7' className='mb-3 md:px-3'>
                 <div className='product-container'>
                   <div className='item-box'>
                     <div className='item-details'>
@@ -189,42 +190,44 @@ class ProductPage extends React.PureComponent {
                       </div>
                     </div>
 
-                    <div className='item-customize'>
-                      <Input
-                        type={'increment'}
-                        error={shopFormErrors['quantity']}
-                        label={'Quantity '}
-                        name={'quantity'}
-                        decimals={false}
-                        min={1}
-                        max={product.inventory}
-                        placeholder={'Product Quantity'}
-                        disabled={
-                          product.inventory <= 0 && !shopFormErrors['quantity']
-                        }
-                        value={productShopData.quantity}
-                        onInputChange={(name, value) => {
-                          productShopChange(name, value);
-                        }}
-                      />
-                    </div>
+                    <div className='flex flex-col'>
+                      <div className='item-customize'>
+                        <Input
+                          type={'increment'}
+                          error={shopFormErrors['quantity']}
+                          label={'Quantity '}
+                          name={'quantity'}
+                          decimals={false}
+                          min={1}
+                          max={product.inventory}
+                          placeholder={'Product Quantity'}
+                          disabled={
+                            product.inventory <= 0 && !shopFormErrors['quantity']
+                          }
+                          value={productShopData.quantity}
+                          onInputChange={(name, value) => {
+                            productShopChange(name, value);
+                          }}
+                        />
+                      </div>
 
-                    <div>
-                      {product.quantity > 0 ?
-                        (product.oldQuantity > 0 ?
-                          (
-                            <span style={{ padding: '4px 8px', color: '#fff', background: '#da3e8e', fontSize: '11px', border: '0px', borderRadius: '50px', height: '22px', display: 'inline-block' }}>{product.oldQuantity} in stock</span>
+                      <div className=''>
+                        {product.quantity > 0 ?
+                          (product.oldQuantity > 0 ?
+                            (
+                              <span style={{ padding: '4px 8px', color: '#fff', background: '#da3e8e', fontSize: '11px', border: '0px', borderRadius: '5px', display: 'inline-block' }}>{product.oldQuantity} in stock</span>
+                            )
+                            :
+                            (
+                              <span style={{ padding: '4px 8px', color: '#fff', background: '#da3e8e', fontSize: '11px', border: '0px', borderRadius: '5px', display: 'inline-block' }}>{product.quantity} in stock</span>
+                            )
                           )
                           :
                           (
-                            <span style={{ padding: '4px 8px', color: '#fff', background: '#da3e8e', fontSize: '11px', border: '0px', borderRadius: '50px', height: '22px', display: 'inline-block' }}>{product.quantity} in stock</span>
+                            <span style={{ padding: '4px 8px', color: '#fff', background: '#da3e8e', fontSize: '11px', border: '0px', borderRadius: '5px', display: 'inline-block' }}>out of stock</span>
                           )
-                        )
-                        :
-                        (
-                          <span style={{ padding: '4px 8px', color: '#fff', background: '#da3e8e', fontSize: '11px', border: '0px', borderRadius: '50px', height: '22px', display: 'inline-block' }}>out of stock</span>
-                        )
-                      }
+                        }
+                      </div>
                     </div>
 
                     <div className='item-actions'>
@@ -237,7 +240,7 @@ class ProductPage extends React.PureComponent {
                           }
                           text='Remove From Cart'
                           className='bag-btn product-page-remove-from-cart'
-                          icon={<BagIcon />}
+                          icon={<ShoppingCart />}
                           onClick={() => handleRemoveFromCart(product)}
                         />
                       ) : (
@@ -248,7 +251,7 @@ class ProductPage extends React.PureComponent {
                           }
                           text='Add To Cart'
                           className='bag-btn product-page-add-to-cart'
-                          icon={<BagIcon />}
+                          icon={<ShoppingCart />}
                           onClick={() => handleAddToCart(product)}
                         />
                       )}
@@ -274,8 +277,7 @@ class ProductPage extends React.PureComponent {
 
                 <div className='related_products'>
                   <div className="homepage_category_h2_text_container relatedProducts_h2_text_container">
-                    <h2 className='related-product-h2'>{filteredRelatedProducts.length > 1 ? "Related Products" : "Related Product"}</h2>
-                    <span></span>
+                    <h2 data-aos="fade-right" data-aos-once="false" className='related-product-h2'>{filteredRelatedProducts.length > 1 ? "Related Products" : "Related Product"}</h2>
                   </div>
 
                   <div className='related_products_container'>

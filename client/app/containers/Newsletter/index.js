@@ -44,9 +44,9 @@ class Newsletter extends React.PureComponent {
             <Input
               placeholder={'Enter Your Email'}
               type={'email'}
-              className='py-[8px] px-[15px] text-black'
+              className='py-[8px] px-[15px] text-black newsletter-input-footer'
               data-aos="fade-right"
-              data-aos-once="false"
+              data-aos-once="true"
               inlineElement={SubBtn}
               error={formErrors['email']}
               value={email}
@@ -64,7 +64,7 @@ class Newsletter extends React.PureComponent {
 const SubBtn = (
   <Button
     type='submit'
-    data-aos="fade-left" data-aos-once="false"
+    data-aos="fade-left" data-aos-once="true"
     text={'→'}
     fontSize={'14px'}
     className='w-[fit-content] px-[1em] bg-signature border-none rounded-[5px]'

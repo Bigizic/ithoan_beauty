@@ -58,7 +58,15 @@ class RangeSlider extends React.Component {
   };
 
   render() {
-    const { type, marks, step, defaultValue, min, max, allowCross, all_currency, selectCurrency } = this.props;
+    const {
+      type = 'range',
+      marks, step,
+      defaultValue,
+      min, max,
+      allowCross = true,
+      all_currency,
+      selectCurrency
+    } = this.props;
     const { sliderValue, rangeValue } = this.state;
 
     return (
@@ -99,10 +107,5 @@ class RangeSlider extends React.Component {
     );
   }
 }
-
-RangeSlider.defaultProps = {
-  type: 'range',
-  allowCross: true
-};
 
 export default RangeSlider;

@@ -73,7 +73,7 @@ const ProductList = (props) => {
   return (
     <div className={parentClassName ? parentClassName + ' gap-6 z-20 bg-white text-left' : " flex felx-row gap-6 z-20 bg-white text-left"}>
       {products && products.map((product, index) => (
-        <div key={index} className="w-[158px] lg:w-[296px] relative">
+        <div key={index} className="product-width-controller relative">
           <div className='add-wishlist-box w-full absolute left-[6px] top-[6px]'>
             <AddToWishList
               id={product._id}

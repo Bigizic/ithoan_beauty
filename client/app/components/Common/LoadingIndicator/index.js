@@ -7,7 +7,7 @@
 import React from 'react';
 
 const LoadingIndicator = props => {
-  const { inline, backdrop } = props;
+  const { inline = false, backdrop = false } = props;
 
   return (
     <div
@@ -22,11 +22,6 @@ const LoadingIndicator = props => {
       ></div>
     </div>
   );
-};
-
-LoadingIndicator.defaultProps = {
-  inline: false,
-  backdrop: false
 };
 
 export default LoadingIndicator;

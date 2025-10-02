@@ -17,6 +17,7 @@ import LoadingIndicator from '../../Common/LoadingIndicator';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { formatSelectOptions, unformatSelectOptions } from '@/utils/select';
 
 /**
  * Description Box Component
@@ -37,7 +38,7 @@ const DescriptionBox = (props) => {
         }}
         placeholder="Enter services description..."
       />
-      <span style={{color: 'red'}} className='invalid-message'>{error && error[0]}</span>
+      <span style={{ color: 'red' }} className='invalid-message'>{error && error[0]}</span>
     </div>
   );
 };
@@ -50,7 +51,8 @@ const EditServices = props => {
     updateServices,
     deleteServices,
     services,
-    isLoading
+    isLoading,
+    servicesList
   } = props;
 
   const handleSubmit = event => {
@@ -58,15 +60,12 @@ const EditServices = props => {
     updateServices();
   };
 
+  const fs = formatSelectOptions(servicesItem.serviceArray)
+  console.log({fs})
+
   return (
     <div className='edit-services'>
       {isLoading && <LoadingIndicator />}
-      <div className='d-flex flex-row mx-0 mb-3'>
-        <label className='mr-1'>Services link </label>
-        <Link to={`/services/${servicesItem.slug}`} className='default-link'>
-          {servicesItem.slug}
-        </Link>
-      </div>
 
       <form onSubmit={handleSubmit} noValidate>
         <Row>
@@ -78,20 +77,6 @@ const EditServices = props => {
               name={'name'}
               placeholder={'Services Name'}
               value={servicesItem.name}
-              onInputChange={(name, value) => {
-                servicesChange(name, value);
-              }}
-            />
-          </Col>
-
-          <Col xs='12' className='p-0 m-0'>
-            <Input
-              type={'text'}
-              error={formErrors['slug']}
-              label={'Slug'}
-              name={'slug'}
-              placeholder={'Services Slug'}
-              value={servicesItem.slug}
               onInputChange={(name, value) => {
                 servicesChange(name, value);
               }}
@@ -116,21 +101,7 @@ const EditServices = props => {
             <DescriptionBox
               error={formErrors['description']}
               servicesChange={servicesChange}
-             servicesItem={servicesItem}
-            />
-          </Col>
-
-          <Col xs='12' md='12'>
-            <Input
-              type={'images'}
-              error={formErrors['images']}
-              name={'images'}
-              label={'Services Images (Multiple)'}
-              placeholder={'Upload Services Images'}
-              value={servicesItem.imageUrl} // Pass existing images
-              onInputChange={(name, value) => {
-                servicesChange(name, value);
-              }}
+              servicesItem={servicesItem}
             />
           </Col>
 
@@ -139,10 +110,24 @@ const EditServices = props => {
               error={formErrors['serviceArray']}
               label={'Select Services'}
               multi={true}
-              defaultValue={servicesItem.serviceArray}
-              options={services}
+              defaultValue={fs}
+              options={servicesList}
               handleSelectChange={value => {
                 servicesChange('serviceArray', value);
+              }}
+            />
+          </Col>
+
+          <Col xs='12' md='12'>
+            <Input
+              type={'images'}
+              error={formErrors['images']}
+              name={'images'}
+              label={'Images'}
+              value={servicesItem.imageUrl}
+              placeholder={'Select multiple or one'}
+              onInputChange={(name, value) => {
+                servicesChange(name, value);
               }}
             />
           </Col>

@@ -121,7 +121,7 @@ export const googleSignin = (credential) => {
     try {
       dispatch({ type: SET_LOGIN_SUBMITTING, payload: true });
       dispatch({ type: SET_LOGIN_LOADING, payload: true });
-                                     
+
       const response = await axios.post(`${API_URL}/auth/google/signin`, credential);
       const userid = response.data.user.id
 
@@ -192,7 +192,6 @@ export const signOut = () => {
 
     dispatch(clearAuth());
     dispatch(clearAccount());
-    dispatch(push('/login'));
 
     localStorage.removeItem('token');
 

@@ -1,6 +1,6 @@
 /**
  *
- * Badge
+ * badge
  *
  */
 
@@ -15,15 +15,18 @@ const variants = {
   empty: ''
 };
 
-const Badge = props => {
-  const { variant, className, borderless, round, children } = props;
-
+const Badge = ({
+  variant = 'secondary',
+  className = '',
+  borderless = false,
+  round = 3,
+  children
+}) => {
   const v = variant ? variants[variant] : '';
-
   const badgeVariant = v;
 
-  const classNames = `custom-badge${`${className && ` ${className}`}`}${
-    badgeVariant && ` ${badgeVariant}`
+  const classNames = `custom-badge${className ? ` ${className}` : ''}${
+    badgeVariant ? ` ${badgeVariant}` : ''
   }`;
 
   return (
@@ -36,13 +39,6 @@ const Badge = props => {
       {children}
     </span>
   );
-};
-
-Badge.defaultProps = {
-  variant: 'secondary',
-  className: '',
-  borderless: false,
-  round: 3
 };
 
 export default Badge;

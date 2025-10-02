@@ -258,7 +258,7 @@ export const handleCart = () => {
   };
 };
 
-export const handleCheckout = () => {
+export const handleCheckout = (navigate) => {
   return (dispatch, getState) => {
     const successfulOptions = {
       title: `Please Login to proceed to checkout`,
@@ -267,7 +267,7 @@ export const handleCheckout = () => {
     };
 
     dispatch(toggleCart());
-    dispatch(push('/login'));
+    navigate('/login');
     dispatch(success(successfulOptions));
   };
 };

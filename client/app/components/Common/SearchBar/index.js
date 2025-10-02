@@ -60,13 +60,13 @@ class SearchBar extends React.Component {
 
   render() {
     const {
-      id,
-      name,
-      placeholder,
-      className,
-      inlineBtn,
-      btnText,
-      autoComplete
+      id = 'search',
+      name = 'search',
+      placeholder = 'Search',
+      className = '',
+      inlineBtn = true,
+      btnText = 'Search',
+      autoComplete = 'off'
     } = this.props;
     const { value } = this.state;
 
@@ -100,15 +100,5 @@ class SearchBar extends React.Component {
     );
   }
 }
-
-SearchBar.defaultProps = {
-  className: '',
-  id: 'search',
-  name: 'search',
-  placeholder: 'Search',
-  inlineBtn: true,
-  btnText: 'Search',
-  autoComplete: 'off'
-};
 
 export default SearchBar;

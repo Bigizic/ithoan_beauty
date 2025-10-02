@@ -49,6 +49,7 @@ class List extends React.PureComponent {
 
   render() {
     const { user, orders, isLoading, advancedFilters, all_currency } = this.props;
+    const { currentPage } = advancedFilters
     const { search } = this.state;
     const isSearch = search.length > 0;
     const filteredOrders = search
@@ -81,6 +82,7 @@ class List extends React.PureComponent {
                 <Pagination
                   totalPages={advancedFilters.totalPages}
                   onPagination={this.handleOnPagination}
+                  currentPage={currentPage}
                 />
               )}
 

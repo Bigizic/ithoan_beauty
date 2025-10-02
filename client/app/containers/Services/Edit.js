@@ -39,6 +39,8 @@ class Edit extends React.PureComponent {
       isLoading
     } = this.props;
 
+    console.log(servicesItem)
+
     return (
       <SubPage
         title='Edit Services'
@@ -46,7 +48,7 @@ class Edit extends React.PureComponent {
       >
         {servicesItem?._id ? (
           <EditServices
-            services={servicesItem}
+            servicesItem={servicesItem}
             formErrors={formErrors}
             servicesChange={servicesEditChange}
             updateServices={updateServices}

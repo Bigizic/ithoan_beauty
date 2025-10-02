@@ -9,8 +9,8 @@ import { success } from 'react-notification-system-redux';
 import axios from 'axios';
 
 import {
-  FETCH_SERVICES,
-  FETCH_SERVICE,
+  FETCH_ALL_SERVICE,
+  FETCH_A_SERVICE,
   SERVICE_CHANGE,
   SERVICE_EDIT_CHANGE,
   SET_SERVICE_FORM_ERRORS,
@@ -61,7 +61,7 @@ export const setServiceLoading = value => {
 };
 
 // fetch services api
-export const fetchServices = () => {
+export const fetchAllService = () => {
   return async (dispatch, getState) => {
     try {
       dispatch({ type: SET_SERVICES_LOADING, payload: true });
@@ -69,7 +69,7 @@ export const fetchServices = () => {
       const response = await axios.get(`${API_URL}/service`);
 
       dispatch({
-        type: FETCH_SERVICES,
+        type: FETCH_ALL_SERVICE,
         payload: response.data.services
       });
     } catch (error) {
@@ -81,13 +81,13 @@ export const fetchServices = () => {
 };
 
 // fetch service api
-export const fetchService = serviceId => {
+export const fetchAService = serviceId => {
   return async (dispatch, getState) => {
     try {
       const response = await axios.get(`${API_URL}/service/${serviceId}`);
 
       dispatch({
-        type: FETCH_SERVICE,
+        type: FETCH_A_SERVICE,
         payload: response.data.service
       });
     } catch (error) {
@@ -117,6 +117,7 @@ export const fetchServicesSelect = () => {
 // add service api
 export const addService = () => {
   return async (dispatch, getState) => {
+    dispatch(setServiceLoading(true))
     try {
       const rules = {
         name: 'required',
@@ -144,9 +145,9 @@ export const addService = () => {
       const formData = new FormData();
       for (const key in service) {
         if (service.hasOwnProperty(key)) {
-          if (key === 'images' && service[key]) {
-            for (let i = 0; i < service[key].length; i++) {
-              formData.append('images', service[key][i]);
+          if (key === 'images' && service[key] && service[key].length > 0) {
+            for (let i = 0; i < service[key].newFiles.length; i++) {
+              formData.append('images', service[key].newFiles[i].file || service[key].newFiles[i]);
             }
           } else {
             formData.set(key, service[key]);
@@ -170,12 +171,13 @@ export const addService = () => {
           type: ADD_SERVICE,
           payload: response.data.service
         });
-
-        dispatch(goBack());
         dispatch({ type: RESET_SERVICE });
+        dispatch(goBack());
       }
     } catch (error) {
       handleError(error, dispatch);
+    } finally {
+      dispatch(setServiceLoading(false))
     }
   };
 };
@@ -183,6 +185,7 @@ export const addService = () => {
 // update service api
 export const updateService = () => {
   return async (dispatch, getState) => {
+    dispatch(setServiceLoading(true))
     try {
       const rules = {
         name: 'required',
@@ -201,8 +204,10 @@ export const updateService = () => {
         price: service.price,
         duration: service.duration,
         discount: service.discount,
-        isActive: service.isActive
+        isActive: service.isActive,
+        //images: service.images
       };
+
 
       const { isValid, errors } = allFieldsValidation(newService, rules, {
         'required.name': 'Name is required.',
@@ -223,11 +228,11 @@ export const updateService = () => {
       const formData = new FormData();
       for (const key in newService) {
         if (newService.hasOwnProperty(key)) {
-          if (key === 'images' && newService[key]) {
+          if (key === 'images' && newService[key] && newService[key].length > 0) {
             // Handle new image files
             if (newService[key].newFiles) {
               for (let i = 0; i < newService[key].newFiles.length; i++) {
-                formData.append('images', newService[key].newFiles[i]);
+                formData.append('images', newService[key].newFiles[i].file || newService[key].newFiles[i]);
               }
             }
             // Keep existing images
@@ -235,7 +240,7 @@ export const updateService = () => {
               formData.set('existingImages', JSON.stringify(newService[key].existingImages));
             }
           } else {
-          formData.set(key, newService[key]);
+            formData.set(key, newService[key]);
           }
         }
       }
@@ -256,13 +261,16 @@ export const updateService = () => {
       }
     } catch (error) {
       handleError(error, dispatch);
+    } finally {
+      dispatch(setServiceLoading(false))
     }
   };
 };
 
 // delete service api
-export const deleteService = id => {
+export const deleteService = (id) => {
   return async (dispatch, getState) => {
+    dispatch(setServiceLoading(true))
     try {
       const response = await axios.delete(`${API_URL}/service/delete/${id}`);
 
@@ -282,6 +290,8 @@ export const deleteService = id => {
       }
     } catch (error) {
       handleError(error, dispatch);
+    } finally {
+      dispatch(setServiceLoading(false))
     }
   };
 };

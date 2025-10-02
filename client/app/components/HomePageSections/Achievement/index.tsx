@@ -12,31 +12,37 @@ const Counter = ({ end, duration = 2000, suffix = '' }: CounterProps) => {
   const [count, setCount] = useState(0)
   const [hasAnimated, setHasAnimated] = useState(false)
   const ref = useRef<HTMLSpanElement | null>(null)
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {
         const entry = entries[0]
         if (entry.isIntersecting && !hasAnimated) {
-          let start = 0
-          const stepTime = Math.abs(Math.floor(duration / end))
-          const timer = setInterval(() => {
-            start += 1
-            setCount(start)
-            if (start === end) {
-              clearInterval(timer)
-              setHasAnimated(true) // mark as finished so it won’t run again
-            }
+          const stepTime = Math.max(1, Math.floor(duration / end))
+          let current = 0
+          timerRef.current = setInterval(() => {
+            current += 1
+            setCount(prev => {
+              if (prev >= end) {
+                clearInterval(timerRef.current as NodeJS.Timeout)
+                setHasAnimated(true)
+                return end
+              }
+              return current
+            })
           }, stepTime)
         }
       },
-      { threshold: 0.5 } // trigger when 50% of element is visible
+      { threshold: 0.5 }
     )
 
     if (ref.current) observer.observe(ref.current)
 
     return () => {
       if (ref.current) observer.unobserve(ref.current)
+      if (timerRef.current) clearInterval(timerRef.current)
+      observer.disconnect()
     }
   }, [end, duration, hasAnimated])
 
@@ -47,13 +53,19 @@ const Achievement = () => {
   return (
     <div className="font-poppins flex flex-col text-[12px] md:text-[15px] lg:text-xl pd-default gap-[2em] mt-[2em]">
       <div className="flex flex-col items-center gap-0 lg:gap-[.5em] heading-text">
-        <div className='font-spectral flex flex-row items-center heading-inherit-text'>
+        <div className='hidden md:flex font-spectral flex-row items-center heading-inherit-text'>
           <span data-aos="fade-right" data-aos-once="true" className='heading-inherit-text'>
             Luxury Skin&nbsp;
           </span>
 
           <span className='heading-inherit-text'>Care&nbsp;</span>
           <span data-aos="fade-left" data-aos-once="true" className='heading-inherit-text'>Essential Products</span>
+        </div>
+
+        <div className='flex md:hidden font-spectral flex-row items-center heading-inherit-text'>
+          <span data-aos="fade-right" data-aos-once="true" className='heading-inherit-text'>
+            Luxury Skin Care Essential Products
+          </span>
         </div>
 
         <div data-aos="fade-up" className='text-center subHead-text' data-aos-once="false">

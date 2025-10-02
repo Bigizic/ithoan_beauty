@@ -48,10 +48,12 @@ const Login = (props) => {
     <div className='login-form mt-[12em] lg:mt-[18em] flex flex-col justify-center'>
 
       {isLoading && <LoadingIndicator />}
-      <h2>Login</h2>
+      <div className='my-3'>
+        <h2 className='text-3xl text-center' data-aos="fade-right">Welcome Back</h2>
+      </div>
       <hr />
       <form onSubmit={handleSubmit} noValidate>
-        <Row>
+        <Row className='w-100 items-center flex-col-reverse m-0'>
           <Col
             xs={{ size: 12, order: 2 }}
             md={{ size: '6', order: 1 }}
@@ -87,7 +89,7 @@ const Login = (props) => {
           <Col
             xs={{ size: 12, order: 1 }}
             md={{ size: '6', order: 2 }}
-            className='mb-2 mb-md-0'
+            className='mb-2 mb-md-0 my-3'
           >
             <SigninProvider
               googleSignin={(v) => googleSignin(v)}
@@ -96,10 +98,10 @@ const Login = (props) => {
         </Row>
         <hr />
         <div className='d-flex flex-column f'>
-          <div className='d-flex mb-3 mb-md-0 login_div_div'>
+          <div className='d-flex mb-3 mb-md-0 login_div_div md:justify-center'>
             <Button
               type='submit'
-              className='signup_signup padding_top_extender'
+              className='signup_signup padding_top_extender rounded-[5px] border-none'
               text='Login'
               disabled={isSubmitting}
             />
@@ -111,7 +113,7 @@ const Login = (props) => {
             />
           </div>
           <Link
-            className='redirect-link forgot-password-link'
+            className='redirect-link forgot-password-link text-center'
             to={'/forgot-password'}
           >
             Forgot Password?

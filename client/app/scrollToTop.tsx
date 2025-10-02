@@ -1,28 +1,27 @@
-'use client';
-
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 interface ScrollToTopProps {
-  height?: number;
-  behavior?: "smooth" | "auto";
+  height?: number
+  behavior?: 'smooth' | 'auto'
 }
 
-const ScrollToTop = (props: ScrollToTopProps) => {
-  const pathname = usePathname();
-  const {
-    height = 0,
-    behavior = "smooth"
-  } = props;
+export default function ScrollToTop({
+  height = 0,
+  behavior = 'auto',
+}: ScrollToTopProps) {
+  const location = useLocation()
 
   useEffect(() => {
-    window.scrollTo({
-      top: height,
-      behavior,
-    });
-  }, [pathname, height, behavior]);
+    requestAnimationFrame(() => {
+      const el = document.querySelector('application') as HTMLElement | null
+      if (el) {
+        el.scrollTo({ top: height, behavior })
+      } else {
+        window.scrollTo({ top: height, behavior })
+      }
+    })
+  }, [location.pathname, height, behavior])
 
-  return null;
-};
-
-export default ScrollToTop;
+  return null
+}

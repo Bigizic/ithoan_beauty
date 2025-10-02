@@ -219,23 +219,6 @@ const Navigation = React.forwardRef((props, ref) => {
               onClick={toggleCart}
             />
           </div>
-
-          {/*
-          <div
-            className={isMenuOpen ? 'mini-menu-open' : 'hidden-mini-menu'}
-            aria-hidden={`${isMenuOpen ? false : true}`}
-          >
-            <div className='mini-menu'>
-              <Menu />
-            </div>
-            <div
-              className={
-                isMenuOpen ? 'drawer-backdrop dark-overflow' : 'drawer-backdrop'
-              }
-              onClick={toggleMenu}
-            />
-          </div>*/}
-
         </header>
       );
     }

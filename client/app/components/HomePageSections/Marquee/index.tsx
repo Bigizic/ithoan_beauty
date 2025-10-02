@@ -70,9 +70,9 @@ const Marquee: React.FC<MarqueeProps> = ({
     );
   } else {
     return (
-      <div className="w-full overflow-hidden whitespace-nowrap flex py-2">
+      <div className="w-full overflow-hidden whitespace-nowrap flex py-2 my-4">
         <div
-          className={`flex items-center gap-16 w-max ${
+          className={`flex items-center gap-16 w-max bg-black py-[8px] ${
             times ? "animate-[slide_20s_linear_infinite]" : "animate-marquee"
           } ${onHover ? "hover:[animation-play-state:paused]" : ""}`}
         >
@@ -80,7 +80,7 @@ const Marquee: React.FC<MarqueeProps> = ({
             ? [...Array(times)].map((_, i) => (
                 <div
                   key={`a-${i}`}
-                  className="inline-block text-black font-semibold text-[15px] md:text-[15px] sm:text-[12px] animate-marquee"
+                  className="inline-block text-white font-semibold text-[15px] md:text-[15px] sm:text-[12px] animate-marquee"
                 >
                   {text}
                 </div>
@@ -90,7 +90,7 @@ const Marquee: React.FC<MarqueeProps> = ({
             ? [...Array(times)].map((_, i) => (
                 <div
                   key={`b-${i}`}
-                  className="inline-block text-black font-semibold text-[15px] md:text-[15px] sm:text-[12px] animate-marquee"
+                  className="inline-block text-white font-semibold text-[15px] md:text-[15px] sm:text-[12px] animate-marquee"
                 >
                   {text}
                 </div>

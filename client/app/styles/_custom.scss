@@ -106,7 +106,7 @@ html.has-scroll-dragging {
 }
 
 .order-page {
-  padding: 15px;
+  padding: 15px 0;
 }
 
 // orders table status color
@@ -467,9 +467,8 @@ html.has-scroll-dragging {
 }
 
 .padding_top_extender {
-  @include media-breakpoint-down(md) {
-    padding: 10px 16px !important;
-  }
+  padding: 8px 16px !important;
+  border-radius: 5px !important;
 }
 
 .signup_signup {
@@ -490,11 +489,10 @@ html.has-scroll-dragging {
 }
 
 .login_div_div {
-  @include media-breakpoint-down(md) {
-    justify-content: space-between;
-  }
+  justify-content: space-between;
+  margin-top: 22px;
 
-  margin-bottom: 10px !important;
+  margin-bottom: 22px !important;
 }
 
 .forgot_password_div {
@@ -588,6 +586,10 @@ html.has-scroll-dragging {
 .uploaded_images {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  .advanced-image-upload {
+    width: 100%;
+  }
 }
 
 .admin_order_receipts {
@@ -848,6 +850,7 @@ html.has-scroll-dragging {
   margin-left: 15px !important;
   padding-left: 13px !important;
   width: 93% !important;
+  border: 0.5px solid black;
 }
 
 .edit_order_shipping_address_buttons_container {
@@ -872,4 +875,43 @@ html.has-scroll-dragging {
 
 .order_update_delivery_type_button {
   margin-bottom: 1em;
+}
+
+
+.easy-checkout {
+  .modal-header {
+    padding: 2rem 1rem 1rem 1rem !important;
+  }
+
+  h3 {
+    padding: 10px 0;
+    font-size: 16px;
+  }
+
+  h5 {
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .bank_container {
+    padding: 20px 0px 20px 0;
+
+    .col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  .modal-footer {
+    justify-content: center !important;
+    padding: 1rem 1rem 1rem 1rem !important;
+  }
+}
+
+.customer {
+  .PhoneInput {
+    padding: 0px 0px 0px 20px;
+    border: 1px solid #cecece;
+  }
 }

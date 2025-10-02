@@ -31,7 +31,7 @@ import { resetSelectedShippingErrors } from '../Shipping/actions';
 
 
 export const toggleOrder = () => {
-  return (dispatch, getState) =>{
+  return (dispatch, getState) => {
     dispatch({
       type: TOGGLE_ORDER,
     })
@@ -50,7 +50,7 @@ export const setOrderPaymentHelper = (value) => {
 
 
 export const resetOrderReceipt = () => {
-  return (dispatch, getState) =>{
+  return (dispatch, getState) => {
     dispatch({
       type: RESET_ORDER_RECEIPTS
     })
@@ -90,18 +90,18 @@ export const closeModal = (buying = false) => {
       if (orderId.length > 1 && !buying) { dispatch(push(`/order/${orderId}`)) }
       dispatch(setOrderPaymentHelper(false))
     }
-      dispatch(resetOrderReceipt());
-      dispatch(resetSelectedShippingErrors());
+    dispatch(resetOrderReceipt());
+    dispatch(resetSelectedShippingErrors());
   }
 }
 
 export const setPaymentGatewayFormError = (error) => {
-    return (dispatch, getState) => {
-        dispatch({
-            type: ORDER_FORM_ERRORS,
-            payload: error
-        })
-    }
+  return (dispatch, getState) => {
+    dispatch({
+      type: ORDER_FORM_ERRORS,
+      payload: error
+    })
+  }
 }
 
 
@@ -154,8 +154,8 @@ const productStatusChecker = async (cartId) => {
  * add order function to add an order to db
  * @returns 
  */
-export const newPlaceOrder = () => {
-  return async(dispatch, getState) => {
+export const newPlaceOrder = (navigate) => {
+  return async (dispatch, getState) => {
     const token = localStorage.getItem('token');
 
     const cartItems = getState().cart.cartItems;
@@ -166,7 +166,7 @@ export const newPlaceOrder = () => {
     const shipping = getState().shipping;
 
     if (userAddress.length > 0 && selectedAddress.length === 0) {
-      return handleError({message: 'Select an address to continue'}, dispatch)
+      return handleError({ message: 'Select an address to continue' }, dispatch)
     }
     const rules = {
       selectedShipping: 'required',
@@ -181,7 +181,7 @@ export const newPlaceOrder = () => {
     if (!isValid) {
       return dispatch({ type: SET_SHIPPING_ERROR, payload: errors });
     }
-    
+
     if (userAddress.length > 0) {
       if (token && cartItems.length > 0) {
         dispatch(purchaseOrderIsLoading(true))
@@ -192,8 +192,8 @@ export const newPlaceOrder = () => {
       }
     } else {
       // ask user to add an address
-      dispatch(push(`/dashboard/address/add`));
-      handleError({message: 'Add an address to continue'}, dispatch)
+      navigate(`/dashboard/address/add`);
+      handleError({ message: 'Add an address to continue' }, dispatch)
     }
 
     dispatch(toggleCart());
@@ -204,7 +204,7 @@ export const newPlaceOrder = () => {
 
 // sends request to api to create new order
 export const createNewOrder = () => {
-  return async(dispatch, getState) => {
+  return async (dispatch, getState) => {
     try {
       const c = getState().currency.select_currency
       const curr = c.length > 0 ? c[0] : getState().currency.default_currency[0]
@@ -247,26 +247,26 @@ export const createNewOrder = () => {
 }
 
 
-export const handleOrderCheckout = () => {
+export const handleOrderCheckout = (navigate) => {
   return (dispatch, getState) => {
     try {
-        const orderId = getState().payment.orderId;
-        const orderReceipts = getState().payment.orderReceipts;
+      const orderId = getState().payment.orderId;
+      const orderReceipts = getState().payment.orderReceipts;
 
-        if (orderReceipts.length === 0) {
-            return dispatch(setPaymentGatewayFormError("You must upload at least one image."))
-        }
-        dispatch(setPaymentGatewayFormError(''));
-        dispatch(purchaseOrderIsLoading(true));
-        dispatch(newAddOrder(orderId, orderReceipts));
+      if (orderReceipts.length === 0) {
+        return dispatch(setPaymentGatewayFormError("You must upload at least one image."))
+      }
+      dispatch(setPaymentGatewayFormError(''));
+      dispatch(purchaseOrderIsLoading(true));
+      dispatch(newAddOrder(orderId, orderReceipts, navigate));
     } catch (error) {
-        handleError(error, dispatch)
+      handleError(error, dispatch)
     }
   }
 }
 
 
-export const newAddOrder = (orderId, orderReceipts) => {
+export const newAddOrder = (orderId, orderReceipts, navigate) => {
   return async (dispatch, getState) => {
     try {
       const formData = new FormData();
@@ -286,7 +286,7 @@ export const newAddOrder = (orderId, orderReceipts) => {
       if (response.status === 200) {
         // payment successful
         // redirect to confirmation page
-        dispatch(push(`/order/success/${response.data.order._id}`));
+        navigate(`/order/success/${response.data.order._id}`);
         dispatch(clearCart());
         dispatch(purchaseOrderIsLoading(false));
         return dispatch(closeModal(true));
@@ -325,15 +325,16 @@ export const setOrderReceipt = (images) => {
 };
 
 export const handleImageUpload = (e) => {
-  return async(dispatch, getState) => {
-    const files = Array.from(e.target.files);
-    const orderReceipts = getState().payment.orderReceipts;
+  return async (dispatch, getState) => {
+    if (e) {
+      const files = [e.file];
+      const orderReceipts = getState().payment.orderReceipts;
 
-    if (orderReceipts.length + files.length > 1) {
-      return dispatch(setPaymentGatewayFormError("You can upload up to 1 image only."))
-    }
+      if (orderReceipts.length + files.length > 1) {
+        return dispatch(setPaymentGatewayFormError("You can upload up to 1 image only."))
+      }
 
-    try {
+      try {
         const compressedImages = await Promise.all(
           files.map(async (file) => {
             const options = {
@@ -344,19 +345,20 @@ export const handleImageUpload = (e) => {
             return await imageCompression(file, options);
           })
         );
-    
+
         dispatch(setOrderReceipt([...compressedImages]));
         dispatch(setPaymentGatewayFormError(''));
-    } catch (err) {
+      } catch (err) {
         setError("Failed to compress image. Please try again.");
       }
+    }
   }
 };
 
 
 // lets a customer make payment for a saved unpaid order
 export const makePaymentUnpaidOrder = (orderId, total) => {
-  return async(dispatch, getState) => {
+  return async (dispatch, getState) => {
     try {
       if (orderId) {
         dispatch(toggleOrder())
@@ -371,7 +373,7 @@ export const makePaymentUnpaidOrder = (orderId, total) => {
           })
         })
       }
-      
+
     } catch (error) {
       handleError(error, dispatch)
     }
