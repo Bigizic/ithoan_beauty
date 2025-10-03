@@ -1,0 +1,5 @@
+{
+  "services": "/services",
+  "service": "/service",
+  "bookings": "/bookings"
+}

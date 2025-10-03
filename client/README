@@ -1,1 +1,0 @@
-npx tailwindcss -o app/styles/build.css --minify

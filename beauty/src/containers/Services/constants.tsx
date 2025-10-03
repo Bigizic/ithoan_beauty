@@ -1,0 +1,6 @@
+export const FETCH_SERVICES = 'src/Services/FETCH_SERVICES'
+export const FETCH_SERVICE = 'src/Services/FETCH_SERVICE'
+export const CREATE_SERVICE = 'src/Services/CREATE_SERVICE'
+export const UPDATE_SERVICE = 'src/Services/UPDATE_SERVICE'
+export const DELETE_SERVICE = 'src/Services/DELETE_SERVICE'
+export const SERVICE_LOADING = 'src/Services/SERVICE_LOADING'
