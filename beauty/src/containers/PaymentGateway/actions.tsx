@@ -175,7 +175,7 @@ export const submitBookingPayment = (bookingId: string, paymentReceipts: File[],
       dispatch(togglePayment())
       dispatch(resetPaymentReceipts())
       dispatch(resetBooking())
-      navigate(`/booking/success/${data.booking._id}`)
+      navigate(`/booking/success/${data.booking.bookingHash}`)
     }
   } catch (error: any) {
     dispatch(setPaymentFormError(error.response?.data?.error || 'Failed to process payment'))

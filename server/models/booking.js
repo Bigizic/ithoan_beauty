@@ -20,6 +20,11 @@ const BookingSchema = new Schema({
     type: String,
     required: true
   },
+  bookingHash: {
+    type: String,
+    unique: true,
+    required: true
+  },
   customerInfo: {
     fullName: {
       type: String,
