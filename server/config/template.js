@@ -3,7 +3,9 @@ const { adminOrderSuccess } = require("./htmlTemplates/adminOrderSuccess");
 const { campaignTemplate } = require("./htmlTemplates/newsletterTemplate");
 const { orderUpdate } = require("./htmlTemplates/orderUpdate");
 const { orderProductsUpdate } = require("./htmlTemplates/orderProductsUpdate");
-const { orderShippingInfoUpdate } = require("./htmlTemplates/orderShippingInfoUpdate"); 
+const { orderShippingInfoUpdate } = require("./htmlTemplates/orderShippingInfoUpdate");
+const { bookingConfirmation } = require("./htmlTemplates/bookingConfirmation");
+const { adminBookingConfirmation } = require("./htmlTemplates/adminBookingConfirmation"); 
 
 
 exports.newsLetterEmail = (campaignData) => {
@@ -186,3 +188,23 @@ exports.orderProductsUpdateEmail = (order, selectedProductsLength) => {
     }
     return message;
   }
+
+exports.bookingConfirmationEmail = (booking) => {
+  const message = {
+    subject: 'Your Appointment is Confirmed!',
+    text: `Hi ${booking.customerInfo.fullName}! Your appointment has been confirmed.`,
+    html: bookingConfirmation(booking),
+    headers: { 'Content-Type': 'text/html' }
+  };
+  return message;
+};
+
+exports.adminBookingConfirmationEmail = (booking) => {
+  const message = {
+    subject: `New Booking Received - #${booking._id}`,
+    text: `New booking from ${booking.customerInfo.fullName}`,
+    html: adminBookingConfirmation(booking),
+    headers: { 'Content-Type': 'text/html' }
+  };
+  return message;
+};

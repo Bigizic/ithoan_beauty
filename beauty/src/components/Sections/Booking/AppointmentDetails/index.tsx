@@ -140,29 +140,6 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
 
     const { calendar, currentMonth } = this.state;
 
-    if (bookingSuccess) {
-      return (
-        <div className="relative w-full bg-white rounded-[20px] overflow-hidden shadow-[0px_4px_4px_#00000040] p-8">
-          <div className="flex flex-col items-center justify-center gap-6 py-12">
-            <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center">
-              <svg className="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h2 className="text-3xl font-bold text-[#1c1c1c] [font-family:'Bricolage_Grotesque',Helvetica]">
-              Booking Confirmed!
-            </h2>
-            <p className="text-[#1c1c1c] text-center [font-family:'Poppins',Helvetica]">
-              Your appointment has been successfully booked. We'll send you a confirmation email shortly.
-            </p>
-            <Button onClick={() => window.location.href = '/'} className="bg-[#eabe30] hover:bg-[#d4a820] text-[#1c1c1c]">
-              Back to Home
-            </Button>
-          </div>
-        </div>
-      );
-    }
-
     if (!selectedService || !selectedSubService) {
       return null;
     }
@@ -218,7 +195,7 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
                             key={`date-${weekIndex}-${dateIndex}`}
                             onClick={() => date && this.handleDateClick(date)}
                             disabled={!date || isDisabled}
-                            className={`[font-family:'Poppins',Helvetica] font-normal text-base tracking-[0] leading-6 text-center ${isSelected ? "text-[#eabe30] font-bold" : isDisabled ? "text-[#1c1c1c]/30 cursor-not-allowed" : "text-[#1c1c1c] hover:text-[#eabe30]"
+                            className={`[font-family:'Poppins',Helvetica] font-normal text-base tracking-[0] leading-6 text-center ${isSelected ? "bg-[#eabe30] rounded-full w-6 h-6 font-bold" : isDisabled ? "text-[#1c1c1c]/30 cursor-not-allowed" : "text-[#1c1c1c] hover:text-[#eabe30]"
                               } ${!date ? "invisible" : ""}`}
                           >
                             {date ? date.getDate() : ""}
@@ -250,7 +227,7 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
                       key={index}
                       onClick={() => this.handleTimeClick(time)}
                       className={`px-6 py-2 rounded-[20px] overflow-hidden [font-family:'Poppins',Helvetica] font-medium text-base tracking-[0] leading-6 ${bookingTime === time
-                          ? "bg-[#eabe30] text-white"
+                          ? "bg-[#eabe30] text-black"
                           : "border border-solid border-[#1c1c1c7a] text-[#1c1c1c] hover:border-[#eabe30]"
                         }`}
                     >
@@ -274,6 +251,21 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
                 Your Information
               </h3>
 
+              <div className="bg-[#eabe30]/10 border-l-4 border-[#eabe30] p-4 rounded-r-[5px]">
+                <p className="text-sm text-[#1c1c1c] [font-family:'Poppins',Helvetica]">
+                  <strong>Note:</strong> You can skip entering your details by{' '}
+                  <a
+                    href="https://tohannieesskincare.com/login"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#eabe30] hover:underline font-medium"
+                  >
+                    logging in to your Tohanniees Skincare account
+                  </a>
+                  . Your information will be automatically filled.
+                </p>
+              </div>
+
               <Input
                 placeholder="Full Name"
                 value={userInfo.fullName}
@@ -293,7 +285,7 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
                 placeholder="Phone Number"
                 type="tel"
                 value={userInfo.phoneNumber}
-                onChange={(e) => this.handleUserInfoChange('phoneNumber', e.target.value)}
+                onInputChange={(n, v) => this.handleUserInfoChange('phoneNumber', v)}
                 className="h-[42px] rounded-[5px] border border-solid border-[#1c1c1c6b] [font-family:'Poppins',Helvetica] font-normal text-[#1c1c1c] text-base"
               />
 

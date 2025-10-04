@@ -78,6 +78,8 @@ const getEmailPriority = (type) => {
     'signup': 2,
     'order-confirmation': 3,
     'admin-order-confirmation': 3,
+    'booking-confirmation': 3,
+    'admin-booking-confirmation': 3,
     'update-order': 4,
     'order-products-update': 4,
     'order-address-change': 4,
@@ -91,7 +93,7 @@ const getEmailPriority = (type) => {
     'reset-confirmation': 2,
     'admin-contact': 3,
   };
-  
+
   return priorities[type] || 5; // Default priority
 };
 

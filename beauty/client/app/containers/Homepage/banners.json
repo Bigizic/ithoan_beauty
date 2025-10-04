@@ -1,0 +1,13 @@
+{
+  "banners": [
+    {
+      "imageUrl": "/upload/images/banners/banner_1.png",
+      "title": "Indulge Your Skin in Pure Luxury.",
+      "sub": "Experience high performance skincare crafted with clean nourishing ingredients for radiant confident skin.",
+      "link": "/shop",
+      "isActive": true,
+      "isDefault": true,
+      "btnText": "SHOP NOW"
+    }
+  ]
+}

@@ -9,7 +9,7 @@ const role = require('../../middleware/role');
 
 
 // return all bank account
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const banks = await Account.find();
 

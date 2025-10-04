@@ -10,6 +10,7 @@ import {
   CLEAR_BOOKING_ERROR,
   SET_USER_INFO,
   RESET_BOOKING,
+  FETCH_BANKS,
 } from './constants'
 
 const initialState = {
@@ -27,7 +28,8 @@ const initialState = {
     phoneNumber: ''
   },
   bookingSuccess: false,
-  bookingData: null as any
+  bookingData: null as any,
+  banks: [] as any[]
 }
 
 type actionProps = {
@@ -100,6 +102,11 @@ export default function bookingReducer(state = initialState, action: actionProps
         bookingSuccess: true,
         bookingData: action.payload,
         loading: false
+      }
+    case FETCH_BANKS:
+      return {
+        ...state,
+        banks: action.payload
       }
     case RESET_BOOKING:
       return initialState

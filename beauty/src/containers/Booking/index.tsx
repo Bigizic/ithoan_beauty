@@ -5,13 +5,15 @@ import { BookingSection } from "../../components/Sections/Booking";
 import { actions, ACTIONSTYPE } from "../../actions";
 import { RootState } from "../../../app/store";
 import { BookingProps } from "../../interface";
+import BookingSuccess from "../BookingSuccess";
 
 class Booking extends React.PureComponent<BookingProps & ACTIONSTYPE> {
   render() {
     return (
       <>
         <Routes>
-          <Route path="" element={<BookingSection />} />
+          <Route path="" index element={<BookingSection />} />
+          <Route path="success/:bookingId" element={<BookingSuccess />} />
         </Routes>
       </>
     )
@@ -19,6 +21,7 @@ class Booking extends React.PureComponent<BookingProps & ACTIONSTYPE> {
 }
 
 const mapStateToProps = (state: RootState) => {
+  console.log(state.booking)
   return {
     selectedService: state.booking.selectedService,
     selectedSubService: state.booking.selectedSubService,

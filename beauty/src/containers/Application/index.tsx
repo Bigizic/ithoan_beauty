@@ -10,6 +10,7 @@ import { ACTIONSTYPE } from "../../actions"
 import { RootState } from '../../../app/store'
 import { ApplicationStateProps } from "../../interface"
 import Booking from "../Booking"
+import PaymentGateway from "../PaymentGateway"
 
 class Application extends React.PureComponent<ApplicationStateProps & ACTIONSTYPE> {
   componentDidMount(): void {
@@ -29,6 +30,7 @@ class Application extends React.PureComponent<ApplicationStateProps & ACTIONSTYP
           <Route path="/booking/*" element={<Booking />} />
         </Routes>
         <Footer services={services} />
+        <PaymentGateway />
       </div>
     )
   }

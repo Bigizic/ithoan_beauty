@@ -1,7 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
 const Booking = require('../../models/booking');
 const ServiceCategory = require('../../models/service');
+const emailService = require('../../services/emailService');
+const keys = require('../../config/keys');
+const cloudinaryFileStorage = require('../../utils/cloud_file_manager.js');
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+const uploadType = keys.upload.type;
+const { adminEmail, secondAdminEmail } = keys.adminEmail;
 
 router.get('/available-times', async (req, res) => {
   try {
@@ -98,6 +107,83 @@ router.get('/available-times', async (req, res) => {
   }
 });
 
+router.put('/payment', upload.fields([
+  { name: 'image_0', maxCount: 1 },
+]), async (req, res) => {
+  try {
+    const images = req.files;
+    const bookingId = req.body.bookingId;
+    const note = req.body.note || null;
+
+    if (!images || !bookingId) {
+      return res.status(400).json({ error: 'Please upload an image' });
+    }
+
+    let imagesList = [];
+
+    if (uploadType === 'cloud_storage' && images) {
+      for (const key in images) {
+        const image = images[key][0];
+        const result = await cloudinaryFileStorage(image, 'booking_receipts/');
+        imagesList.push(result.imageUrl);
+      }
+    }
+
+    const updatedBooking = await Booking.findByIdAndUpdate(
+      bookingId,
+      {
+        $set: {
+          paymentReceipt: imagesList,
+          paymentStatus: 'paid',
+          paymentType: 'Transfer',
+          note,
+          updated: Date.now()
+        }
+      },
+      { new: true }
+    ).populate('serviceId subServiceId');
+
+    if (!updatedBooking) {
+      return res.status(404).json({ error: 'Booking not found' });
+    }
+
+    const bookingData = {
+      _id: updatedBooking._id,
+      serviceName: updatedBooking.serviceId.name,
+      subServiceName: updatedBooking.subServiceId.name,
+      price: updatedBooking.totalAmount,
+      bookingDate: updatedBooking.bookingDate,
+      bookingTime: updatedBooking.bookingTime,
+      customerInfo: updatedBooking.customerInfo,
+      created: updatedBooking.created
+    };
+
+    /*await emailService.sendEmail(
+      updatedBooking.customerInfo.email,
+      'booking-confirmation',
+      bookingData
+    );
+
+    if (secondAdminEmail) {
+      await emailService.sendEmail(secondAdminEmail, 'admin-booking-confirmation', bookingData);
+    }
+    if (adminEmail) {
+      await emailService.sendEmail(adminEmail, 'admin-booking-confirmation', bookingData);
+    }*/
+
+    return res.status(200).json({
+      success: true,
+      message: 'Payment processed successfully',
+      booking: updatedBooking
+    });
+  } catch (error) {
+    console.log('Error processing payment:', error);
+    return res.status(400).json({
+      error: 'Your request could not be processed. Please try again.'
+    });
+  }
+});
+
 router.post('/create', async (req, res) => {
   try {
     const {
@@ -109,7 +195,6 @@ router.post('/create', async (req, res) => {
       email,
       phoneNumber
     } = req.body;
-
     if (!serviceId || !subServiceId || !bookingDate || !bookingTime) {
       return res.status(400).json({
         error: 'Service, sub service, date, and time are required'

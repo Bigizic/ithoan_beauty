@@ -313,7 +313,17 @@ const prepareTemplate = (type, host, data, selectedProductsLength=null) => {
       message = template.orderShippingInfoUpdateEmail(data);
       message.sender = order;
       break;
-      
+
+    case 'booking-confirmation':
+      message = template.bookingConfirmationEmail(data);
+      message.sender = order;
+      break;
+
+    case 'admin-booking-confirmation':
+      message = template.adminBookingConfirmationEmail(data);
+      message.sender = order;
+      break;
+
     default:
       message = '';
   }

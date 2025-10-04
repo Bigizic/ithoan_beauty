@@ -11,7 +11,9 @@ import {
   CLEAR_BOOKING_ERROR,
   SET_USER_INFO,
   RESET_BOOKING,
+  FETCH_BANKS,
 } from './constants'
+import { togglePayment, setBookingId } from '../PaymentGateway/actions'
 
 const setLoading = (value: boolean) => ({
   type: BOOKING_LOADING,
@@ -69,7 +71,8 @@ export const fetchAvailableTimes = (subServiceId: string, date: Date) => async (
       type: '/booking/available-times',
       params: {
         subServiceId,
-        date: date.toISOString()
+        date
+        //date: date.toISOString()
       }
     })
     dispatch({
@@ -143,9 +146,26 @@ export const createBooking = (bookingData: any) => async (dispatch: any) => {
       type: CREATE_BOOKING,
       payload: data.booking
     })
+    await dispatch(fetchBanks())
+    dispatch(setBookingId(data.booking._id))
+    dispatch(togglePayment())
   } catch (err: any) {
     dispatch(setError(err.response?.data?.error || 'Failed to create booking'))
     dispatch(setLoading(false))
+  }
+}
+
+export const fetchBanks = () => async (dispatch: any) => {
+  try {
+    const data = await API_URL.get({
+      type: '/account/banks'
+    })
+    dispatch({
+      type: FETCH_BANKS,
+      payload: data.banks || []
+    })
+  } catch (err: any) {
+    console.error('Failed to fetch banks:', err)
   }
 }
 

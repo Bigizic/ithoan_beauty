@@ -1,0 +1,10 @@
+export const FETCH_ALL_CAMPAIGNS = 'src/Campaign/FETCH_ALL_CAMPAIGNS';
+export const CREATE_CAMPAIGN = 'src/Campaign/CREATE_CAMPAIGN';
+export const RESET_CAMPAIGNS = 'src/Campaign/RESET_CAMPAIGNS';
+export const SET_CAMPAIGN_LOADING = 'src/Campaign/SET_CAMPAIGN_LOADING';
+export const REMOVE_CAMPAIGN = 'src/Campaign/REMOVE_CAMPAIGN';
+export const SET_CAMPAIGN_FORM_ERRORS = 'src/Campaign/SET_CAMPAIGN_FORM_ERRORS';
+export const ADD_CAMPAIGNS = 'src/Campaign/ADD_CAMPAIGNS';
+export const CAMPAIGN_CHANGE = 'src/Campaign/CAMPAIGN_CHANGE';
+export const FETCH_CAMPAIGN = 'src/Campaign/FETCH_CAMPAIGN';
+export const FETCH_MAILING_LIST_DETAILS = 'src/Campaign/FETCH_MAILING_LIST_DETAILS';

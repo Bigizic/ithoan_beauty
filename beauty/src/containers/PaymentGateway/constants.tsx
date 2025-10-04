@@ -1,0 +1,8 @@
+export const SET_BOOKING_ID = 'src/PaymentGateway/SET_BOOKING_ID'
+export const TOGGLE_PAYMENT = 'src/PaymentGateway/TOGGLE_PAYMENT'
+export const SET_PAYMENT_RECEIPTS = 'src/PaymentGateway/SET_PAYMENT_RECEIPTS'
+export const RESET_PAYMENT_RECEIPTS = 'src/PaymentGateway/RESET_PAYMENT_RECEIPTS'
+export const PAYMENT_IS_LOADING = 'src/PaymentGateway/PAYMENT_IS_LOADING'
+export const PAYMENT_FORM_ERRORS = 'src/PaymentGateway/PAYMENT_FORM_ERRORS'
+export const SET_BANK_COPIED = 'src/PaymentGateway/SET_BANK_COPIED'
+export const SET_PAYMENT_NOTE = 'src/PaymentGateway/SET_PAYMENT_NOTE'
