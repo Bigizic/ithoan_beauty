@@ -1,9 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 import service from './containers/Services/reducers'
+import booking from './containers/Booking/reducers';
 
 const rootReducer = combineReducers({
-  service
+  service,
+  booking
 })
 
 export default rootReducer;

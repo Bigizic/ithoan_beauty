@@ -2,17 +2,61 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const keys = require('../../config/keys');
-const cloudinaryFileStorage  = require('../../utils/cloud_file_manager.js');
+const cloudinaryFileStorage = require('../../utils/cloud_file_manager.js');
 const { s3Upload } = require('../../utils/storage');
 const auth = require('../../middleware/auth');
 const role = require('../../middleware/role');
 const { ROLES } = require('../../constants');
 
-const ServiceGroup = require('../../models/services');
-const Service = require('../../models/service');
-
+const Services = require('../../models/services');
+const ServiceGroup = require('../../models/service')
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+
+router.get(
+  '/fetch/:id',
+  async (req, res) => {
+    try {
+      const id = req.params.id
+      const service = await Services.findOne(
+        {
+          slug: id,
+          isActive: true
+        }
+      )
+        .populate({
+          path: 'serviceArray',
+          match: { isActive: true }
+        });
+      return res.status(200).json({
+        service
+      });
+    } catch (error) {
+      return res.status(400).json({
+        error: 'Your request could not be processed. Please try again.'
+      });
+    }
+  }
+)
+
+router.get(
+  '/fetch_all',
+  async (req, res) => {
+    try {
+      const services = await Services.find({ isActive: true }).populate({
+        path: 'serviceArray',
+        match: { isActive: true }
+      });
+      return res.status(200).json({
+        services
+      });
+    } catch (error) {
+      return res.status(400).json({
+        error: 'Your request could not be processed. Please try again.'
+      });
+    }
+  }
+)
 
 // fetch all services groups api
 router.get(
@@ -21,7 +65,7 @@ router.get(
   role.check(ROLES.Admin, ROLES.Merchant),
   async (req, res) => {
     try {
-      const servicesList = await ServiceGroup.find({}).sort('-created');
+      const servicesList = await Services.find({}).sort('-created');
 
       return res.status(200).json({
         services: servicesList
@@ -43,7 +87,7 @@ router.get(
     try {
       const servicesId = req.params.id;
 
-      const servicesDoc = await ServiceGroup.findOne({ _id: servicesId }).populate({
+      const servicesDoc = await Services.findOne({ _id: servicesId }).populate({
         path: 'serviceArray',
         select: 'name'
       });
@@ -65,13 +109,58 @@ router.get(
   }
 );
 
-// fetch services select api
-router.get('/list/select', auth, async (req, res) => {
+// fetch services list for public (booking page)
+router.get('/list', async (req, res) => {
   try {
-    const services = await ServiceGroup.find({}, 'name');
+    const services = await Services.find({ isActive: true })
+      .select('_id name slug description title imageUrl serviceArray')
+      .sort('-created')
+      .populate({
+        path: 'serviceArray',
+        match: { isActive: true }
+      })
 
     return res.status(200).json({
       services
+    });
+  } catch (error) {
+    return res.status(400).json({
+      error: 'Your request could not be processed. Please try again.'
+    });
+  }
+});
+
+// fetch services select api
+router.get('/list/select', auth, async (req, res) => {
+  try {
+    const services = await Services.find({}, 'name');
+
+    return res.status(200).json({
+      services
+    });
+  } catch (error) {
+    return res.status(400).json({
+      error: 'Your request could not be processed. Please try again.'
+    });
+  }
+});
+
+// fetch service by slug for public
+router.get('/slug/:slug', async (req, res) => {
+  try {
+    const serviceDoc = await ServiceGroup.findOne({
+      slug: req.params.slug,
+      isActive: true
+    });
+
+    if (!serviceDoc) {
+      return res.status(404).json({
+        message: 'No service found.'
+      });
+    }
+
+    return res.status(200).json({
+      service: serviceDoc
     });
   } catch (error) {
     return res.status(400).json({
@@ -88,14 +177,22 @@ router.post(
   upload.array('images', 5),
   async (req, res) => {
     try {
-      const {
+      let {
         name, description,
         isActive,
         title, serviceArray = []
       } = req.body;
+      isActive = JSON.parse(isActive)
+      serviceArray = JSON.parse(serviceArray)
 
       if (!description) {
         return res.status(400).json({ error: 'description is required' });
+      }
+
+      const servicesDoc = await Services.findOne({ name })
+
+      if (servicesDoc) {
+        return res.status(400).json({ error: 'a services with same name already exist' })
       }
 
       let imageUrls = [];
@@ -111,7 +208,7 @@ router.post(
         }
       }
 
-      const newServices = new ServiceGroup({
+      const newServices = new Services({
         name,
         title,
         description,
@@ -143,14 +240,16 @@ router.put(
   upload.array('images', 5),
   async (req, res) => {
     try {
-      const { name, description, slug, isActive, title, serviceArray = [] } = req.body;
-      const { existingImages } = req.body;
+      let { name, description, isActive, title, serviceArray = [] } = req.body;
+      let { existingImages } = req.body;
+      isActive = JSON.parse(isActive)
+      serviceArray = JSON.parse(serviceArray)
 
-      let updateData = { name, description, slug, isActive, title };
+      let updateData = { name, description, isActive, title };
 
       // handle image uploads
       let finalImageUrls = [];
-      
+
       // Keep existing images if provided
       if (existingImages) {
         try {
@@ -160,7 +259,7 @@ router.put(
           // If parsing fails, ignore existing images
         }
       }
-      
+
       // Add new uploaded images
       if (req.files && req.files.length > 0) {
         for (const file of req.files) {
@@ -173,7 +272,7 @@ router.put(
           }
         }
       }
-      
+
       // Update imageUrl only if we have images
       if (finalImageUrls.length > 0) {
         updateData.imageUrl = finalImageUrls;
@@ -183,7 +282,7 @@ router.put(
         updateData.serviceArray = serviceArray;
       }
 
-      const updatedDoc = await ServiceGroup.findOneAndUpdate(
+      const updatedDoc = await Services.findOneAndUpdate(
         { _id: req.params.id },
         updateData,
         { new: true }
@@ -209,7 +308,7 @@ router.delete(
   role.check(ROLES.Admin, ROLES.Merchant),
   async (req, res) => {
     try {
-      const deleted = await ServiceGroup.deleteOne({ _id: req.params.id });
+      const deleted = await Services.deleteOne({ _id: req.params.id });
       return res.status(200).json({
         success: true,
         message: 'services deleted successfully',

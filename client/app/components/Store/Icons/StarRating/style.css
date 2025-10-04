@@ -1,0 +1,6 @@
+.star_rating {
+    display: flex;
+}
+input[type="radio"] {
+    display: none;
+}

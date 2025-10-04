@@ -33,6 +33,49 @@ export interface ServiceProps {
 }
 
 export interface PricingPlansProps {
+  services: SERVICESMENU
   serviceCat: SERVICEMENU[]
+}
+
+export interface BookingProps {
+  selectedService: SERVICESMENU | null;
+  selectedSubService: SERVICEMENU | null;
+  bookingDate: Date | null;
+  bookingTime: string | null;
+  availableTimes: string[];
+  bookedDates: any[];
+  loading: boolean;
+  error: string | null;
+  userInfo: {
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+  };
+  bookingSuccess: boolean;
+  services: SERVICESMENU[];
+}
+
+export interface ServiceSelectionProps {
+  services: SERVICESMENU[];
+  selectedService: SERVICESMENU | null;
+  selectedSubService: SERVICEMENU | null;
+  error: string | null;
+}
+
+export interface AppointmentDetailsProps {
+  selectedService: SERVICESMENU | null;
+  selectedSubService: SERVICEMENU | null;
+  bookingDate: Date | null;
+  bookingTime: string | null;
+  availableTimes: string[];
+  bookedDates: any[];
+  loading: boolean;
+  error: string | null;
+  userInfo: {
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+  };
+  bookingSuccess: boolean;
 }
 

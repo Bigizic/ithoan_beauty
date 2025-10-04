@@ -84,13 +84,18 @@ router.post(
   upload.array('images', 5),
   async (req, res) => {
     try {
-      const {
+      let {
         name, description,
         slug, price,
         discount = 0, duration,
         isActive, serviceGroup,
-        isDiscounted = false
+        isDiscounted = false,
+        availability
       } = req.body;
+      isActive = JSON.parse(isActive)
+      discount = JSON.parse(discount)
+      duration = JSON.parse(duration)
+      price = JSON.parse(price)
 
       if (!description || !name) {
         return res.status(400).json({ error: 'name and description are required' });
@@ -113,6 +118,15 @@ router.post(
         }
       }
 
+      let parsedAvailability = [];
+      if (availability) {
+        try {
+          parsedAvailability = JSON.parse(availability);
+        } catch (e) {
+          parsedAvailability = [];
+        }
+      }
+
       const newService = new Service({
         name,
         description,
@@ -121,7 +135,8 @@ router.post(
         discount,
         duration,
         isActive,
-        isDiscounted
+        isDiscounted,
+        availability: parsedAvailability
       });
 
       await newService.save();
@@ -145,13 +160,35 @@ router.put(
   upload.array('images', 5),
   async (req, res) => {
     try {
-      const { name, description, slug, price, discount, duration, isActive } = req.body;
+      let {
+        name, description,
+        slug, price,
+        discount, duration,
+        isActive, availability,
+      } = req.body;
+      discount = JSON.parse(discount)
+      duration = JSON.parse(duration)
+      price = JSON.parse(price)
       const { existingImages } = req.body;
 
-      let updateData = { name, description, slug, price, discount, duration, isActive };
+      let updateData = {
+        name, description,
+        slug, price,
+        discount, duration,
+        isActive
+      };
+
+      // Parse availability if provided
+      if (availability) {
+        try {
+          updateData.availability = JSON.parse(availability);
+        } catch (e) {
+          // If parsing fails, ignore availability
+        }
+      }
 
       let finalImageUrls = [];
-      
+
       // Keep existing images if provided
       if (existingImages) {
         try {
@@ -161,7 +198,7 @@ router.put(
           // If parsing fails, ignore existing images
         }
       }
-      
+
       // Add new uploaded images
       if (req.files && req.files.length > 0) {
         for (const file of req.files) {
@@ -174,7 +211,7 @@ router.put(
           }
         }
       }
-      
+
       // Update imageUrl only if we have images
       if (finalImageUrls.length > 0) {
         updateData.imageUrl = finalImageUrls;

@@ -1,6 +1,8 @@
 import serviceReducer from "./containers/Services/reducers";
+import bookingReducer from "./containers/Booking/reducers";
 
 export type SERVICETYPE = ReturnType<typeof serviceReducer>
+export type BOOKINGTYPE = ReturnType<typeof bookingReducer>
 
 export type SERVICEAVAILABILITY = {
   day: string,
@@ -35,7 +37,7 @@ export type SERVICEMENU = {
 
 
 export type SERVICESMENU = {
-  id?: string,
+  _id: string,
   name: string,
   slug: string,
   imageUrl: string [] | string,

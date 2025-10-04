@@ -22,7 +22,9 @@ const websiteVisit = require('./visit');
 const settings = require('./setting');
 const getServerStatus = require('./status');
 const queueRoutes = require('./queue');
-
+const servicesRoute = require('./services');
+const serviceRoute = require('./service');
+const bookingRoute = require('./booking');
 
 // api status
 router.use('/status', getServerStatus)
@@ -89,5 +91,14 @@ router.use('/setting', settings);
 
 // email queue management routes
 router.use('/queue', queueRoutes);
+
+// services route
+router.use('/services', servicesRoute);
+
+// service route
+router.use('/service', serviceRoute);
+
+// booking routes
+router.use('/booking', bookingRoute);
 
 module.exports = router;

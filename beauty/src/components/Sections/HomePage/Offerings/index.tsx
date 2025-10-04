@@ -1,10 +1,14 @@
-import { ChevronRightIcon } from "lucide-react";
+import { ChevronRight as ChevronRightIcon } from "lucide-react";
 import React from "react";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { WhyChooseUsProps } from "../../../../interface";
 import ResolveImage from "../../../Common/ResolveImg";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction } from "react-router-dom";
+import { withRouter } from "../../../../../app/withRouter";
+import { connect } from "react-redux";
+import { actions, ACTIONSTYPE } from "../../../../actions";
+import { RootState } from "../../../../../app/store";
 
 const servicesData = [
   {
@@ -51,10 +55,19 @@ const servicesData = [
 
 
 
-export const OfferingsSection = (props: WhyChooseUsProps) => {
-  const { services = [] } = props;
-  const navigate = useNavigate()
-  const firstServices = services
+interface OfferingsWithRouter extends WhyChooseUsProps {
+  navigate: NavigateFunction;
+}
+
+class OfferingsSectionContainer extends React.PureComponent<OfferingsWithRouter & ACTIONSTYPE> {
+  handleBookAppointment = (service: any) => {
+    this.props.setSelectedService(service);
+    this.props.navigate('/booking');
+  };
+
+  render() {
+    const { services = [] } = this.props;
+    const firstServices = services;
   // const lastService = services.slice(services.length - 1)
 
   return (
@@ -138,7 +151,7 @@ export const OfferingsSection = (props: WhyChooseUsProps) => {
                       </div>
 
                       <Button
-                        onClick={() => navigate(`/services/${service.slug}`)}
+                        onClick={() => this.handleBookAppointment(service)}
                         variant="outline"
                         className="h-auto inline-flex items-center justify-center gap-2 p-2 rounded-[5px] border border-solid border-[#1c1c1c] bg-transparent hover:bg-[#1c1c1c] hover:text-white"
                       >
@@ -200,5 +213,12 @@ export const OfferingsSection = (props: WhyChooseUsProps) => {
         </div>
       </div>
     </section>
-  );
+    );
+  }
+}
+
+const mapStateToProps = (state: RootState) => {
+  return {};
 };
+
+export const OfferingsSection = connect(mapStateToProps, actions)(withRouter(OfferingsSectionContainer));

@@ -1,10 +1,12 @@
 import { Dispatch, bindActionCreators } from 'redux'
 import * as services from './containers/Services/actions'
+import * as booking from './containers/Booking/actions'
 
 export const actions = (dispatch: Dispatch) => {
   return bindActionCreators(
     {
-      ...services
+      ...services,
+      ...booking
     },
     dispatch
   )

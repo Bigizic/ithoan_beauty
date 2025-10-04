@@ -10,7 +10,7 @@ import { actions, ACTIONSTYPE } from "../../../actions";
 import { RootState } from "../../../../app/store";
 import { ServicePageProps } from "../../../interface";
 
-const ServicePageContainer = (props: ServicePageProps) => {
+const ServicePageContainer = (props: ServicePageProps & ACTIONSTYPE) => {
   useEffect(() => {
     AOS.init({
       offset: 130,
@@ -22,12 +22,17 @@ const ServicePageContainer = (props: ServicePageProps) => {
     AOS.refresh();
   }, []);
 
-  const { service } = props;
+  const { service, setSelectedService, setSelectedSubService } = props;
 
   return (
     <div className="flex flex-col w-full">
       <HeroSection service={service}/>
-      <PricingPlansSection serviceCat={service?.serviceArray}/>
+      <PricingPlansSection
+        services={service}
+        serviceCat={service?.serviceArray}
+        setSelectedService={setSelectedService}
+        setSelectedSubService={setSelectedSubService}
+      />
       <FaqSection />
     </div>
   );

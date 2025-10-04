@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const Mongoose = require('mongoose');
+const { Schema } = Mongoose;
 const slugify = require('slugify');
-const service = require('./service');
 
 const ServicesSchema = new Schema({
   name: {
@@ -11,7 +10,6 @@ const ServicesSchema = new Schema({
   slug: {
     type: String,
     unique: true,
-    required: true
   },
   description: String,
   title: String,
@@ -24,18 +22,38 @@ const ServicesSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  serviceArray: [service],
+  serviceArray: [{ type: Schema.Types.ObjectId, ref: 'ServiceGroup' }],
   updated: Date
 });
-ServicesSchema.pre('save', async function (next) {
-  this.updated = new Date();
+
+// pre save hook for slug
+ServicesSchema.pre('save', function (next) {
   if (this.isModified('name') || !this.slug) {
     this.slug = slugify(this.name, {
       lower: true,
       strict: true,
     });
   }
-  next();
-})
 
-module.exports = mongoose.model('Service', ServicesSchema);
+  this.updated = new Date();
+  next();
+});
+
+// pre findOneAndUpdate hook for slug
+ServicesSchema.pre('findOneAndUpdate', function (next) {
+  const update = this.getUpdate();
+  if (!update) return next();
+
+  if (update.name) {
+    update.slug = slugify(update.name, {
+      lower: true,
+      strict: true,
+    });
+  }
+
+  update.updated = new Date();
+  this.setUpdate(update);
+  next();
+});
+
+module.exports = Mongoose.model('Services', ServicesSchema);

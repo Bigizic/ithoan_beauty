@@ -15,7 +15,7 @@ if (token) {
   store.dispatch({ type: SET_AUTH });
 }
 
-createRoot(document.getElementById("app") as HTMLElement).render(
+createRoot(document.getElementById("main") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>

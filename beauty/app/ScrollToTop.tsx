@@ -11,7 +11,7 @@ interface ScrollToTopProps {
 const ScrollToTop = (props: ScrollToTopProps) => {
   const location = useLocation();
   const {
-    height = 0,
+    height = -100,
     behavior = "smooth"
   } = props;
 

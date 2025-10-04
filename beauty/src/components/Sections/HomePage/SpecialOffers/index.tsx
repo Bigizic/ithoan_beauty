@@ -18,7 +18,7 @@ export const SpecialOffersSection = () => {
               />
 
               <div className="flex flex-col items-start gap-[16px] sm:gap-6 relative self-stretch w-full flex-[0_0_auto]">
-                <h2 data-aos="fade-right" data-aos-delay="100" className="relative self-stretch mt-[-1.00px] [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-black text-5xl tracking-[0] leading-[32px] sm:leading-[57.6px]">
+                <h2 className="relative self-stretch mt-[-1.00px] [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-black text-5xl tracking-[0] leading-[32px] sm:leading-[57.6px]">
                   Special offers and packages
                 </h2>
 

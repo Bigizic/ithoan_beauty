@@ -6,6 +6,8 @@ import { Separator } from "../../../ui/seperator";
 import { PricingPlansProps } from "../../../../interface";
 import { DurationTime } from "../../../Common/DurationTime";
 import { formatTime } from "../../../Common/FormatTIme";
+import { ACTIONSTYPE } from "../../../../actions";
+import { useNavigate } from "react-router-dom";
 
 const pricingPlans = [
   {
@@ -43,9 +45,15 @@ const pricingPlans = [
   },
 ];
 
-export const PricingPlansSection = (props: PricingPlansProps) => {
-  const { serviceCat } = props;
+export const PricingPlansSection = (props: PricingPlansProps & ACTIONSTYPE) => {
+  const { services, serviceCat, setSelectedService, setSelectedSubService } = props;
+  const navigate = useNavigate()
 
+  const handleBookAppointment = (service: any) => {
+    setSelectedService(services);
+    setSelectedSubService(service)
+    navigate('/booking');
+  };
   return (
     <section className="flex flex-col items-center gap-20 pd-default py-default w-full bg-[#e6e1c9]">
       <div className="flex-col max-w-screen-xl gap-20 flex items-center w-full">
@@ -53,6 +61,7 @@ export const PricingPlansSection = (props: PricingPlansProps) => {
           <div className="flex-col items-center gap-[0] md:gap-6 w-full flex">
             <h2
               data-aos="fade-up"
+              data-aos-once="true"
               className="[font-family:'Bricolage_Grotesque',Helvetica] text-5xl text-center leading-[57.6px] font-bold text-[#1c1c1c] tracking-[0]"
             >
               Pricing Plans
@@ -77,7 +86,7 @@ export const PricingPlansSection = (props: PricingPlansProps) => {
                       {plan?.name}
                     </h3>
                     <p className="text-[12px] md:text-[16px]">
-                      {plan.description}
+                      {plan?.description}
                     </p>
                     <p className="bg-[#EABE30] p-[8px] rounded-[5px] w-fit text-[12px] md:text-[16px] [font-family:'Poppins',Helvetica] font-normal text-[#1c1c1c] text-base tracking-[0] leading-6">
                       {DurationTime(plan?.duration)}
@@ -93,41 +102,45 @@ export const PricingPlansSection = (props: PricingPlansProps) => {
                       </div>
                     </div>
 
-                    <Button className="h-auto bg-[#eabe30] hover:bg-[#d4a82a] text-[#1c1c1c] px-6 py-3 rounded-[10px] font-text-regular-normal font-[number:var(--text-regular-normal-font-weight)] text-[length:var(--text-regular-normal-font-size)] tracking-[var(--text-regular-normal-letter-spacing)] leading-[var(--text-regular-normal-line-height)] [font-style:var(--text-regular-normal-font-style)]">
+                    <Button
+                      onClick={() => handleBookAppointment(plan)}
+                      className="h-auto bg-[#eabe30] hover:bg-[#d4a82a] text-[#1c1c1c] px-6 py-3 rounded-[10px] font-text-regular-normal font-[number:var(--text-regular-normal-font-weight)] text-[length:var(--text-regular-normal-font-size)] tracking-[var(--text-regular-normal-letter-spacing)] leading-[var(--text-regular-normal-line-height)] [font-style:var(--text-regular-normal-font-style)]"
+                    >
                       Book Now
                     </Button>
                   </div>
 
                   <Separator className="h-px bg-[#1C1C1C]" />
-                  <p className="text-sm font-medium text-[#1c1c1c]">when can you book?</p>
-                  <div
-                    data-aos="fade-up"
-                    className="grid grid-cols-2 gap-3 mt-2"
-                  >
-                    {plan.availability.map((time, idx) => {
-                      return (
-                        <div
-                          key={idx}
-                          className="flex flex-col items-start bg-[#f5f2e6] rounded-xl px-3 py-2 shadow-sm hover:shadow-md transition-all duration-200"
-                        >
-                          <span className="text-xs font-semibold uppercase tracking-wide text-[#1c1c1c]">
-                            {time.day.substring(0, 3)}
-                          </span>
-                          {time.timeRanges.map((range, rIdx) => {
-                            const start = formatTime(range.startHour, range.startMinute);
-                            const end = formatTime(range.endHour, range.endMinute);
-                            return (
-                              <span
-                                key={rIdx}
-                                className="text-xs text-[#555] mt-1"
-                              >
-                                {start} - {end}
-                              </span>
-                            )
-                          })}
-                        </div>
-                      )
-                    })}
+                  <div>
+                    <p className="text-sm font-medium text-[#1c1c1c]">when can you book?</p>
+                    <div
+                      className="grid grid-cols-2 gap-3 mt-2"
+                    >
+                      {plan?.availability.map((time, idx) => {
+                        return (
+                          <div
+                            key={idx}
+                            className="flex relative flex-col items-start bg-[#f5f2e6] rounded-xl px-3 py-2 shadow-sm hover:shadow-md transition-all duration-200"
+                          >
+                            <span data-aos="fade-in" className="text-xs font-semibold uppercase tracking-wide text-[#1c1c1c]">
+                              {time.day.substring(0, 3)}
+                            </span>
+                            {time.timeRanges.map((range, rIdx) => {
+                              const start = formatTime(range.startHour, range.startMinute);
+                              const end = formatTime(range.endHour, range.endMinute);
+                              return (
+                                <span
+                                  key={rIdx}
+                                  className="text-xs text-[#555] mt-1"
+                                >
+                                  {start} - {end}
+                                </span>
+                              )
+                            })}
+                          </div>
+                        )
+                      })}
+                    </div>
                   </div>
                 </CardContent>
               </Card>

@@ -8,7 +8,7 @@ const Services = (props: ServicesProps) => {
   return (
     <>
     <Routes>
-      <Route path="" element={<ServicesPage services={services}/>} />
+      <Route path="" index element={<ServicesPage services={services}/>} />
       <Route path="/:slug" element={<ServicePage />} />
     </Routes>
     </>

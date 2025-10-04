@@ -17,7 +17,7 @@ export const AboutUsSection = () => {
           <div className="flex flex-col items-start gap-8 relative flex-1 grow md:w-[50%]">
             <div className="items-start gap-[8px] sm:gap-4 self-stretch w-full flex-[0_0_auto] flex flex-col relative">
               <div className="inline-flex items-center relative flex-[0_0_auto]">
-                <h2 data-aos="fade-left" data-aos-delay="100" className="w-fit [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-[#1c1c1c] text-5xl leading-[32px] sm:leading-[72px] whitespace-nowrap relative mt-[-1.00px] tracking-[0]">
+                <h2 className="w-fit [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-[#1c1c1c] text-5xl leading-[32px] sm:leading-[72px] whitespace-nowrap relative mt-[-1.00px] tracking-[0]">
                   About Us
                 </h2>
               </div>
