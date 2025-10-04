@@ -12,9 +12,7 @@ import { BrowserRouter } from 'react-router-dom';
 import store, { history } from './store';
 import { SocketProvider } from './contexts/Socket';
 import { SET_AUTH } from './containers/Authentication/constants';
-import Application from './containers/Application';
-import ScrollToTop from './scrollToTop';
-import setToken from './utils/token';
+import Application from in /utils/token';
 
 // Import application sass styles
 import './styles/style.scss';
