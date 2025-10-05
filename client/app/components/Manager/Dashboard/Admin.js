@@ -28,6 +28,7 @@ import Banner from '../../../containers/Banner';
 import Campaign from '../../../containers/Campaign';
 import Services from '@/containers/Services';
 import Service from '@/containers/Service';
+import Booking from '../../../containers/Booking';
 
 const Admin = props => {
   return (
@@ -51,6 +52,7 @@ const Admin = props => {
               <Route path='users' element={<Users />} />
               <Route path='merchant/*' element={<Merchant />} />
               <Route path='orders/*' element={<Order />} />
+              <Route path='booking/*' element={<Booking />} />
               <Route path='review/*' element={<Review />} />
               <Route path='banner/*' element={<Banner />} />
               <Route path='campaigns/*' element={<Campaign />} />

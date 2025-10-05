@@ -39,6 +39,7 @@ import * as paymentGateway from './containers/PaymentGateway/actions';
 import * as newsletterUnsubscribe from './containers/NewsletterUnsubscribe/actions';
 import * as services from './containers/Services/actions';
 import * as service from './containers/Service/actions';
+import * as booking from './containers/Booking/actions';
 
 export default function mapDispatchToProps(dispatch) {
   return bindActionCreators(
@@ -75,7 +76,8 @@ export default function mapDispatchToProps(dispatch) {
       ...wishlist,
       ...newsletterUnsubscribe,
       ...services,
-      ...service
+      ...service,
+      ...booking
     },
     dispatch
   );

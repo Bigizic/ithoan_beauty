@@ -68,8 +68,15 @@ p{color:#1c1c1c;font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:16px;
 
             <div style="background-color:#fff3cd;border-left:4px solid #eabe30;padding:15px;margin:20px 0;border-radius:5px;">
               <p style="margin:0 0 10px;font-weight:600;color:#856404;">Important: Punctuality Policy</p>
-              <p style="margin:0;font-size:14px;color:#856404;line-height:20px;">
+              <p style="margin:0 0 10px;font-size:14px;color:#856404;line-height:20px;">
                 Please arrive on time for your appointment. If you arrive <strong>more than 15 minutes late</strong> after your scheduled appointment time, a penalty fee of <strong>₦5,000</strong> will be charged. We appreciate your understanding and cooperation.
+              </p>
+            </div>
+
+            <div style="background-color:#e3f2fd;border-left:4px solid #2196f3;padding:15px;margin:20px 0;border-radius:5px;">
+              <p style="margin:0 0 10px;font-weight:600;color:#1565c0;">Medical History Questionnaire</p>
+              <p style="margin:0;font-size:14px;color:#1565c0;line-height:20px;">
+                As part of our commitment to your safety and well-being, you will be asked to complete a brief medical history questionnaire before your appointment. This helps us understand any health considerations that may affect your treatment. Please review our <a href="https://beauty.tohannieesskincare.com/policy" style="color:#1565c0;text-decoration:underline;">medical policy</a> for more information.
               </p>
             </div>
 
