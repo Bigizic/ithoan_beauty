@@ -1,6 +1,4 @@
 import React from "react"
-import { Footer } from "../../components/Layout/Footer"
-import { Header } from "../../components/Layout/Header"
 import { Route, Routes } from "react-router-dom"
 import HomePage from "../HomePage"
 import Services from "../Services"
@@ -11,6 +9,7 @@ import { RootState } from '../../../app/store'
 import { ApplicationStateProps } from "../../interface"
 import Booking from "../Booking"
 import PaymentGateway from "../PaymentGateway"
+import { Toaster } from 'react-hot-toast'
 
 class Application extends React.PureComponent<ApplicationStateProps & ACTIONSTYPE> {
   componentDidMount(): void {
@@ -23,13 +22,12 @@ class Application extends React.PureComponent<ApplicationStateProps & ACTIONSTYP
     } = this.props
     return (
       <div className="application">
-        <Header services={services} />
+        <Toaster />
         <Routes>
           <Route path="/" element={<HomePage services={services} />} />
           <Route path="/services/*" element={<Services services={services} />} />
           <Route path="/booking/*" element={<Booking />} />
         </Routes>
-        <Footer services={services} />
         <PaymentGateway />
       </div>
     )

@@ -4,9 +4,18 @@ const Mailgun = require('mailgun.js');
 const template = require('../config/template');
 const keys = require('../config/keys');
 
-const { key, domain, host, sender, support, mailingKey } = keys.mailgun;
+const {
+  key, domain,
+  host, sender,
+  support, mailingKey,
+  booking
+} = keys.mailgun;
 
-const { order, security, auth, news, management, domain_unsubscribe } = keys.mailgun;
+const {
+  order, security,
+  auth, news,
+  management, domain_unsubscribe
+} = keys.mailgun;
 
 
 class MailgunService {
@@ -56,14 +65,14 @@ class MailgunService {
       while (response.pages && response.items.length > 0 && response.pages.next) {
         nextPageUrl = response.pages.next.page;
         params.page = nextPageUrl
-  
+
         response = await this.mailgun.events.get(domain, params);
-  
+
         allEvents = allEvents.concat(response.items);
       }
-  
+
       const totalOpens = allEvents.length;
-  
+
       return {
         totalOpens,
       };
@@ -71,11 +80,11 @@ class MailgunService {
       throw error;
     }
   }
-  
-  
-  
-  
-  
+
+
+
+
+
   async fetchMembers() {
     try {
       const result = await this.mailingG.lists.members.listMembers(news);
@@ -108,9 +117,9 @@ class MailgunService {
 
       while (result.pages && result.items.length > 0 && result.pages.next) {
         nextPageUrl = result.pages.next.page;
-  
-        result = await this.mailingG.lists.members.listMembers(news, {page: nextPageUrl});
-  
+
+        result = await this.mailingG.lists.members.listMembers(news, { page: nextPageUrl });
+
         allEvents = allEvents.concat(result.items);
       }
       const totalOpens = allEvents.length;
@@ -132,7 +141,7 @@ class MailgunService {
     }
   }
 
-  async createMember(email, firstName, lastName){
+  async createMember(email, firstName, lastName) {
     try {
       const cBase = Buffer.from(email).toString('base64');
       const result = await this.mailingG.lists.members.createMember(news, {
@@ -179,7 +188,7 @@ class MailgunService {
       if (update) {
         return true
       }
-    } catch(error) {
+    } catch (error) {
       throw 'Cannot update member'
     }
   }
@@ -194,7 +203,7 @@ class MailgunService {
     }
   }
 
-  async sendEmail(email, type, data, selectedProductsLength=null) {
+  async sendEmail(email, type, data, selectedProductsLength = null) {
     try {
       const message = prepareTemplate(type, host, data, selectedProductsLength);
 
@@ -235,7 +244,7 @@ class MailgunService {
 }
 
 
-const prepareTemplate = (type, host, data, selectedProductsLength=null) => {
+const prepareTemplate = (type, host, data, selectedProductsLength = null) => {
   let message;
 
   switch (type) {
@@ -316,12 +325,12 @@ const prepareTemplate = (type, host, data, selectedProductsLength=null) => {
 
     case 'booking-confirmation':
       message = template.bookingConfirmationEmail(data);
-      message.sender = order;
+      message.sender = booking;
       break;
 
     case 'admin-booking-confirmation':
       message = template.adminBookingConfirmationEmail(data);
-      message.sender = order;
+      message.sender = booking;
       break;
 
     default:

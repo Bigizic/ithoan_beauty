@@ -9,6 +9,8 @@ import {
   SET_BOOKING_ERROR,
   CLEAR_BOOKING_ERROR,
   SET_USER_INFO,
+  SET_FIELD_ERROR,
+  CLEAR_FIELD_ERROR,
   RESET_BOOKING,
   FETCH_BANKS,
 } from './constants'
@@ -22,6 +24,7 @@ const initialState = {
   availableTimes: [] as string[],
   bookedDates: [] as any[],
   error: null as string | null,
+  fieldErrors: {} as Record<string, string>,
   userInfo: {
     fullName: '',
     email: '',
@@ -74,7 +77,6 @@ export default function bookingReducer(state = initialState, action: actionProps
       return {
         ...state,
         availableTimes: action.payload.availableTimes,
-        bookedDates: action.payload.bookedDates,
         loading: false
       }
     case SET_BOOKING_ERROR:
@@ -87,6 +89,21 @@ export default function bookingReducer(state = initialState, action: actionProps
       return {
         ...state,
         error: null
+      }
+    case SET_FIELD_ERROR:
+      return {
+        ...state,
+        fieldErrors: {
+          ...state.fieldErrors,
+          [action.payload.field]: action.payload.error
+        }
+      }
+    case CLEAR_FIELD_ERROR:
+      const newFieldErrors = { ...state.fieldErrors }
+      delete newFieldErrors[action.payload]
+      return {
+        ...state,
+        fieldErrors: newFieldErrors
       }
     case SET_USER_INFO:
       return {

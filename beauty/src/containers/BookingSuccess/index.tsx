@@ -44,10 +44,13 @@ const BookingSuccess: React.FC = () => {
 
             <div className="bg-[#eabe30]/10 rounded-[10px] p-6 mt-6">
               <p className="text-sm text-[#1c1c1c]/60 [font-family:'Poppins',Helvetica] mb-2">
-                Your Booking Number
+                Your Booking Confirmation Number
               </p>
               <p className="text-2xl font-bold text-[#1c1c1c] [font-family:'Bricolage_Grotesque',Helvetica]">
                 #{bookingId}
+              </p>
+              <p className="text-xs text-[#1c1c1c]/50 [font-family:'Poppins',Helvetica] mt-2">
+                Keep this number for your records
               </p>
             </div>
           </div>

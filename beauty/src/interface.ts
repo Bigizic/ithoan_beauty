@@ -77,5 +77,6 @@ export interface AppointmentDetailsProps {
     phoneNumber: string;
   };
   bookingSuccess: boolean;
+  fieldErrors: any;
 }
 

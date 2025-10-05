@@ -135,7 +135,8 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
       loading,
       error,
       userInfo,
-      bookingSuccess
+      bookingSuccess,
+      fieldErrors
     } = this.props;
 
     const { calendar, currentMonth } = this.state;
@@ -206,12 +207,6 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
                   ))}
                 </div>
               </div>
-
-              {error && (
-                <p className="text-sm text-red-600 [font-family:'Poppins',Helvetica]">
-                  {error}
-                </p>
-              )}
             </div>
           </div>
 
@@ -238,14 +233,6 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
               </div>
             )}
 
-            {bookingDate && availableTimes.length === 0 && !loading && (
-              <div className="text-center py-8">
-                <p className="text-[#1c1c1c] [font-family:'Poppins',Helvetica]">
-                  No available times for this date. Please select another date.
-                </p>
-              </div>
-            )}
-
             <div className="flex flex-col gap-6 mt-8">
               <h3 className="text-[24px] leading-[24.0px] [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-[#eabe30] tracking-[0]">
                 Your Information
@@ -266,28 +253,49 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
                 </p>
               </div>
 
-              <Input
-                placeholder="Full Name"
-                value={userInfo.fullName}
-                onChange={(e) => this.handleUserInfoChange('fullName', e.target.value)}
-                className="h-[42px] rounded-[5px] border border-solid border-[#1c1c1c6b] [font-family:'Poppins',Helvetica] font-normal text-[#1c1c1c] text-base"
-              />
+              <div>
+                <Input
+                  placeholder="Full Name"
+                  value={userInfo.fullName}
+                  onChange={(e) => this.handleUserInfoChange('fullName', e.target.value)}
+                  className="h-[42px] rounded-[5px] border border-solid border-[#1c1c1c6b] [font-family:'Poppins',Helvetica] font-normal text-[#1c1c1c] text-base"
+                />
+                {fieldErrors?.fullName && (
+                  <p className="text-sm text-red-600 [font-family:'Poppins',Helvetica] mt-1">
+                    {fieldErrors.fullName}
+                  </p>
+                )}
+              </div>
 
-              <Input
-                placeholder="Email Address"
-                type="email"
-                value={userInfo.email}
-                onChange={(e) => this.handleUserInfoChange('email', e.target.value)}
-                className="h-[42px] rounded-[5px] border border-solid border-[#1c1c1c6b] [font-family:'Poppins',Helvetica] font-normal text-[#1c1c1c] text-base"
-              />
+              <div>
+                <Input
+                  placeholder="Email Address"
+                  type="email"
+                  value={userInfo.email}
+                  onChange={(e) => this.handleUserInfoChange('email', e.target.value)}
+                  className="h-[42px] rounded-[5px] border border-solid border-[#1c1c1c6b] [font-family:'Poppins',Helvetica] font-normal text-[#1c1c1c] text-base"
+                />
+                {fieldErrors?.email && (
+                  <p className="text-sm text-red-600 [font-family:'Poppins',Helvetica] mt-1">
+                    {fieldErrors.email}
+                  </p>
+                )}
+              </div>
 
-              <Input
-                placeholder="Phone Number"
-                type="tel"
-                value={userInfo.phoneNumber}
-                onInputChange={(n, v) => this.handleUserInfoChange('phoneNumber', v)}
-                className="h-[42px] rounded-[5px] border border-solid border-[#1c1c1c6b] [font-family:'Poppins',Helvetica] font-normal text-[#1c1c1c] text-base"
-              />
+              <div>
+                <Input
+                  placeholder="Phone Number"
+                  type="tel"
+                  value={userInfo.phoneNumber}
+                  onInputChange={(n, v) => this.handleUserInfoChange('phoneNumber', v)}
+                  className="h-[42px] rounded-[5px] border border-solid border-[#1c1c1c6b] [font-family:'Poppins',Helvetica] font-normal text-[#1c1c1c] text-base"
+                />
+                {fieldErrors?.phoneNumber && (
+                  <p className="text-sm text-red-600 [font-family:'Poppins',Helvetica] mt-1">
+                    {fieldErrors.phoneNumber}
+                  </p>
+                )}
+              </div>
 
               <Button
                 onClick={this.handleSubmit}
@@ -314,6 +322,7 @@ const mapStateToProps = (state: RootState) => {
     bookedDates: state.booking.bookedDates,
     loading: state.booking.loading,
     error: state.booking.error,
+    fieldErrors: state.booking.fieldErrors,
     userInfo: state.booking.userInfo,
     bookingSuccess: state.booking.bookingSuccess
   };

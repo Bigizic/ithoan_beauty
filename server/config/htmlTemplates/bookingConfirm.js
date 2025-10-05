@@ -44,7 +44,7 @@ p{color:#1c1c1c;font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:16px;
             <div class="booking-details">
               <div class="detail-row">
                 <span class="detail-label">Booking Number:</span>
-                <span class="detail-value">#${booking.bookingHash}</span>
+                <span class="detail-value">#${booking._id}</span>
               </div>
               <div class="detail-row">
                 <span class="detail-label">Service:</span>
@@ -65,13 +65,6 @@ p{color:#1c1c1c;font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:16px;
             </div>
 
             <p>We've received your payment and your appointment is confirmed. We look forward to seeing you!</p>
-
-            <div style="background-color:#fff3cd;border-left:4px solid #eabe30;padding:15px;margin:20px 0;border-radius:5px;">
-              <p style="margin:0 0 10px;font-weight:600;color:#856404;">Important: Punctuality Policy</p>
-              <p style="margin:0;font-size:14px;color:#856404;line-height:20px;">
-                Please arrive on time for your appointment. If you arrive <strong>more than 15 minutes late</strong> after your scheduled appointment time, a penalty fee of <strong>₦5,000</strong> will be charged. We appreciate your understanding and cooperation.
-              </p>
-            </div>
 
             <center>
               <a href="https://beauty.tohannieesskincare.com" class="button">View Services</a>
