@@ -10,6 +10,8 @@ import { ApplicationStateProps } from "../../interface"
 import Booking from "../Booking"
 import PaymentGateway from "../PaymentGateway"
 import { Toaster } from 'react-hot-toast'
+import { Header } from "../../components/Layout/Header"
+import { Footer } from "../../components/Layout/Footer"
 
 class Application extends React.PureComponent<ApplicationStateProps & ACTIONSTYPE> {
   componentDidMount(): void {
@@ -23,11 +25,13 @@ class Application extends React.PureComponent<ApplicationStateProps & ACTIONSTYP
     return (
       <div className="application">
         <Toaster />
+        <Header services={services} />
         <Routes>
           <Route path="/" element={<HomePage services={services} />} />
           <Route path="/services/*" element={<Services services={services} />} />
           <Route path="/booking/*" element={<Booking />} />
         </Routes>
+        <Footer services={services} />
         <PaymentGateway />
       </div>
     )

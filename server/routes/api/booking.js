@@ -214,6 +214,7 @@ router.put('/payment', upload.fields([
           paymentStatus: 'paid',
           paymentType: 'Transfer',
           note,
+          status: 'pending',
           updated: Date.now()
         }
       },
@@ -242,12 +243,12 @@ router.put('/payment', upload.fields([
       bookingData
     );
 
-    /*if (secondAdminEmail) {
+    if (secondAdminEmail) {
       await emailService.sendEmail(secondAdminEmail, 'admin-booking-confirmation', bookingData);
     }
     if (adminEmail) {
       await emailService.sendEmail(adminEmail, 'admin-booking-confirmation', bookingData);
-    }*/
+    }
 
     return res.status(200).json({
       success: true,
@@ -308,7 +309,7 @@ router.post('/create', async (req, res) => {
     }
 
     const selectedDate = new Date(bookingDate);
-    selectedDate.setHours(0, 0, 0, 0);
+    //selectedDate.setHours(0, 0, 0, 0);
 
     const startOfDay = new Date(selectedDate);
     const endOfDay = new Date(selectedDate);
@@ -343,7 +344,7 @@ router.post('/create', async (req, res) => {
         email,
         phoneNumber
       },
-      status: 'pending',
+      status: 'unpaid',
       totalAmount: subService.price
     });
 
@@ -459,7 +460,7 @@ router.put('/:id', auth, role.check(ROLES.Admin), async (req, res) => {
     if (subServiceId) updateData.subServiceId = subServiceId;
     if (bookingDate) {
       const selectedDate = new Date(bookingDate);
-      selectedDate.setHours(0, 0, 0, 0);
+      // selectedDate.setHours(0, 0, 0, 0);
       updateData.bookingDate = selectedDate;
     }
     if (bookingTime) updateData.bookingTime = bookingTime;
@@ -496,7 +497,7 @@ router.put('/:id', auth, role.check(ROLES.Admin), async (req, res) => {
       try {
         await emailService.sendEmail(
           updatedBooking.customerInfo.email,
-          'booking-confirmation',
+          'booking-confirm',
           bookingData
         );
       } catch (emailError) {

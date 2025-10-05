@@ -9,6 +9,7 @@ import { WhyChooseUsSection } from "../../components/Sections/HomePage/WhyChoose
 import { ClientFeedbackSection } from "../../components/Sections/HomePage/ClientFeedback";
 import { CallToActionSection } from "../../components/Sections/HomePage/CallToAction";
 import { HomePageProps } from "../../interface";
+import { PromiseToClient } from "../../components/Sections/HomePage/PromiseToClient";
 
 const HomePage = (props: HomePageProps) => {
   const { services } = props
@@ -29,7 +30,8 @@ const HomePage = (props: HomePageProps) => {
       <AboutUsSection />
       <SpecialOffersSection />
       <WhyChooseUsSection />
-      <ClientFeedbackSection />
+      {/*<ClientFeedbackSection />*/}
+      <PromiseToClient />
       <CallToActionSection />
     </main>
   );

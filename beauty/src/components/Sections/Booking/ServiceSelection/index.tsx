@@ -49,7 +49,7 @@ class ServiceSelectionContainer extends React.PureComponent<ServiceSelectionProp
 
         <div className="flex flex-col gap-4 w-full mt-6 bg-white p-[40px] md:p-[80px] rounded-[20px] rounded-br-none rounded-bl-none">
           <div className="flex flex-col gap-2">
-            <label className="text-[20px] md:text-[32px] font-bold text-[#EABE30] [font-family:'Poppins',Helvetica]">
+            <label className="text-[20px] md:text-[32px] font-bold text-[#EABE30] [font-family:'Bricolage_Grotesque',Helvetica]">
               Select Service
             </label>
             <Select
@@ -73,7 +73,7 @@ class ServiceSelectionContainer extends React.PureComponent<ServiceSelectionProp
 
           {selectedService && (
             <div className="flex flex-col gap-2">
-              <label className="text-[20px] md:text-[32px] font-bold text-[#EABE30] [font-family:'Poppins',Helvetica]">
+              <label className="text-[20px] md:text-[32px] font-bold text-[#EABE30] [font-family:'Bricolage_Grotesque',Helvetica]">
                 Sub Service
               </label>
               <Select

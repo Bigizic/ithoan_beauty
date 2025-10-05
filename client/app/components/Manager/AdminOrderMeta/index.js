@@ -192,7 +192,7 @@ const AdminOrderMeta = props => {
           icon={<ArrowBackIcon />}
           size='sm'
           text='Back to orders'
-          onClick={() => navigate('dashboard/orders')}
+          onClick={() => navigate('/dashboard/orders/customers')}
         />
       </div>
 

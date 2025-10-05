@@ -55,6 +55,10 @@ module.exports = {
     './app/containers/ProductPage/index.js',
 
     './app/containers/FAQ/index.js',
+
+    './app/containers/Booking/List.js',
+    './app/containers/Booking/Edit.js',
+    './app/containers/Booking/index.js',
     './app/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {

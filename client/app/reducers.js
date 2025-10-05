@@ -42,6 +42,7 @@ import paymentReducer from './containers/PaymentGateway/reducer';
 import newsletterUnsubscribeReducer from './containers/NewsletterUnsubscribe/reducer';
 import servicesReducer from './containers/Services/reducer';
 import serviceReducer from './containers/Service/reducer';
+import bookingReducer from './containers/Booking/reducer';
 
 const createReducer = history =>
   combineReducers({
@@ -80,6 +81,7 @@ const createReducer = history =>
     newsletterUnsubscribe: newsletterUnsubscribeReducer,
     services: servicesReducer,
     service: serviceReducer,
+    booking: bookingReducer,
   });
 
 export default createReducer;

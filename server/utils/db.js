@@ -26,7 +26,7 @@ const setupDB = async () => {
       authSource: DB_AUTH_SOURCE,
     });
     console.log(`${chalk.green('✓')} ${chalk.blue('MongoDB Connected!')}`);
-    const seedServices = require('./seedService');
+    //const seedServices = require('./seedService');
   } catch (error) {
     console.error(`${chalk.red('✗')} ${chalk.yellow('MongoDB Connection Error:')}`, error);
     process.exit(1);

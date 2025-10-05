@@ -78,7 +78,7 @@ export const WhyChooseUsSection = () => {
                       src={feature.icon}
                     />
 
-                    <h4 data-aos="fade-right" data-aos-delay={100 * index + 300} className="relative self-stretch font-heading-h4 font-[number:var(--heading-h4-font-weight)] text-white text-[24px] sm:text-[length:var(--heading-h4-font-size)] tracking-[var(--heading-h4-letter-spacing)] leading-[var(--heading-h4-line-height)] [font-style:var(--heading-h4-font-style)]">
+                    <h4 data-aos="fade-in" data-aos-delay={100 * index + 100} data-aos-once="true" className="relative self-stretch font-heading-h4 font-[number:var(--heading-h4-font-weight)] text-white text-[24px] sm:text-[length:var(--heading-h4-font-size)] tracking-[var(--heading-h4-letter-spacing)] leading-[var(--heading-h4-line-height)] [font-style:var(--heading-h4-font-style)]">
                       {feature.title}
                     </h4>
 

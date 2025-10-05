@@ -43,6 +43,12 @@
       "icon": "orders-icon"
     },
     {
+      "to": "/booking",
+      "name": "Bookings",
+      "prefix": "/dashboard",
+      "icon": "orders-icon"
+    },
+    {
       "to": "/review",
       "name": "Reviews",
       "prefix": "/dashboard",

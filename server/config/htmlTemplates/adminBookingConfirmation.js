@@ -42,7 +42,7 @@ p{color:#333;font-size:14px;line-height:22px;margin:0 0 10px;}
             <div class="booking-details">
               <div class="detail-row">
                 <span class="detail-label">Booking ID:</span>
-                <span class="detail-value">#${booking._id}</span>
+                <span class="detail-value">#${booking.bookingHash}</span>
               </div>
               <div class="detail-row">
                 <span class="detail-label">Customer Name:</span>

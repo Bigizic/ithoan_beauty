@@ -21,7 +21,6 @@ class Booking extends React.PureComponent<BookingProps & ACTIONSTYPE> {
 }
 
 const mapStateToProps = (state: RootState) => {
-  console.log(state.booking)
   return {
     selectedService: state.booking.selectedService,
     selectedSubService: state.booking.selectedSubService,

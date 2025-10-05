@@ -1,5 +1,7 @@
+const { TH_BEAUTY } = require('../../constants/index')
+
 exports.bookingConfirmation = (booking) =>
-`
+  `
 <!DOCTYPE html>
 <html lang="en" dir="ltr" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" style="color-scheme:light dark;supported-color-schemes:light dark;">
 <head>
@@ -12,8 +14,8 @@ exports.bookingConfirmation = (booking) =>
 body{background-color:#f4f4f4;margin:0;padding:0;}
 table{border-collapse:collapse;}
 .email-container{max-width:600px;margin:0 auto;background-color:#ffffff;}
-.header{background-color:#eabe30;padding:30px;text-align:center;}
-.header img{width:100px;height:100px;border-radius:50%;}
+.header{background-color:#eabe30;padding:15px;text-align:center;}
+.header img{width:60px;height:60px;border-radius:0%;}
 .content{padding:40px 30px;}
 h1{color:#1c1c1c;font-family:'Bricolage Grotesque',Helvetica,Arial,sans-serif;font-size:28px;margin:0 0 20px;}
 p{color:#1c1c1c;font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:16px;line-height:24px;margin:0 0 15px;}
@@ -32,14 +34,16 @@ p{color:#1c1c1c;font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:16px;
       <table role="presentation" class="email-container" width="600" cellspacing="0" cellpadding="0">
         <tr>
           <td class="header">
-            <img src="https://res.cloudinary.com/dduai6ryd/image/upload/v1736088530/ithoan/images/logo/business_logo.png" alt="Tohanniees Skincare Logo">
+            <img src="https://res.cloudinary.com/dduai6ryd/image/upload/v1759689351/logo_no_bg_wp9uid.png" alt="Tohanniees Beauty Logo">
           </td>
         </tr>
         <tr>
           <td class="content">
             <h1>Booking Confirmed!</h1>
             <p>Hi ${booking.customerInfo.fullName},</p>
-            <p>Thank you for booking with <strong>Tohanniees Skincare</strong>. Your appointment has been confirmed.</p>
+            <p>thank you for choosing <strong>tohanniees beauty</strong>. we’re pleased to let you know that your appointment request has been successfully received.  
+            our team will review and confirm your booking shortly. You’ll receive a notification once your appointment is officially confirmed.
+            </p>
 
             <div class="booking-details">
               <div class="detail-row">
@@ -64,8 +68,6 @@ p{color:#1c1c1c;font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:16px;
               </div>
             </div>
 
-            <p>We've received your payment and your appointment is confirmed. We look forward to seeing you!</p>
-
             <div style="background-color:#fff3cd;border-left:4px solid #eabe30;padding:15px;margin:20px 0;border-radius:5px;">
               <p style="margin:0 0 10px;font-weight:600;color:#856404;">Important: Punctuality Policy</p>
               <p style="margin:0;font-size:14px;color:#856404;line-height:20px;">
@@ -74,23 +76,28 @@ p{color:#1c1c1c;font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:16px;
             </div>
 
             <center>
-              <a href="https://beauty.tohannieesskincare.com" class="button">View Services</a>
+              <a href="${TH_BEAUTY.link}/services" class="button">View Services</a>
             </center>
+
+            <div class="locate-us">
+              <h2>Locate Us</h2>
+               <p>you can find our spa here:<a href="https://maps.google.com/?q=Tohanniees+Beauty" style="color:#eabe30;">view on google maps</a></p>
+            </div>
 
             <p style="margin-top:30px;font-size:14px;color:#666;">
               Questions? Contact us at
               <a href="mailto:support@tohannieesskincare.com" style="color:#eabe30;">support@tohannieesskincare.com</a>
               or WhatsApp us at
-              <a href="https://wa.me/2349077692506" style="color:#eabe30;">+234 907 769 2506</a>
+              <a href=${TH_BEAUTY.whatsapp} style="color:#eabe30;">+234 907 769 2506</a>
             </p>
           </td>
         </tr>
         <tr>
           <td class="footer">
-            <p>Tohanniees Skincare &copy; ${new Date().getFullYear()}</p>
+            <p>Tohanniees Beauty &copy; ${new Date().getFullYear()}</p>
             <p>
-              <a href="https://www.instagram.com/tohanniees_skincare" style="color:#eabe30;text-decoration:none;">Instagram</a> |
-              <a href="https://tohannieesskincare.com" style="color:#eabe30;text-decoration:none;">Website</a>
+              <a href=${TH_BEAUTY.instagram} style="color:#eabe30;text-decoration:none;">Instagram</a> |
+              <a href=${TH_BEAUTY.link} style="color:#eabe30;text-decoration:none;">Website</a>
             </p>
           </td>
         </tr>

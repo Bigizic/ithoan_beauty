@@ -28,6 +28,7 @@ import Banner from '../../../containers/Banner';
 import Campaign from '../../../containers/Campaign';
 import Services from '@/containers/Services';
 import Service from '@/containers/Service';
+import Booking from '../../../containers/Booking';
 
 const Admin = props => {
   return (
@@ -36,7 +37,7 @@ const Admin = props => {
         <Col className='leftNav' xs='12' md='3' xl='2'>
           <AccountMenu {...props} />
         </Col>
-        <Col className='rightMain p-0' xs='12' md='7' xl='10'>
+        <Col className='rightMain p-0' xs='12' md='9' xl='10'>
           <div className='panel-body'>
             <Routes>
               <Route index element={<AdminDashboard />} />
@@ -51,6 +52,7 @@ const Admin = props => {
               <Route path='users' element={<Users />} />
               <Route path='merchant/*' element={<Merchant />} />
               <Route path='orders/*' element={<Order />} />
+              <Route path='booking/*' element={<Booking />} />
               <Route path='review/*' element={<Review />} />
               <Route path='banner/*' element={<Banner />} />
               <Route path='campaigns/*' element={<Campaign />} />

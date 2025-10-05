@@ -333,6 +333,11 @@ const prepareTemplate = (type, host, data, selectedProductsLength = null) => {
       message.sender = booking;
       break;
 
+    case 'booking-confirm':
+      message = template.bookingConfirmEmail(data);
+      message.sender = booking;
+      break;
+
     default:
       message = '';
   }

@@ -80,6 +80,7 @@ const getEmailPriority = (type) => {
     'admin-order-confirmation': 3,
     'booking-confirmation': 3,
     'admin-booking-confirmation': 3,
+    'booking-confirm': 2,
     'update-order': 4,
     'order-products-update': 4,
     'order-address-change': 4,

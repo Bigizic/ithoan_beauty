@@ -22,7 +22,7 @@ const variants = {
 const Button = props => {
   const {
     id,
-    size = 'md',
+    size = 'sm',
     variant = 'secondary',
     tabIndex,
     ariaLabel,
@@ -45,7 +45,8 @@ const Button = props => {
     popoverTitle,
     left,
 
-    extraIconClassName
+    extraIconClassName,
+    spanClassName = '',
   } = props;
 
   const v = variant ? variants[variant] : '';
@@ -92,11 +93,11 @@ const Button = props => {
       {iconDirection === 'left' ? (
         <>
           {icon && <div className={iconClassNames}>{icon}</div>}
-          {text && <span className='btn-text'>{text}</span>}
+          {text && <span className={`btn-text ` + spanClassName}>{text}</span>}
         </>
       ) : (
         <>
-          {text && <span className='btn-text'>{text}</span>}
+          {text && <span className={`btn-text ` + spanClassName}>{text}</span>}
           {icon && <div className={iconClassNames}>{icon}</div>}
         </>
       )}

@@ -163,7 +163,7 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
             </h2>
 
             <div className="flex flex-col gap-4">
-              <div className="flex flex-col w-full md:w-[50%] items-center gap-4 px-2 py-4 rounded-[10px] border border-solid border-[#1c1c1c]">
+              <div className="flex flex-col w-full md:w-[70%] items-center gap-4 px-2 py-4 rounded-[10px] border border-solid border-[#1c1c1c]">
                 <div className="flex items-center justify-between w-full px-4">
                   <button onClick={this.handlePreviousMonth} className="p-1" aria-label="Previous month">
                     <ChevronLeftIcon className="w-[10.09px] h-[15.63px] text-[#1c1c1c] stroke-[8]" />
@@ -238,7 +238,7 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
                 Your Information
               </h3>
 
-              <div className="bg-[#eabe30]/10 border-l-4 border-[#eabe30] p-4 rounded-r-[5px]">
+              {/*<div className="bg-[#eabe30]/10 border-l-4 border-[#eabe30] p-4 rounded-r-[5px]">
                 <p className="text-sm text-[#1c1c1c] [font-family:'Poppins',Helvetica]">
                   <strong>Note:</strong> You can skip entering your details by{' '}
                   <a
@@ -251,7 +251,7 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
                   </a>
                   . Your information will be automatically filled.
                 </p>
-              </div>
+              </div>*/}
 
               <div>
                 <Input

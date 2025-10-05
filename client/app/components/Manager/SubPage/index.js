@@ -8,11 +8,13 @@ import React from 'react';
 
 import Button from '../../Common/Button';
 import { useNavigate } from 'react-router-dom';
+import { ArrowBackIcon } from '@/components/Common/Icon';
 
 const SubPage = props => {
   let {
     title, actionTitle,
     handleAction = -1, children,
+    icon = '',
   } = props;
   const navigate = useNavigate();
 
@@ -24,6 +26,7 @@ const SubPage = props => {
           <div className='action'>
             <Button
               variant='none'
+              icon={icon}
               size='sm'
               text={actionTitle}
               onClick={() => navigate(handleAction)}

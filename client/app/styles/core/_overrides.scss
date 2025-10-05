@@ -145,3 +145,12 @@ hr {
   margin: 0 !important;
   padding: 0 !important;
 }
+
+.col-md-6 {
+  padding-left: 0;
+  padding-right: 0;
+  @include media-breakpoint-up(md) {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+}

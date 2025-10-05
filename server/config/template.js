@@ -5,7 +5,8 @@ const { orderUpdate } = require("./htmlTemplates/orderUpdate");
 const { orderProductsUpdate } = require("./htmlTemplates/orderProductsUpdate");
 const { orderShippingInfoUpdate } = require("./htmlTemplates/orderShippingInfoUpdate");
 const { bookingConfirmation } = require("./htmlTemplates/bookingConfirmation");
-const { adminBookingConfirmation } = require("./htmlTemplates/adminBookingConfirmation"); 
+const { adminBookingConfirmation } = require("./htmlTemplates/adminBookingConfirmation");
+const { bookingConfirm } = require("./htmlTemplates/bookingConfirm"); 
 
 
 exports.newsLetterEmail = (campaignData) => {
@@ -201,9 +202,19 @@ exports.bookingConfirmationEmail = (booking) => {
 
 exports.adminBookingConfirmationEmail = (booking) => {
   const message = {
-    subject: `New Booking Received - #${booking._id}`,
+    subject: `New Booking Received - #${booking.bookingHash}`,
     text: `New booking from ${booking.customerInfo.fullName}`,
     html: adminBookingConfirmation(booking),
+    headers: { 'Content-Type': 'text/html' }
+  };
+  return message;
+};
+
+exports.bookingConfirmEmail = (booking) => {
+  const message = {
+    subject: 'Your Appointment is Confirmed!',
+    text: `Hi ${booking.customerInfo.fullName}! Your appointment has been confirmed by our team.`,
+    html: bookingConfirm(booking),
     headers: { 'Content-Type': 'text/html' }
   };
   return message;
