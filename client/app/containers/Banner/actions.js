@@ -33,7 +33,7 @@ export const bannerChange = (name, value) => {
 };
 
 export const resetBanner = () => {
-  document.querySelector('input[name="image"]').value = "";
+  //document.querySelector('input[name="images"]').value = "";
   return (dispatch, getState) => {
     dispatch({ type: RESET_BANNER });
   };

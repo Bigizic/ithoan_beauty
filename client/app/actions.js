@@ -40,6 +40,7 @@ import * as newsletterUnsubscribe from './containers/NewsletterUnsubscribe/actio
 import * as services from './containers/Services/actions';
 import * as service from './containers/Service/actions';
 import * as booking from './containers/Booking/actions';
+import * as survey from './containers/Survey/actions';
 
 export default function mapDispatchToProps(dispatch) {
   return bindActionCreators(
@@ -77,7 +78,8 @@ export default function mapDispatchToProps(dispatch) {
       ...newsletterUnsubscribe,
       ...services,
       ...service,
-      ...booking
+      ...booking,
+      ...survey
     },
     dispatch
   );
