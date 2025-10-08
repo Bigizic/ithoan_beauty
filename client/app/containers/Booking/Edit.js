@@ -45,6 +45,9 @@ class Edit extends React.PureComponent {
   componentDidUpdate(prevProps) {
     if (prevProps.booking !== this.props.booking && this.props.booking) {
       const { booking } = this.props;
+      let bkD = new Date(booking?.bookingDate)
+      bkD.getDate() + 1
+      bkD.setHours(0, 0, 0, 0)
       this.setState({
         bookingId: booking._id,
         bookingData: {
@@ -53,7 +56,11 @@ class Edit extends React.PureComponent {
           phoneNumber: booking.customerInfo?.phoneNumber || '',
           status: booking.status || '',
           note: booking.note || '',
-          bookingDate: booking.bookingDate ? new Date(booking.bookingDate).toISOString().split('T')[0] : '',
+          bookingDate: booking.bookingDate
+            ?
+              `${bkD.getFullYear()}-${String(bkD.getMonth() + 1).padStart(2, '0')}-${String(bkD.getDate()).padStart(2, '0')}`
+            :
+              '',
           bookingTime: booking.bookingTime || '',
           paymentReceipt: booking.paymentReceipt || '',
           subServiceId: booking.subServiceId || {},

@@ -45,8 +45,8 @@ export default function ReviewCard({
         {/* main card */}
         <div className="relative bg-white/80 backdrop-blur-xl border border-gray-100/50 rounded-3xl p-8 h-full shadow-lg shadow-gray-200/50 overflow-hidden group-hover:border-blue-200/50 transition-all duration-500">
           {/* gradient circles */}
-          <div className="absolute bg-signaturee top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/10 to-pink-400/10 rounded-full -mr-16 -mt-16 blur-2xl group-hover:scale-150 transition-transform duration-700" />
-          <div className="absolute bg-signaturee bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-pink-400/10 to-blue-400/10 rounded-full -ml-12 -mb-12 blur-2xl group-hover:scale-150 transition-transform duration-700" />
+          <div className="bg-bubble group-hover:scale-150" />
+          <div className="bg-bubble-alt group-hover:scale-150" />
 
           <div className="relative z-10">
             {/* avatar + quote */}

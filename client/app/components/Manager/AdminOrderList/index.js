@@ -10,8 +10,35 @@ import DropdownConfirm from '../../Common/DropdownConfirm';
 import { DateRangePickerComponent } from '../../Common/DatePicker'
 import moment from 'moment';
 
+const getStatusBadgeClass = (status) => {
+  switch (status) {
+    case 'unpaid':
+      return 'badge-danger';
 
+    case 'Shipped':
+      return 'badge-success';
 
+    case 'Confirmed':
+      return 'badge-info';
+
+    case 'pending':
+      return 'badge-warning';
+
+    case 'Processing':
+      return 'badge-info';
+
+    case 'Not_processed':
+      return 'badge-warning';
+
+    case 'completed':
+      return 'badge-info';
+      
+    case 'Cancelled':
+      return 'badge-danger';
+    default:
+      return 'badge-secondary';
+  }
+};
 
 /**
  * renders ongoing / delivered component
@@ -197,10 +224,10 @@ const OrderItem = ({ order, all_currency, index }) => {
       <td>{total}</td>
       <td>
         <span
-          className={`badge status${order.products[0].status.replace(
+          className={`badge ${getStatusBadgeClass(order.products[0].status.replace(
             ' ',
             '_'
-          )}`}
+          ))}`}
         >
           {order.products[0].status}
         </span>

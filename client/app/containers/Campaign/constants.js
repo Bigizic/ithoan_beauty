@@ -8,3 +8,4 @@ export const ADD_CAMPAIGNS = 'src/Campaign/ADD_CAMPAIGNS';
 export const CAMPAIGN_CHANGE = 'src/Campaign/CAMPAIGN_CHANGE';
 export const FETCH_CAMPAIGN = 'src/Campaign/FETCH_CAMPAIGN';
 export const FETCH_MAILING_LIST_DETAILS = 'src/Campaign/FETCH_MAILING_LIST_DETAILS';
+export const FETCH_SUBSCRIBERS = 'src/Campaign/FETCH_SUBSCRIBERS';

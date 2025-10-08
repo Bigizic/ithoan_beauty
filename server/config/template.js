@@ -192,8 +192,8 @@ exports.orderProductsUpdateEmail = (order, selectedProductsLength) => {
 
 exports.bookingConfirmationEmail = (booking) => {
   const message = {
-    subject: 'Your Appointment is Confirmed!',
-    text: `Hi ${booking.customerInfo.fullName}! Your appointment has been confirmed.`,
+    subject: 'Your Appointment has been Received!',
+    text: `Hi ${booking.customerInfo.fullName}! Your appointment has been received.`,
     html: bookingConfirmation(booking),
     headers: { 'Content-Type': 'text/html' }
   };

@@ -63,7 +63,7 @@ const Achievement = () => {
         </div>
 
         <div className='flex md:hidden font-spectral flex-row items-center heading-inherit-text'>
-          <span data-aos="fade-right" data-aos-once="true" className='heading-inherit-text'>
+          <span data-aos="fade-right" data-aos-once="true" className='heading-text'>
             Luxury Skin Care Essential Products
           </span>
         </div>

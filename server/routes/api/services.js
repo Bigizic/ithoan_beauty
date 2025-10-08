@@ -241,7 +241,7 @@ router.put(
   async (req, res) => {
     try {
       let { name, description, isActive, title, serviceArray = [] } = req.body;
-      let { existingImages } = req.body;
+      const { existingImages } = req.body;
       isActive = JSON.parse(isActive)
       serviceArray = JSON.parse(serviceArray)
 

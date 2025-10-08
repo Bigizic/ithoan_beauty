@@ -6,7 +6,7 @@ const keys = require('../../config/keys');
 
 // check upload type for either file sytem or amazon s3upload system
 const uploadType = keys.upload.type;
-const cloudinaryFileStorage  = require('../../utils/cloud_file_manager.js');
+const cloudinaryFileStorage = require('../../utils/cloud_file_manager.js');
 
 // Bring in Models & Utils
 const Product = require('../../models/product');
@@ -26,11 +26,11 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 
-router.get('/get_product_id/:productId', auth, async(req, res) => {
+router.get('/get_product_id/:productId', auth, async (req, res) => {
   try {
     const product = req.params.productId
 
-    const cs = await Product.findOne({_id: product});
+    const cs = await Product.findOne({ _id: product });
 
     if (cs) {
       return res.status(200).json({
@@ -162,7 +162,7 @@ router.get('/new_arrivals', async (req, res) => {
       success: true,
       products
     })
-  } catch(error) {
+  } catch (error) {
     return res.status(400).json({
       error: 'Your request could not be processed. Please try again.'
     })
@@ -274,7 +274,7 @@ router.post(
   '/add',
   auth,
   role.check(ROLES.Admin, ROLES.Merchant),
-  upload.single('image'),
+  upload.array('images', 5),
   async (req, res) => {
     try {
       const sku = req.body.sku;
@@ -285,9 +285,7 @@ router.post(
       const taxable = req.body.taxable;
       const isActive = req.body.isActive;
       const brand = req.body.brand;
-      const image = req.file;
       const discountPrice = req.body.discountPrice;
-
 
       if (!sku) {
         return res.status(400).json({ error: 'You must enter sku.' });
@@ -318,15 +316,18 @@ router.post(
       /* 30/11/24 code edit
       to allow image uploads to cloudinary
       */
-     let imageUrl, imageKey = null;
-      if (uploadType === 'cloud_storage' && image) {
-        const result = await cloudinaryFileStorage(image, 'product/');
-        imageUrl = result.imageUrl;
-        imageKey = result.imageKey
-      } else if (image) {
-        const { imageUrl: s3ImageUrl, imageKey: s3ImageKey } = await s3Upload(image);
-        imageUrl = s3ImageUrl;
-        imageKey = s3ImageKey;
+      let imageUrls = [], imageKey = null;
+      if (req.files && req.files.length > 0) {
+        for (const file of req.files) {
+          if (uploadType === 'cloud_storage') {
+            const result = await cloudinaryFileStorage(file, 'product/');
+            imageUrls.push(result.imageUrl);
+            imageKey = result.imageKey
+          } else {
+            const { imageUrl } = await s3Upload(file);
+            imageUrls.push(imageUrl);
+          }
+        }
       }
 
       const product = new Product({
@@ -338,7 +339,7 @@ router.post(
         taxable,
         isActive,
         brand,
-        imageUrl,
+        imageUrl: imageUrls,
         imageKey,
         discountPrice
       });
@@ -445,12 +446,46 @@ router.put(
   '/:id',
   auth,
   role.check(ROLES.Admin, ROLES.Merchant),
+  upload.array('images', 5),
   async (req, res) => {
     try {
       const productId = req.params.id;
-      const update = req.body.product;
+      let update = req.body;
       const query = { _id: productId };
-      const { sku, slug } = req.body.product;
+      const { sku, slug } = req.body;
+
+      const { existingImages } = req.body;
+
+      // handle image uploads
+      let finalImageUrls = [];
+
+      // Keep existing images if provided
+      if (existingImages) {
+        try {
+          const existing = JSON.parse(existingImages);
+          finalImageUrls = Array.isArray(existing) ? existing : [];
+        } catch (e) {
+          // If parsing fails, ignore existing images
+        }
+      }
+
+      // Add new uploaded images
+      if (req.files && req.files.length > 0) {
+        for (const file of req.files) {
+          if (uploadType === 'cloud_storage') {
+            const result = await cloudinaryFileStorage(file, 'product/');
+            finalImageUrls.push(result.imageUrl);
+          } else {
+            const { imageUrl } = await s3Upload(file);
+            finalImageUrls.push(imageUrl);
+          }
+        }
+      }
+
+      // Update imageUrl only if we have images
+      if (finalImageUrls.length > 0) {
+        update.imageUrl = finalImageUrls;
+      }
 
       const foundProduct = await Product.findOne({
         $or: [{ slug }, { sku }]
@@ -471,6 +506,7 @@ router.put(
         message: 'Product has been updated successfully!'
       });
     } catch (error) {
+      console.log(error)
       return res.status(400).json({
         error: 'Your request could not be processed. Please try again.'
       });

@@ -84,7 +84,8 @@ const getEmailPriority = (type) => {
     'update-order': 4,
     'order-products-update': 4,
     'order-address-change': 4,
-    'newsletter': 10, // Lowest priority
+    'newsletter': 1, // Lowest priority,
+    'newsletter-specified': 1,
     'contact': 5,
     'merchant-application': 6,
     'merchant-signup': 3,
@@ -101,7 +102,7 @@ const getEmailPriority = (type) => {
 // Get email delay based on type
 const getEmailDelay = (type) => {
   const delays = {
-    'newsletter': 5000, // 5 second delay for newsletters
+    'newsletter': 100, // 100 mmsecond delay for newsletters
     'contact': 1000, // 1 second delay for contact emails
     'merchant-application': 2000, // 2 second delay
   };

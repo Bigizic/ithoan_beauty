@@ -20,7 +20,7 @@ const ProductImgResolve: React.FC<ProductImgResolveProps> = ({
       <img
         className="product-width-controller h-[189px] lg:w-[296px] lg:h-[364.8px] rounded-[10px]"
         alt="product image"
-        src={product.imageUrl}
+        src={Array.isArray(product.imageUrl) ? product.imageUrl[0] : product.imageUrl}
         {...restProps}
       />
     );

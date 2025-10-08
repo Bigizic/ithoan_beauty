@@ -135,7 +135,7 @@ html.has-scroll-dragging {
 //order success page
 
 .order-success-actions {
-  padding: 0px 50px;
+  padding: 0px 0px;
 }
 
 
@@ -155,7 +155,7 @@ html.has-scroll-dragging {
 
 // terms
 .terms {
-  padding: 0 0 50px 0;
+  padding-bottom: 50px;
   text-align: justify;
 
   h1 {
@@ -216,6 +216,10 @@ html.has-scroll-dragging {
   }
 
   .dashboard-left {
+    h1 {
+      font-weight: 700;
+    }
+
     padding: 4% 0%;
 
     @include media-breakpoint-up(lg) {
@@ -224,6 +228,11 @@ html.has-scroll-dragging {
   }
 
   .business-overview {
+    margin: 3em 0px;
+    h2 {
+      font-size: 18px;
+      font-weight: 500;
+    }
 
     hr {
       border-color: #d0d0d0;
@@ -449,7 +458,7 @@ html.has-scroll-dragging {
   margin-bottom: 5%;
 
   @include media-breakpoint-up(md) {
-    padding-left: 40px;
+    padding-left: 60px !important;
     padding-top: 2em;
   }
 }
@@ -611,6 +620,11 @@ html.has-scroll-dragging {
 // TOGGLE BUTTON
 .maintenance_button {
   text-align: start;
+
+  span {
+    font-size: 18px;
+    font-weight: 500;
+  }
 }
 
 
@@ -921,5 +935,14 @@ html.has-scroll-dragging {
   .PhoneInput {
     padding: 0px 0px 0px 20px;
     border: 1px solid #cecece;
+  }
+}
+
+.shipping-link {
+  .nav-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
   }
 }

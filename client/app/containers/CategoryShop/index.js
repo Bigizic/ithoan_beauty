@@ -64,7 +64,8 @@ class CategoryShop extends React.PureComponent {
           w-full
           h-[60vh] md:h-[1000px]
           bg-cover-important
-          bg-initial-important`
+          bg-center-important
+          md:bg-initial-important`
       },
       {
         slug: 'glow-oils',
@@ -84,19 +85,23 @@ class CategoryShop extends React.PureComponent {
         sub: 'Discover creams that leave your skin soft, smooth, and hydrated',
         backgroundClassName: `
           bg-cover-important w-full
+          md:bg-cover-important
+          lg:bg-60-important
           h-[60vh] md:h-[1000px]
-          bg-initial-important
-          md:bg-center-important`
+          bg-center-important
+          md:bg-bottom-important`
       },
       {
         slug: 'face-soap',
         heading: 'Face Soap',
         sub: 'Gentle cleansing soaps crafted to refresh and protect your skin',
         backgroundClassName: `
-          bg-cover-important
-          w-full h-[60vh] md:h-[1000px]
-          bg-initial-important
-          md:bg-center-important`
+          bg-cover-important w-full
+          md:bg-cover-important
+          lg:bg-60-important
+          h-[60vh] md:h-[1000px]
+          bg-center-important
+          md:bg-bottom-important`
       },
       {
         slug: 'body-cream',

@@ -17,6 +17,7 @@ import {
   ADD_CAMPAIGNS,
   CAMPAIGN_CHANGE,
   FETCH_MAILING_LIST_DETAILS,
+  FETCH_SUBSCRIBERS,
 } from './constants';
 
 const initialState = {
@@ -35,10 +36,16 @@ const initialState = {
   isLoading: false,
   formErrors: {},
   mailingListDetails: [],
+  subscribers: [],
 };
 
 const campaignReducer = (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_SUBSCRIBERS:
+      return {
+        ...state,
+        subscribers: action.payload
+      };
     case FETCH_MAILING_LIST_DETAILS:
       return {
         ...state,

@@ -248,6 +248,10 @@ const prepareTemplate = (type, host, data, selectedProductsLength = null) => {
   let message;
 
   switch (type) {
+    case 'newsletter-specified':
+      message = template.newsLetterEmail(data);
+      message.sender = news;
+      break;
     case 'newsletter':
       message = template.newsLetterEmail(data);
       message.sender = news;

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Button } from '../../components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '../../components/ui/dialog'
 import { CircleCheck as CheckIcon, Calendar as CalendarIcon, Apple as AppleIcon } from 'lucide-react'
+import { TH_BEAUTY } from '../../../app/constants'
 
 const BookingSuccess: React.FC = () => {
   const { bookingId } = useParams<{ bookingId: string }>()
@@ -83,7 +84,7 @@ const BookingSuccess: React.FC = () => {
               <h2 className='text-center text-2xl my-5'>Locate Us</h2>
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1981.3019876560722!2d3.5064944017040713!3d6.695872587447435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103be9005469265b%3A0x86ad0b80cf5b7812!2sTohanniees%20Beauty!5e0!3m2!1sen!2sng!4v1759578326754!5m2!1sen!2sng"
-                
+
                 className='w-full h-[300px] lg:w-[600px] lg:h-[450px]'
                 style={{ border: 0 }}
                 loading="lazy">
@@ -108,10 +109,13 @@ const BookingSuccess: React.FC = () => {
 
             <div className="mt-8 text-center">
               <p className="text-sm text-[#1c1c1c]/60 [font-family:'Poppins',Helvetica]">
-                Questions? Contact us at{' '}
-                <a href="mailto:support@tohannieesskincare.com" className="text-[#eabe30] hover:underline">
-                  support@tohannieesskincare.com
-                </a>
+                Questions? Contact us at
+                <div className='flex flex-col'>
+                  <a href="mailto:support@tohannieesskincare.com" className="text-[#eabe30] hover:underline">
+                    support@tohannieesskincare.com
+                  </a>
+                  <a className="text-[#eabe30] hover:underline" href={TH_BEAUTY.whatsapp}>+2349077692506</a>
+                </div>
               </p>
             </div>
           </div>

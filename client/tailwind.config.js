@@ -59,6 +59,11 @@ module.exports = {
     './app/containers/Booking/List.js',
     './app/containers/Booking/Edit.js',
     './app/containers/Booking/index.js',
+    './app/containers/PaymentGateway/index.js',
+    './app/containers/AdminDashboard/index.js',
+
+    './app/containers/Navigation/index.js',
+
     './app/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
@@ -115,6 +120,24 @@ module.exports = {
     require("tailwindcss-animate"),
     function ({ addUtilities }) {
       addUtilities({
+        '.bg-bubble': {
+          '@apply absolute top-0 right-0 w-32 h-32 rounded-full -mr-16 -mt-16 transition-transform duration-700': {},
+          'filter': 'blur(40px)',
+          'background': 'rgb(218, 62, 142)',
+          //'background-image': 'linear-gradient(to bottom right, rgba(96,165,250,0.1), rgba(244,114,182,0.1))',
+          '&:hover': {
+            'transform': 'scale(1.5)',
+          },
+        },
+        '.bg-bubble-alt': {
+          '@apply absolute bottom-0 left-0 w-24 h-24 rounded-full -ml-12 -mb-12 transition-transform duration-700': {},
+          'filter': 'blur(40px)',
+          'background': 'rgb(218, 62, 142)',
+          //'background-image': 'linear-gradient(to top right, rgba(244,114,182,0.1), rgba(96,165,250,0.1))',
+          '&:hover': {
+            'transform': 'scale(1.5)',
+          },
+        },
         '.bg-other': {
           'background': '#ff3860',
           'line-height': '31.2px',
@@ -140,6 +163,15 @@ module.exports = {
           '@screen lg': {
             'margin-top': '15em'
           }
+        },
+        '.bg-80-important': {
+          'background-size': '80% !important'
+        },
+        '.bg-60-important': {
+          'background-size': '60% !important'
+        },
+        '.bg-contain-important': {
+          'background-size': 'contain !important'
         },
         '.bg-cover-important': {
           'background-size': 'cover !important'
@@ -192,9 +224,11 @@ module.exports = {
         },
         '.heading-text': {
           'fontFamily': 'Spectral',
-          '@apply text-[18px] font-extrabold': {},
-          '@screen xss': { '@apply text-[20px]': {} },
-          '@screen xsss': { '@apply text-[25px]': {} },
+          'text-align': 'center',
+          'line-height': '40px',
+          '@apply text-[20px] font-extrabold': {},
+          '@screen xss': { '@apply text-[24px]': {} },
+          '@screen xsss': { '@apply text-[24px]': {} },
           '@screen md': { '@apply text-[35px]': {} },
           '@screen lg': { '@apply text-5xl': {} },
         },

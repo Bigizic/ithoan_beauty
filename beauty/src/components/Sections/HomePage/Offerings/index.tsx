@@ -81,7 +81,7 @@ class OfferingsSectionContainer extends React.PureComponent<OfferingsWithRouter 
           </div>
 
           <div className="flex flex-col items-center gap-[8px] sm:gap-6 relative self-stretch w-full">
-            <h2 data-aos="fade-right" className="relative self-stretch [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-[#1c1c1c] text-5xl text-center tracking-[0] leading-[57.6px]">
+            <h2 data-aos="fade-up" className="relative self-stretch [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-[#1c1c1c] text-5xl text-center tracking-[0] leading-[57.6px]">
               Explore Our Offerings
             </h2>
             <p className="relative self-stretch mt-[-1.00px] [font-family:'Roboto',Helvetica] font-normal text-[#1c1c1c] text-lg text-center tracking-[0] leading-[27px]">
@@ -118,7 +118,6 @@ class OfferingsSectionContainer extends React.PureComponent<OfferingsWithRouter 
                         <div className="inline-flex items-center relative">
                           <div
                             data-aos="fade-right"
-                            data-aos-delay={100 * idx + 100}
                             className={
                               "relative w-fit mt-[-1.00px] font-heading-tagline font-[number:var(--heading-tagline-font-weight)] text-[#1c1c1c] text-[length:var(--heading-tagline-font-size)] tracking-[var(--heading-tagline-letter-spacing)] leading-[var(--heading-tagline-line-height)] whitespace-nowrap [font-style:var(--heading-tagline-font-style)]"
                             }
@@ -129,8 +128,8 @@ class OfferingsSectionContainer extends React.PureComponent<OfferingsWithRouter 
 
                         <div className="flex flex-col items-start gap-2 relative self-stretch w-full">
                           <h3
-                            data-aos="fade-right"
-                            data-aos-delay={100 * idx + 100}
+                            data-aos="fade-in"
+                            data-aos-once="true"
                             className={
                               "relative self-stretch mt-[-1.00px] [font-family:'Bricolage_Grotesque',Helvetica] font-bold text-[#1c1c1c] text-2xl tracking-[0] leading-[33.6px]"
                             }
@@ -140,8 +139,8 @@ class OfferingsSectionContainer extends React.PureComponent<OfferingsWithRouter 
 
                           <p
                             dangerouslySetInnerHTML={{ __html: service.description }}
-                            data-aos="fade-right"
-                            data-aos-delay={100 * idx + 100}
+                            data-aos="fade-in"
+                            data-aos-once="true"
                             className={
                               "relative self-stretch font-text-regular-normal font-[number:var(--text-regular-normal-font-weight)] text-[#1c1c1c] text-[length:var(--text-regular-normal-font-size)] tracking-[var(--text-regular-normal-letter-spacing)] leading-[var(--text-regular-normal-line-height)] [font-style:var(--text-regular-normal-font-style)]"
                             }

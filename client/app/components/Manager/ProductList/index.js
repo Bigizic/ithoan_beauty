@@ -67,7 +67,7 @@ const ProductList = props => {
             <img
               className='item-image'
               src={`${product && product.imageUrl
-                  ? product.imageUrl
+                  ? product.imageUrl[0]
                   : '/images/placeholder-image.png'
                 }`}
             />

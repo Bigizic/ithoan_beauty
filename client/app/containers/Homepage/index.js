@@ -29,7 +29,7 @@ import PopularCollections from '@/components/HomePageSections/PopularCollections
 import RestockedProducts from '@/components/HomePageSections/RestockedProducts';
 import Trending from '@/components/HomePageSections/Trending';
 import HomePageReview from '@/components/HomePageSections/Reviews';
-import Marquee from '@/components/HomePageSections/Marquee';
+import HomeMarquee from '@/components/HomePageSections/Marquee';
 import InstagramCard from '@/components/InstaCard';
 import { STORE_NAME } from '@/constants';
 import ReviewSection from '@/components/HomePageSections/ReviewNew/ReviewSection';
@@ -151,11 +151,16 @@ class Homepage extends React.PureComponent {
         {/*<HomePageReview />*/}
         <ReviewSection />
 
-        <Marquee
-          times={6}
-          onHover={true}
-          text={<span className='text-white'>&copy; {new Date().getFullYear()} {STORE_NAME}</span>}
-        />
+        <div className='my-5'>
+          <HomeMarquee
+            times={6}
+            onHover={true}
+            className='bg-black text-white'
+            gradient={true}
+            text={<span className='text-white'>&copy; {new Date().getFullYear()} {STORE_NAME}</span>}
+            gradientWidth={100}
+          />
+        </div>
         <div className="pd-default">
           <InstagramCard products={allProducts} brandHandle={"tohanniees_skincare"} />
         </div>

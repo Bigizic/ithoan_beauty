@@ -70,13 +70,6 @@ border-top-width:2px;border-top-color:#333;border-top-style:solid;border-bottom-
 </style>
 </head>
 
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 5%; border-collapse: collapse; text-align: center;">
-  <tr>
-    <td align="center" valign="middle" style="padding: 0;">
-      <img alt="logo" src="https://res.cloudinary.com/dduai6ryd/image/upload/v1736088530/ithoan/images/logo/business_logo.png" style="height: 120px; width: 120px; display: block; border-radius: 50%;">
-    </td>
-  </tr>
-</table>
 <p style="font-size: 17px;">YOU HAVE A NEW ORDER </p>
 <p style="font-size: 17px;"><b>Order ID:</b> #${order._id}</p>
 

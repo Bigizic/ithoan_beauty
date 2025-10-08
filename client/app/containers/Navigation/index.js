@@ -37,6 +37,7 @@ import Menu from '../NavigationMenu';
 import Cart from '../Cart';
 import { currencyFunction } from '../../components/Common/currency/currency_function';
 import Header from '@/components/Layout/Header';
+import HomeMarquee from '@/components/HomePageSections/Marquee';
 
 const MyComponent = (props) => {
   const [res, setRes] = useState(null);
@@ -188,12 +189,25 @@ const Navigation = React.forwardRef((props, ref) => {
       return (
         <header className="header fixed-mobile-header" ref={ref}>
           {websiteInfoStatus &&
+            <div className='fixed top-0 w-full left-0' style={{ zIndex: '100000000' }}>
+              <HomeMarquee
+                text={<span className='mx-3'>{websiteInfo}</span>}
+                type='new'
+                className='bg-white text-black py-1'
+                gradient={true}
+                gradientWidth={"100px"}
+                autoFill={true}
+              />
+            </div>
+
+          }
+          {/*websiteInfoStatus &&
             <Row className='website-info'>
               <div className='marquee-container'>
                 <div className="marquee-text">{websiteInfo}</div>
               </div>
             </Row>
-          }
+          */}
 
           <Header
             toggleBrand={this.toggleBrand}

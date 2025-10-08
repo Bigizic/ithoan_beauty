@@ -9,10 +9,10 @@ const NewIngredients = () => {
   return (
     <section className='mt-12 sm:mt-20 px-0'>
       <div className='text-center flex flex-col gap-2 px-4 sm:px-8 mb-8 sm:mb-12'>
-        <h2 className='text-center font-spectral text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900'>
+        <h2 className='text-center heading-text font-spectral font-extrabold text-gray-900'>
           Ingredients That Deliver Results
         </h2>
-        <p className='text-center text-base sm:text-lg text-gray-600 max-w-2xl mx-auto'>
+        <p className='text-center subHead-text text-gray-600 max-w-2xl mx-auto'>
           Every ingredient chosen with purpose, every result refined
         </p>
       </div>

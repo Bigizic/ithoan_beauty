@@ -84,7 +84,7 @@ const ProductList = (props) => {
             />
           </div>
           <ProductImgResolve product={product} />
-          <div className="text-xs sm:text-[18px] mt-[1em] w-full overflow-hidden text-left gap-[10px] flex flex-col justify-end h-[9em] lg:h-[5em]">
+          <div className="text-xs sm:text-[18px] mt-[1em] w-full overflow-hidden text-left gap-[10px] flex flex-col justify-end h-[100px] lg:h-[5em]">
             <div className="flex flex-col gap-[10px] cursor-pointer"
               onClick={() => {
                 navigate(`/product/${product.slug}`)

@@ -16,7 +16,7 @@ const ProductSchema = new Schema({
     unique: true
   },
   imageUrl: {
-    type: String,
+    type: [String],
     default: null
   },
   imageKey: {

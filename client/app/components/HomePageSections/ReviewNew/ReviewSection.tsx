@@ -86,7 +86,7 @@ export default function ReviewSection({
           <p
             data-aos="fade-up"
             data-aos-delay="300"
-            className="subHead-text text-center text-gray-600 max-w-2xl mx-auto"
+            className="subHead-text w-full text-center text-gray-600 max-w-2xl mx-auto"
           >
             {subtitle}
           </p>

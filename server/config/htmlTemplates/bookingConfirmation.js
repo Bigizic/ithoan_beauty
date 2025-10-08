@@ -9,7 +9,7 @@ exports.bookingConfirmation = (booking) =>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1 user-scalable=yes">
 <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
-<title>Booking Confirmation</title>
+<title>Booking Received</title>
 <style>
 body{background-color:#f4f4f4;margin:0;padding:0;}
 table{border-collapse:collapse;}
@@ -39,9 +39,9 @@ p{color:#1c1c1c;font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:16px;
         </tr>
         <tr>
           <td class="content">
-            <h1>Booking Confirmed!</h1>
+            <h1>Booking Received!</h1>
             <p>Hi ${booking.customerInfo.fullName},</p>
-            <p>thank you for choosing <strong>tohanniees beauty</strong>. we’re pleased to let you know that your appointment request has been successfully received.  
+            <p>thank you for choosing <strong>Tohanniees Beauty</strong>. we’re pleased to let you know that your appointment request has been successfully received.  
             our team will review and confirm your booking shortly. You’ll receive a notification once your appointment is officially confirmed.
             </p>
 

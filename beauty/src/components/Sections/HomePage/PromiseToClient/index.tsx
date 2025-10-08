@@ -30,7 +30,7 @@ export const PromiseToClient = () => {
         <header className="flex flex-col max-w-screen-md items-center gap-4 relative w-full">
           <h2
             data-aos="fade-up"
-            data-aos-delay="200"
+            data-aos-once="true"
             className="[font-family:'Bricolage_Grotesque',Helvetica] text-[#1c1c1c] text-5xl text-center leading-[57.6px] font-bold tracking-[0]"
           >
             Our Promise to Every Client

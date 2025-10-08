@@ -66,7 +66,7 @@ class Cart extends React.PureComponent {
     let newAddress = address.sort((a, b) => (b.isDefault === true) - (a.isDefault === true));
     newAddress = [newAddress[0]];
 
-    
+
 
     return (
       <div className='cart'>
@@ -85,68 +85,71 @@ class Cart extends React.PureComponent {
         {cartItems.length > 0 ? (
           <div className='cart-body'>
             <div className='cart_header_h3'>
-              {authenticated ? 
-              (
-                <b style={{fontSize: '19px', marginBottom: '25px' }}>To be shipped to</b>
-              )
-              :
-              (
-                ''
-              )
+              {authenticated ?
+                (
+                  <b style={{ fontSize: '19px', marginBottom: '25px' }}>To be shipped to</b>
+                )
+                :
+                (
+                  ''
+                )
               }
 
-              { addressLength > 0 ? (
+              {addressLength > 0 ? (
                 <CarouselSlider
-                  swipeable={ true }
-                  showDots={ true }
-                  infinite={ false }
-                  autoPlay={ false }
+                  swipeable={true}
+                  showDots={true}
+                  infinite={false}
+                  autoPlay={false}
                   draggable={true}
                   responsive={responsiveOneItemCarousel}
                 >
                   {newAddress.map((item, index) => (
                     <div key={index} className='cart_address'>
                       <div className='cart_address_and_selected_address'>
-                      <b style={{ fontSize: '16px' }}>{firstName} {lastName}</b>
-                      {
-                        item.isDefault ?
-                        <Checkbox
-                          id={`${index}-radioButton`}
-                          label={'Select'}
-                          name={item._id}
-                          checked={false}
-                          onChange={(name, value) => { value ?
-                            selectAddress(name)
+                        <b style={{ fontSize: '16px' }}>{firstName} {lastName}</b>
+                        {
+                          item.isDefault ?
+                            <Checkbox
+                              id={`${index}-radioButton`}
+                              label={'Select'}
+                              name={item._id}
+                              checked={false}
+                              onChange={(name, value) => {
+                                value ?
+                                  selectAddress(name)
+                                  :
+                                  removeSelectedAddress()
+                              }}
+                            />
                             :
-                            removeSelectedAddress()
-                          }}
-                        />
-                        :
-                        index === 0 ?
-                        <Checkbox
-                          id={`${index}-radioButton`}
-                          label={'Select'}
-                          name={item._id}
-                          checked={false}
-                          onChange={(name, value) => { value ?
-                            selectAddress(name)
-                            :
-                            removeSelectedAddress()
-                          }}
-                        />
-                        :
-                        <Checkbox
-                          id={`${index}-radioButton`}
-                          label={'Select'}
-                          name={item._id}
-                          checked={false}
-                          onChange={(name, value) => { value ?
-                            selectAddress(name)
-                            :
-                            removeSelectedAddress()
-                          }}
-                        />
-                      }
+                            index === 0 ?
+                              <Checkbox
+                                id={`${index}-radioButton`}
+                                label={'Select'}
+                                name={item._id}
+                                checked={false}
+                                onChange={(name, value) => {
+                                  value ?
+                                    selectAddress(name)
+                                    :
+                                    removeSelectedAddress()
+                                }}
+                              />
+                              :
+                              <Checkbox
+                                id={`${index}-radioButton`}
+                                label={'Select'}
+                                name={item._id}
+                                checked={false}
+                                onChange={(name, value) => {
+                                  value ?
+                                    selectAddress(name)
+                                    :
+                                    removeSelectedAddress()
+                                }}
+                              />
+                        }
                       </div>
                       <Link
                         to={`/dashboard/address/edit/${item._id}`}
@@ -165,7 +168,7 @@ class Cart extends React.PureComponent {
                 </CarouselSlider>
               ) : (authenticated ?
                 (
-                <p><b>{firstName} {lastName}</b> <br></br> You have not added an address</p>
+                  <p><b>{firstName} {lastName}</b> <br></br> You have not added an address</p>
                 ) : (
                   ''
                 )
@@ -181,26 +184,26 @@ class Cart extends React.PureComponent {
           </div>
         ) : (
           <div className='empty-cart'>
-            <ShoppingCart size={50}/>
+            <ShoppingCart size={50} />
             <p>Your shopping cart is empty</p>
           </div>
         )}
         {cartItems.length > 0 && (
           <div className='cart-checkout'>
             <CartSummary
-            cartTotal={cartTotal && cartTotal || 0}
-            cartAmount={cartAmount && cartAmount || 0}
-            serviceCharge={serviceCharge}
-            all_currency={all_currency}
-            selectCurrency={selectCurrency}
-            shippingInfos={shippingInfos}
-            isShippingOpen={isShippingOpen}
-            toggleShipping={toggleShipping}
-            sS={selectedShipping}
-            termsSelected={termsSelected}
-            termsRemoved={termsRemoved}
-            shippingFormErrors={shippingFormErrors}
-            toggleCart={toggleCart}
+              cartTotal={cartTotal && cartTotal || 0}
+              cartAmount={cartAmount && cartAmount || 0}
+              serviceCharge={serviceCharge}
+              all_currency={all_currency}
+              selectCurrency={selectCurrency}
+              shippingInfos={shippingInfos}
+              isShippingOpen={isShippingOpen}
+              toggleShipping={toggleShipping}
+              sS={selectedShipping}
+              termsSelected={termsSelected}
+              termsRemoved={termsRemoved}
+              shippingFormErrors={shippingFormErrors}
+              toggleCart={toggleCart}
             />
             <Checkout
               handleShopping={handleShopping}
@@ -218,7 +221,7 @@ class Cart extends React.PureComponent {
 
 const mapStateToProps = state => {
   const sL = state.currency.select_currency.length;
-  const {firstName, lastName} = state.account.user
+  const { firstName, lastName } = state.account.user
 
   const sortedAddress = state.address.shippingAddress.sort((a, b) => b.isDefault - a.isDefault);
   const defaultAddress = [sortedAddress.length > 0 ? sortedAddress[0]._id : null];

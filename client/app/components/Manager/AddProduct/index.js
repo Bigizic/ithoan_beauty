@@ -4,7 +4,7 @@
  *
  */
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import { Row, Col } from 'reactstrap';
 
@@ -45,8 +45,8 @@ const DescriptionBox = (props) => {
         }}
         placeholder="Enter product description..."
       />
-      <span style={{color: 'red'}} className='invalid-message'>{error && error[0]}</span>
-      </div>
+      <span style={{ color: 'red' }} className='invalid-message'>{error && error[0]}</span>
+    </div>
   );
 };
 
@@ -58,7 +58,7 @@ const DescriptionBox = (props) => {
  */
 
 const ProductPricing = (props) => {
-  const { productFormData, productChange, formErrors } = props;  
+  const { productFormData, productChange, formErrors } = props;
   const [finalPrice, setFinalPrice] = useState(null);
 
   // Function to calculate the final price dynamically
@@ -98,7 +98,7 @@ const ProductPricing = (props) => {
           label={'Discount Price'}
           name={'discountPrice'}
           decimals={true}
-          value={productFormData.discountPrice > 0 ? (Math.round(productFormData.price - (productFormData.price * (productFormData.discountPrice / 100) ))) : ''}
+          value={productFormData.discountPrice > 0 ? (Math.round(productFormData.price - (productFormData.price * (productFormData.discountPrice / 100)))) : ''}
           placeholder={'Discount Percentage'}
           onInputChange={(name, value) => {
             let d = 0;
@@ -143,22 +143,9 @@ const AddProduct = props => {
 
   return (
     <div className='add-product'>
-      { isLoading &&  <LoadingIndicator /> }
+      {isLoading && <LoadingIndicator />}
       <form onSubmit={handleSubmit} noValidate>
         <Row>
-          <Col xs='12' lg='6'>
-            <Input
-              type={'text'}
-              error={formErrors['sku']}
-              label={'Sku'}
-              name={'sku'}
-              placeholder={'Product Sku'}
-              value={productFormData.sku}
-              onInputChange={(name, value) => {
-                productChange(name, value);
-              }}
-            />
-          </Col>
           <Col xs='12' lg='6'>
             <Input
               type={'text'}
@@ -174,11 +161,11 @@ const AddProduct = props => {
           </Col>
 
           <Col xs='12' lg='6'>
-          <DescriptionBox
-            error={formErrors['description']}
-            productChange={productChange}
-            productFormData={productFormData}
-          />
+            <DescriptionBox
+              error={formErrors['description']}
+              productChange={productChange}
+              productFormData={productFormData}
+            />
           </Col>
 
 

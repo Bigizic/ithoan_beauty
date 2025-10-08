@@ -18,7 +18,7 @@ class ToggleSwitch extends Component {
   }
 
   render() {
-    const { label } = this.props;
+    const { label, className = '' } = this.props;
     return (
       <label>
         <div>
@@ -27,6 +27,7 @@ class ToggleSwitch extends Component {
         <Switch
           onChange={this.handleChange}
           checked={this.state.checked}
+          className={className}
         />
       </label>
     );

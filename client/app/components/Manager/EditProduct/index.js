@@ -18,7 +18,7 @@ import SelectOption from '../../Common/SelectOption';
 import LoadingIndicator from '../../Common/LoadingIndicator';
 
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; 
+import 'react-quill/dist/quill.snow.css';
 
 const taxableSelect = [
   { value: 1, label: 'Yes' },
@@ -47,8 +47,8 @@ const DescriptionBox = (props) => {
         }}
         placeholder="Enter product description..."
       />
-      <span style={{color: 'red'}} className='invalid-message'>{error && error[0]}</span>
-      </div>
+      <span style={{ color: 'red' }} className='invalid-message'>{error && error[0]}</span>
+    </div>
   );
 };
 
@@ -60,7 +60,7 @@ const DescriptionBox = (props) => {
  */
 
 const ProductPricing = (props) => {
-  const { productFormData, productChange, formErrors } = props;  
+  const { productFormData, productChange, formErrors } = props;
   const [finalPrice, setFinalPrice] = useState(null);
   const v = productFormData.price - (productFormData.price * (productFormData.discountPrice / 100))
   const [newValue, setProductDiscountValue] = useState(v)
@@ -148,7 +148,7 @@ const EditProduct = props => {
 
   return (
     <div className='edit-product'>
-      { isLoading && <LoadingIndicator />  }
+      {isLoading && <LoadingIndicator />}
       <div className='d-flex flex-row mx-0 mb-3'>
         <label className='mr-1'>Product link </label>
         <Link to={`/product/${product.slug}`} className='default-link'>
@@ -228,6 +228,20 @@ const EditProduct = props => {
             productChange={productChange}
             formErrors={formErrors}
           />
+
+          <Col xs='12' md='12'>
+            <Input
+              type={'images'}
+              error={formErrors['images']}
+              name={'images'}
+              label={'Images'}
+              value={product.imageUrl}
+              placeholder={'Select multiple or one'}
+              onInputChange={(name, value) => {
+                productChange(name, value);
+              }}
+            />
+          </Col>
 
           <Col xs='12' md='12' className='p-0 m-0'>
             <SelectOption

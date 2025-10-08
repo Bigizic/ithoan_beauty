@@ -106,8 +106,7 @@ class ServiceSelectionContainer extends React.PureComponent<ServiceSelectionProp
                   <h3 className="font-bold text-[#1c1c1c] text-xl [font-family:'Bricolage_Grotesque',Helvetica]">
                     {selectedSubService.name}
                   </h3>
-                  <p className="text-[#1c1c1c] text-sm [font-family:'Poppins',Helvetica] mt-1">
-                    {selectedSubService.description}
+                  <p dangerouslySetInnerHTML={{ __html: selectedSubService.description }} className="text-[#1c1c1c] text-sm [font-family:'Poppins',Helvetica] mt-1">
                   </p>
                 </div>
                 <div className="flex items-center justify-between">

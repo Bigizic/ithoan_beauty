@@ -9,16 +9,17 @@ import { success } from 'react-notification-system-redux';
 import axios from 'axios';
 
 import {
-    FETCH_ALL_CAMPAIGNS,
-    FETCH_CAMPAIGN,
-    CREATE_CAMPAIGN,
-    RESET_CAMPAIGNS,
-    SET_CAMPAIGN_LOADING,
-    REMOVE_CAMPAIGN,
-    SET_CAMPAIGN_FORM_ERRORS,
-    ADD_CAMPAIGNS,
-    CAMPAIGN_CHANGE,
-    FETCH_MAILING_LIST_DETAILS,
+  FETCH_ALL_CAMPAIGNS,
+  FETCH_CAMPAIGN,
+  CREATE_CAMPAIGN,
+  RESET_CAMPAIGNS,
+  SET_CAMPAIGN_LOADING,
+  REMOVE_CAMPAIGN,
+  SET_CAMPAIGN_FORM_ERRORS,
+  ADD_CAMPAIGNS,
+  CAMPAIGN_CHANGE,
+  FETCH_MAILING_LIST_DETAILS,
+  FETCH_SUBSCRIBERS,
 } from './constants';
 
 import { API_URL, ROLES } from '../../constants';
@@ -39,7 +40,7 @@ export const fetchMailingListDetails = () => {
     dispatch(setCampaingLoading(true));
     try {
       const mailingList = await axios.get(`${API_URL}/newsletter/mailing_list_details`)
-      
+
       if (mailingList.status === 200) {
         return dispatch({
           type: FETCH_MAILING_LIST_DETAILS,
@@ -48,10 +49,30 @@ export const fetchMailingListDetails = () => {
       }
     } catch (error) {
       handleError(dispatch, error)
-    } finally{
+    } finally {
       dispatch(setCampaingLoading(false));
     }
   }
+}
+
+export const fetchSubscribers = () => {
+  return async (dispatch) => {
+    dispatch(setCampaingLoading(true));
+    try {
+      const response = await axios.get(`${API_URL}/newsletter/subscribers`);
+
+      if (response.status === 200) {
+        dispatch({
+          type: FETCH_SUBSCRIBERS,
+          payload: response.data.subscribers
+        });
+      }
+    } catch (error) {
+      handleError(error, dispatch);
+    } finally {
+      dispatch(setCampaingLoading(false));
+    }
+  };
 }
 
 export const setCampaingLoading = value => {
@@ -71,68 +92,73 @@ export const campaignChange = (name, value) => {
 }
 
 export const fetchCampaigns = () => {
-    return async(dispatch, getState) => {
-        try {
-            const campaigns = await axios.get(`${API_URL}/newsletter/`);
-            if (campaigns.data.success) {
-                dispatch({
-                    type: FETCH_ALL_CAMPAIGNS,
-                    payload: campaigns.data.campaigns
-                })
-            }
-        } catch (error) {
-            handleError(error, dispatch);
-        }
+  return async (dispatch, getState) => {
+    try {
+      const campaigns = await axios.get(`${API_URL}/newsletter/`);
+      if (campaigns.data.success) {
+        dispatch({
+          type: FETCH_ALL_CAMPAIGNS,
+          payload: campaigns.data.campaigns
+        })
+      }
+    } catch (error) {
+      handleError(error, dispatch);
     }
+  }
 }
 
 export const fetchCampaign = (id) => {
-    return async(dispatch, getState) => {
-        try {
-            const campaign = await axios.get(`${API_URL}/newsletter/${id}`);
+  return async (dispatch, getState) => {
+    try {
+      const campaign = await axios.get(`${API_URL}/newsletter/${id}`);
 
-            if (campaign.data.success) {
-               dispatch({
-                    type: FETCH_CAMPAIGN,
-                    payload: campaign.data.campaign
-                })
-            }
-        } catch (error) {
-            handleError(error, dispatch)
-        }
+      if (campaign.data.success) {
+        dispatch({
+          type: FETCH_CAMPAIGN,
+          payload: campaign.data.campaign
+        })
+      }
+    } catch (error) {
+      handleError(error, dispatch)
     }
+  }
 }
 
-export const sendCampaign = (campaignId, userSelected, newsletterSelected) => {
+export const sendCampaign = (campaignId, userSelected, newsletterSelected, specificEmails = []) => {
   return async (dispatch, getState) => {
-      try {
-          const response = await axios.post(`${API_URL}/newsletter/send`, {
-              campaignId,
-              newsletterSelected,
-              userSelected
-          });
+    dispatch(setCampaingLoading(true))
+    try {
+      const response = await axios.post(`${API_URL}/newsletter/send`, {
+        campaignId,
+        newsletterSelected,
+        userSelected,
+        specificEmails
+      });
 
-          const { data } = response;
-          const successfulOptions = {
-              title: data.message,
-              position: 'tr',
-              autoDismiss: 1
-          };
+      const { data } = response;
+      const successfulOptions = {
+        title: data.message,
+        position: 'tr',
+        autoDismiss: 1
+      };
 
-          if (data.success) {
-              dispatch(success(successfulOptions));
-          }
-
-          dispatch(resetCampaigns());
-          dispatch(goBack());
-      } catch (error) {
-          handleError(error, dispatch);
+      if (data.success) {
+        dispatch(success(successfulOptions));
       }
+
+      dispatch(resetCampaigns());
+      dispatch(goBack());
+    } catch (error) {
+      handleError(error, dispatch);
+    } finally {
+      dispatch(setCampaingLoading(false))
+    }
   };
 };
 
 export const deleteCampaign = (id) => {
   return async (dispatch, getState) => {
+    dispatch(setCampaingLoading(true))
     try {
       const response = await axios.delete(`${API_URL}/newsletter/delete/${id}`);
 
@@ -152,6 +178,8 @@ export const deleteCampaign = (id) => {
       }
     } catch (error) {
       handleError(error, dispatch);
+    } finally {
+      dispatch(setCampaingLoading(false))
     }
   };
 }

@@ -56,9 +56,8 @@ router.get('/available-times', async (req, res) => {
         error: 'Sub service not found'
       });
     }
-
     const selectedDate = new Date(date);
-    selectedDate.setHours(0, 0, 0, 0);
+    selectedDate.setUTCHours(23, 59, 59, 999);
 
     const dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][selectedDate.getDay()];
 
@@ -309,7 +308,7 @@ router.post('/create', async (req, res) => {
     }
 
     const selectedDate = new Date(bookingDate);
-    //selectedDate.setHours(0, 0, 0, 0);
+    selectedDate.setUTCHours(23, 59, 59, 999);
 
     const startOfDay = new Date(selectedDate);
     const endOfDay = new Date(selectedDate);
@@ -460,7 +459,7 @@ router.put('/:id', auth, role.check(ROLES.Admin), async (req, res) => {
     if (subServiceId) updateData.subServiceId = subServiceId;
     if (bookingDate) {
       const selectedDate = new Date(bookingDate);
-      // selectedDate.setHours(0, 0, 0, 0);
+      //selectedDate.setUTCHours(23, 59, 59, 999);
       updateData.bookingDate = selectedDate;
     }
     if (bookingTime) updateData.bookingTime = bookingTime;

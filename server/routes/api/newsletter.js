@@ -52,7 +52,7 @@ router.post('/unsubscribe/:email', async (req, res) => {
       }
     }
     await Newsletter.findOneAndUpdate({ email }, update);
-    
+
     const mailgunUpdate = await mailgun.updateMember(email, { subscribed: false });
     return mailgunUpdate && res.status(200).json({
       success: true,
@@ -93,7 +93,42 @@ router.get('/mailing_list_details',
         error: 'Error fetching mailing list details Please try again.'
       });
     }
-})
+  })
+
+
+router.get('/subscribers',
+  auth,
+  role.check(ROLES.Admin),
+  async (req, res) => {
+    try {
+      const subscribers = await Newsletter.find({ subscribed: true })
+        .select('email created')
+        .sort({ created: -1 });
+
+      const subscribersWithUserData = await Promise.all(
+        subscribers.map(async (subscriber) => {
+          const user = await Users.findOne({ email: subscriber.email })
+            .select('firstName lastName');
+
+          return {
+            _id: subscriber._id,
+            email: subscriber.email,
+            name: user ? `${user.firstName} ${user.lastName}` : null,
+            created: subscriber.created
+          };
+        })
+      );
+
+      return res.status(200).json({
+        success: true,
+        subscribers: subscribersWithUserData
+      });
+    } catch (error) {
+      return res.status(400).json({
+        error: 'Error fetching subscribers. Please try again.'
+      });
+    }
+  })
 
 
 router.post('/subscribe', async (req, res) => {
@@ -120,7 +155,7 @@ router.post('/subscribe', async (req, res) => {
         .status(400)
         .json({ error: 'You have already subscribed to the newsletter' });
     } else if (existingEmail && !existingEmail.subscribed) {
-      await Newsletter.findOneAndUpdate({email}, { $set: { subscribed: true } });
+      await Newsletter.findOneAndUpdate({ email }, { $set: { subscribed: true } });
       const mailgunUpdate = await mailgun.updateMember(email, { subscribed: true });
 
       return mailgunUpdate && res
@@ -244,103 +279,128 @@ router.post('/send',
   role.check(ROLES.Admin),
   async (req, res) => {
 
-  try {
-    const { campaignId, newsletterSelected, userSelected } = req.body;
+    try {
+      const { campaignId, newsletterSelected, userSelected, specificEmails = [] } = req.body;
 
-    let fetchedUsers = [], fetchedNewsLetter = [];
+      let fetchedUsers = [], fetchedNewsLetter = [], specificEmailList = [];
 
-    // fetch users if users is selected
-    if (userSelected.userSelected) { fetchedUsers = await Users.find() }
+      // fetch users if users is selected
+      if (userSelected.userSelected) { fetchedUsers = await Users.find() }
 
-    if (newsletterSelected.newsletterSelected) { fetchedNewsLetter = await Newsletter.find() }
+      if (newsletterSelected.newsletterSelected) { fetchedNewsLetter = await Newsletter.find() }
 
-    // fetch campaign data
-    const camp = await Campaign.findById(campaignId);
-    const keys = ['discounted_products', 'best_selling_products', 'new_arrivals'];
-
-    keys.forEach((key) => {
-      if (camp[key] && Array.isArray(camp[key])) {
-        camp[key] = camp[key].map((item) => {
-          try {
-            return JSON.parse(item);
-          } catch (error) {
-            return null;
-          }
-        }).filter(Boolean);
+      // handle specific emails
+      if (specificEmails && specificEmails.length > 0) {
+        specificEmailList = specificEmails.filter(email => {
+          const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          return regex.test(email);
+        });
       }
-    });
 
-    const emails = [
-      ...fetchedNewsLetter.map((item) => item.email),
-      ...fetchedUsers.map((item) => item.email)
-    ]
+      // fetch campaign data
+      const camp = await Campaign.findById(campaignId);
+      const keys = ['discounted_products', 'best_selling_products', 'new_arrivals'];
 
-    const newEmails = []
-    for (const email of emails) {
-      if (newEmails.includes(email)) {
-        continue
-      } else { newEmails.push(email) }
-    }
-
-    // create receipients variables
-    /*let emailsList = [];
-    newEmails.forEach((email, index) => {
-      emailsList.push(
-        {
-          [email]: { unique_id: index * 2 }
+      keys.forEach((key) => {
+        if (camp[key] && Array.isArray(camp[key])) {
+          camp[key] = camp[key].map((item) => {
+            try {
+              return JSON.parse(item);
+            } catch (error) {
+              return null;
+            }
+          }).filter(Boolean);
         }
-      )
-    })*/
-   // fetch mailing list from mailgun and compare my mailing list emails
-   // with newEmails, fetch emails from newEmails that don't exist in mailing list email
-   // add the new emails to mailing list then send email, if no new user to add to mailing
-   // list, skip the entire adding to mailing list
+      });
 
-   const mailingListEmails = await mailgun.fetchMembers();
-   const suppressedList = []
-   for(const c of newEmails) {
-    if (mailingListEmails.includes(c)) {
-      continue
-    } else {
-      const sm = c.split('@')[0];
-      let name = sm.charAt(0).toUpperCase() + sm.slice(1)
-      name = name.replace(/[^a-zA-z]/g, '')
-      const cBase = Buffer.from(c).toString('base64');
-      suppressedList.push({
-        address: c,
-        name: name,
-        subscribed: true,
-        vars: {
-          unsubscribe_link: `${domain_unsubscribe}/${cBase}`,
-          name: name,
-        },
+      const emails = [
+        ...fetchedNewsLetter.map((item) => item.email),
+        ...fetchedUsers.map((item) => item.email),
+        ...specificEmailList
+      ]
+
+      // to avoid duplicates
+      const newEmails = []
+      for (const email of emails) {
+        if (newEmails.includes(email)) {
+          continue
+        } else { newEmails.push(email) }
+      }
+
+      // create receipients variables
+      /*let emailsList = [];
+      newEmails.forEach((email, index) => {
+        emailsList.push(
+          {
+            [email]: { unique_id: index * 2 }
+          }
+        )
+      })*/
+      // fetch mailing list from mailgun and compare my mailing list emails
+      // with newEmails, fetch emails from newEmails that don't exist in mailing list email
+      // add the new emails to mailing list then send email, if no new user to add to mailing
+      // list, skip the entire adding to mailing list
+
+      const mailingListEmails = await mailgun.fetchMembers(); // fetch members from newsletter
+      const suppressedList = []
+      for (const c of newEmails) {
+        if (mailingListEmails.includes(c)) {
+          continue // if your email is in the members of the newsletter pass
+        } else { // otherwise create your profile to the newsletter
+          const sm = c.split('@')[0];
+          let name = sm.charAt(0).toUpperCase() + sm.slice(1)
+          name = name.replace(/[^a-zA-z]/g, '')
+          const cBase = Buffer.from(c).toString('base64');
+          suppressedList.push({
+            address: c,
+            name: name,
+            subscribed: true,
+            vars: {
+              unsubscribe_link: `${domain_unsubscribe}/${cBase}`,
+              name: name,
+            },
+          })
+        }
+      }
+      if (suppressedList.length > 0) {
+        // create multiple members
+        await mailgun.createMembers(suppressedList);
+      }
+
+
+      // send receipients to mailgun
+      // check if length of emailsJson > 1000 as mailgun process
+      // 1000 emails at once
+      // await mailGunSender(emailsList, camp)
+      // await mailgun.sendEmail(news, 'newsletter', camp)
+      if (specificEmailList.length > 0) // send to specified user or users not mailing list
+      {
+        const emailObject = specificEmailList.map((i) => ({
+          email: i,
+          type: 'newsletter-specified',
+          data: camp
+        }))
+        await emailService.sendBulkEmails(emailObject)
+        await Campaign.findOneAndUpdate({ _id: camp._id }, { sent: true })
+        return res.status(200).json({
+          success: true,
+          message: `sent!!`,
+        });
+      } else {
+        await emailService.sendEmail(news, 'newsletter', camp);
+        await Campaign.findOneAndUpdate({ _id: camp._id }, { sent: true })
+        return res.status(200).json({
+          success: true,
+          message: `sent!!`,
+        });
+      }
+
+    } catch (error) {
+      return res.status(400).json({
+        error: 'Error sending campaign Please try again.'
       })
     }
-   }
-   if (suppressedList.length > 0) {
-    // create multiple members
-    await mailgun.createMembers(suppressedList);
-   }
-   
-
-    // send receipients to mailgun
-    // check if length of emailsJson > 1000 as mailgun process
-    // 1000 emails at once
-    // await mailGunSender(emailsList, camp)
-    // await mailgun.sendEmail(news, 'newsletter', camp)
-    await emailService.sendEmail(news, 'newsletter', camp);
-    await Campaign.findOneAndUpdate({ _id: camp._id }, { sent: true })
-    return res.status(200).json({
-      success: true,
-      message: `sent!!`,
-    });
-
-  } catch (error) {
-    return res.status(400).json({
-      error: 'Error sending campaign Please try again.'
-    })
-  }
-})
+  })
 
 
 /**
@@ -460,7 +520,7 @@ router.post('/create',
         error: 'Error creating campaign Please try again.'
       });
     }
-});
+  });
 
 
 /**
@@ -471,7 +531,7 @@ const generateUniqueCode = () => {
   //const characters = '0123456789';
   let code = '';
   for (let i = 0; i < 5; i++) {
-      code += characters.charAt(Math.floor(Math.random() * characters.length));
+    code += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return code
 }

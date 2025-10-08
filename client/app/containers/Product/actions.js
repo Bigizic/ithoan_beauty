@@ -184,7 +184,7 @@ export const fetchAllProducts = () => {
         type: ALL_PRODUCTS,
         payload: response.data.products
       })
-    } catch(error) {
+    } catch (error) {
       handleError(error, dispatch)
     }
   }
@@ -376,7 +376,7 @@ export const addProduct = () => {
         quantity: 'required|numeric',
         price: 'required|numeric',
         taxable: 'required',
-        image: 'required',
+        images: 'required',
         discountPrice: 'required|numeric|min:0|max:100',
         /*brand: 'required'*/
       };
@@ -421,12 +421,11 @@ export const addProduct = () => {
         description: product.description,
         price: product.price,
         quantity: product.quantity,
-        image: product.image,
+        images: product.images,
         isActive: product.isActive,
         taxable: product.taxable.value,
         discountPrice: product.discountPrice,
       };
-
 
       const { isValid, errors } = allFieldsValidation(newProduct, rules, {
         'required.sku': 'Sku is required.',
@@ -439,25 +438,33 @@ export const addProduct = () => {
         'required.quantity': 'Quantity is required.',
         'required.price': 'Price is required.',
         'required.taxable': 'Taxable is required.',
-        'required.image': 'Please upload files with jpg, jpeg, png format.',
+        'required.images': 'Please upload files with jpg, jpeg, png format.',
         'required.discount': 'Discount is required.',
         'discount.min': 'Discount cannot be less than 0.',
         'discount.max': 'Discount cannot be greater than 100.',
         'discount.numeric': 'Discount must be a number.',
       });
+      console.log(errors)
 
       if (!isValid) {
         return dispatch({ type: SET_PRODUCT_FORM_ERRORS, payload: errors });
       }
       const formData = new FormData();
-      if (newProduct.image) {
-        for (const key in newProduct) {
-          if (newProduct.hasOwnProperty(key)) {
-            if (key === 'brand' && newProduct[key] === null) {
-              continue;
-            } else {
-              formData.set(key, newProduct[key]);
+      for (const key in newProduct) {
+        if (newProduct.hasOwnProperty(key)) {
+          if (key === 'images' && newProduct[key]) {
+            // Handle new image files
+            if (newProduct[key].newFiles) {
+              for (let i = 0; i < newProduct[key].newFiles.length; i++) {
+                formData.append('images', newProduct[key].newFiles[i].file || newProduct[key].newFiles[i]);
+              }
             }
+            // Keep existing images
+            if (newProduct[key].existingImages) {
+              formData.set('existingImages', JSON.stringify(newProduct[key].existingImages));
+            }
+          } else {
+            formData.set(key, newProduct[key]);
           }
         }
       }
@@ -528,6 +535,7 @@ export const updateProduct = () => {
         price: product.price,
         discountPrice: product.discountPrice,
         taxable: product.taxable,
+        images: product.images
         // brand: brand != 0 ? brand : null
       };
 
@@ -558,9 +566,28 @@ export const updateProduct = () => {
           payload: errors
         });
       }
+      const formData = new FormData();
+      for (const key in newProduct) {
+        if (newProduct.hasOwnProperty(key)) {
+          if (key === 'images' && newProduct[key]) {
+            // Handle new image files
+            if (newProduct[key].newFiles) {
+              for (let i = 0; i < newProduct[key].newFiles.length; i++) {
+                formData.append('images', newProduct[key].newFiles[i].file || newProduct[key].newFiles[i]);
+              }
+            }
+            // Keep existing images
+            if (newProduct[key].existingImages) {
+              formData.set('existingImages', JSON.stringify(newProduct[key].existingImages));
+            }
+          } else {
+            formData.set(key, newProduct[key]);
+          }
+        }
+      }
 
-      const response = await axios.put(`${API_URL}/product/${product._id}`, {
-        product: newProduct
+      const response = await axios.put(`${API_URL}/product/${product._id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
 
       const successfulOptions = {

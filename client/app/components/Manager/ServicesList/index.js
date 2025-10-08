@@ -68,9 +68,9 @@ const ServicesList = (props) => {
                 <td>{services?.name}</td>
                 <td>{services?.title}</td>
                 <td>
-                  <p style={{ height: '50px', overflowY: 'hidden' }}>
+                  <div style={{ height: '50px', overflowY: 'hidden' }}>
                     <DescriptionComponent content={services?.description} />
-                  </p>
+                  </div>
                 </td>
                 <td>{services?.serviceArray?.length || 0}</td>
                 <td>

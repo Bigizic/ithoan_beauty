@@ -206,7 +206,7 @@ export const updateServices = () => {
         title: servicesItem.title,
         description: servicesItem.description,
         isActive: servicesItem.isActive,
-        serviceArray: servicesItem.serviceArray,
+        serviceArray: servicesItem.serviceArray ? servicesItem.serviceArray : [],
         images: servicesItem.images
       };
 
@@ -222,7 +222,6 @@ export const updateServices = () => {
       if (!isValid) {
         return dispatch({ type: SET_SERVICES_FORM_EDIT_ERRORS, payload: errors });
       }
-
       const formData = new FormData();
       for (const key in newServices) {
         if (newServices.hasOwnProperty(key)) {
@@ -230,7 +229,7 @@ export const updateServices = () => {
             // Handle new image files
             if (newServices[key].newFiles) {
               for (let i = 0; i < newServices[key].newFiles.length; i++) {
-                formData.append('images', newServices[key].newFiles[i].file || newServices[key].newFiles[i]);
+                formData.append('images', newServices[key].newFiles[i].file  || newServices[key].newFiles[i]);
               }
             }
             // Keep existing images
@@ -240,7 +239,7 @@ export const updateServices = () => {
           } else if (key === 'serviceArray' && Array.isArray(newServices[key])) {
             // Convert select option format to just IDs if needed
             const serviceIds = newServices[key].map(service =>
-              typeof service === 'object' ? service._id : service
+              typeof service === 'object' ? service._id ? service._id : service.value : service
             );
             formData.set(key, JSON.stringify(serviceIds));
           } else {

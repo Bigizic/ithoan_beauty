@@ -106,7 +106,6 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} {STORE_NAME}. all rights reserved.
         </p>
         <div className='flex justify-center mt-3 text-white'>
-          <Dev />
         </div>
       </div>
     </footer>

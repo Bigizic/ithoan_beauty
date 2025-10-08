@@ -55,7 +55,7 @@ const Trending: React.FC<TrendingProps> = (props: TrendingProps) => {
         </RowCarousel>
 
         <a
-          onClick={() => navigate('shop/category/all')}
+          onClick={() => navigate('/shop')}
         >
           <button className="rounded-[5px] bg-other text-white p-[4px] sm:p-[8px] pl-[8px] pr-[8px] sm:pl-[16px] sm:pr-[16px] text-[14px] sm:text-[16px]">
             VIEW ALL

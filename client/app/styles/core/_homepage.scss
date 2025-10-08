@@ -574,7 +574,7 @@
 // maintenance mode
 .maintenance_one_logo,
 .maintenance_two_logo {
-  @include icon($maintenance_one_img);
+  @include dashboardIcon($maintenance_one_img);
   background-repeat: no-repeat;
   background-size: 100%;
   height: 100px;
@@ -584,5 +584,5 @@
 }
 
 .maintenance_two_logo {
-  @include icon($maintenance_two_img);
+  @include dashboardIcon($maintenance_two_img);
 }

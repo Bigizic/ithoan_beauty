@@ -97,8 +97,8 @@ const Login = (props) => {
           </Col>
         </Row>
         <hr />
-        <div className='d-flex flex-column f'>
-          <div className='d-flex mb-3 mb-md-0 login_div_div md:justify-center'>
+        <div className='d-flex flex-column'>
+          <div className='d-flex mb-3 mb-md-0 login_div_div md:justify-around md:w-[60%] md:self-center'>
             <Button
               type='submit'
               className='signup_signup padding_top_extender rounded-[5px] border-none'

@@ -35,9 +35,9 @@ const CartSummary = props => {
     <div className='cart-summary'>
       <Container>
         <Row className='mb-2 summary-item cart_shipping_summary'>
-            <p style={{ padding: '0px 0px 0px 15px' }} className='summary-label'>Shipping</p>
+            <p style={{ padding: '0px 0px 0px 10px', width: 'fit-content' }} className='summary-label'>Shipping</p>
 
-        <Dropdown isOpen={isShippingOpen} toggle={toogleShipping} className='shipping-link'>
+        <Dropdown isOpen={isShippingOpen} toggle={toogleShipping} className='shipping-link' style={{ width: 'fit-content' }}>
           <DropdownToggle nav caret>
             {shippingInfoKey || 'Select Dispatch Type'}
           </DropdownToggle>

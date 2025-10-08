@@ -35,7 +35,7 @@ class FaqPage extends React.PureComponent {
               alt="faq banner"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-center px-4">
+            <div style={{ background: 'rgba(0, 0, 0, 0.4)' }} className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
               <h1
                 data-aos="fade-up"
                 className="text-3xl md:text-5xl font-bold text-white tracking-wide"

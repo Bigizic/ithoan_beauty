@@ -85,8 +85,7 @@ export const PricingPlansSection = (props: PricingPlansProps & ACTIONSTYPE) => {
                     <h3 className="font-extrabold [font-family:'Poppins',Helvetica] text-[18px] md:text-[20px] leading-7 text-[#1c1c1c] tracking-[0]">
                       {plan?.name}
                     </h3>
-                    <p className="text-[12px] md:text-[16px]">
-                      {plan?.description}
+                    <p dangerouslySetInnerHTML={{ __html: plan?.description }} className="text-[12px] md:text-[16px]">
                     </p>
                     <p className="bg-[#EABE30] p-[8px] rounded-[5px] w-fit text-[12px] md:text-[16px] [font-family:'Poppins',Helvetica] font-normal text-[#1c1c1c] text-base tracking-[0] leading-6">
                       {DurationTime(plan?.duration)}

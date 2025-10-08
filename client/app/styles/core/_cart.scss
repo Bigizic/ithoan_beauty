@@ -12,8 +12,8 @@
   // box-shadow: $box-shadow;
   @include transition($layout-transition-higher-speed);
 
-  @include media-breakpoint-down(xs) {
-    width: 88%;
+  @include media-breakpoint-down(md) {
+    width: 100%;
     top: 0;
   }
 }
