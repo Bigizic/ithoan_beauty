@@ -35,6 +35,8 @@ import { STORE_NAME } from '@/constants';
 import ReviewSection from '@/components/HomePageSections/ReviewNew/ReviewSection';
 import Ingredients from '@/components/HomePageSections/Ingredients';
 import NewIngredients from '@/components/HomePageSections/NewIngredients';
+import BannerPopup from '../../components/Common/BannerPopup';
+import SurveyPopup from '../../components/Common/SurveyPopup';
 
 const CustomNextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -65,13 +67,10 @@ const CustomPrevArrow = (props) => {
 
 class Homepage extends React.PureComponent {
   componentDidMount() {
-    // fetch banners for homepage
-    //this.props.fetchHomeBanner();
+    this.props.fetchHomeBanner();
 
-    // for cart shipping address
     this.props.setShippingAddress();
 
-    // create website visit on mount
     this.props.createWebsiteVisit();
     this.props.fetchNewArrivalsProducts();
     this.props.fetchBestSellingProducts();
@@ -105,6 +104,9 @@ class Homepage extends React.PureComponent {
 
     return (
       <div className="homePage flex flex-col gap-[2em]">
+        <BannerPopup banners={banners} />
+        <SurveyPopup />
+
         <div className='header-container bg-linear md:rounded-br-[30%] overflow-hidden'>
           <Banners banners={staticBanners} hmm='text-sub-align-center-left' />
         </div>

@@ -43,6 +43,7 @@ import newsletterUnsubscribeReducer from './containers/NewsletterUnsubscribe/red
 import servicesReducer from './containers/Services/reducer';
 import serviceReducer from './containers/Service/reducer';
 import bookingReducer from './containers/Booking/reducer';
+import surveyReducer from './containers/Survey/reducer';
 
 const createReducer = history =>
   combineReducers({
@@ -82,6 +83,7 @@ const createReducer = history =>
     services: servicesReducer,
     service: serviceReducer,
     booking: bookingReducer,
+    survey: surveyReducer,
   });
 
 export default createReducer;

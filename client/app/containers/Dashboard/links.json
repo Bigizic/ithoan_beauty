@@ -16,6 +16,7 @@
     { "to": "/orders", "name": "Orders", "prefix": "/dashboard" },
     { "to": "/review", "name": "Reviews", "prefix": "/dashboard" },
     { "to": "/banner", "name": "Banner", "prefix": "/dashboard" },
+    { "to": "/survey", "name": "Survey Responses", "prefix": "/dashboard" },
     { "to": "/wishlist", "name": "WishList", "prefix": "/dashboard" },
     { "to": "/support", "name": "Support" }
   ],

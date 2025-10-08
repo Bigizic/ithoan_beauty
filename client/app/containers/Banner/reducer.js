@@ -23,6 +23,11 @@ const initialState = {
     image: {},
     isActive: false,
     isDefault: false,
+    isPopup: false,
+    buttonText: 'Shop Now',
+    linkType: 'shop',
+    categorySlug: '',
+    displayDuration: 5,
   },
   formErrors: {},
 };
@@ -69,6 +74,11 @@ const bannerReducer = (state = initialState, action) => {
           image: {},
           isActive: false,
           isDefault: false,
+          isPopup: false,
+          buttonText: 'Shop Now',
+          linkType: 'shop',
+          categorySlug: '',
+          displayDuration: 5,
         },
       };
     case REMOVE_BANNER:
