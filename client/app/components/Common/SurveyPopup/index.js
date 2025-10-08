@@ -10,7 +10,6 @@ const surveyOptions = [
   'TikTok',
   'Google Search',
   'Friend or Family',
-  'YouTube',
   'Blog or Article',
   'Advertisement',
   'Other'

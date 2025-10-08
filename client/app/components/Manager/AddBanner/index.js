@@ -135,8 +135,8 @@ class AddBanner extends React.Component {
                     label: bannerFormData.linkType === 'shop' ? 'Shop Page' : 'Category Page'
                   }}
                   options={linkTypeOptions}
-                  handleSelectChange={(name, value) => {
-                    bannerChange(name, value.value);
+                  handleSelectChange={(value) => {
+                    bannerChange('linkType', value.value);
                   }}
                 />
               </Col>
@@ -146,10 +146,10 @@ class AddBanner extends React.Component {
                     error={formErrors['categorySlug']}
                     label={'Select Category'}
                     name={'categorySlug'}
-                    value={categoryOptions.find(opt => opt.value === bannerFormData.categorySlug) || null}
+                    value={categoryOptions.find(opt => opt?.value === bannerFormData.categorySlug) || null}
                     options={categoryOptions}
-                    handleSelectChange={(name, value) => {
-                      bannerChange(name, value.value);
+                    handleSelectChange={(value) => {
+                      bannerChange('categorySlug', value.value);
                     }}
                   />
                 </Col>

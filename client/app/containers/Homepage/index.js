@@ -105,7 +105,6 @@ class Homepage extends React.PureComponent {
     return (
       <div className="homePage flex flex-col gap-[2em]">
         <BannerPopup banners={banners} />
-        <SurveyPopup />
 
         <div className='header-container bg-linear md:rounded-br-[30%] overflow-hidden'>
           <Banners banners={staticBanners} hmm='text-sub-align-center-left' />
@@ -152,6 +151,7 @@ class Homepage extends React.PureComponent {
 
         {/*<HomePageReview />*/}
         <ReviewSection />
+        <SurveyPopup />
 
         <div className='my-5'>
           <HomeMarquee
