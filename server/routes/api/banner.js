@@ -66,7 +66,7 @@ router.get(
 router.post('/add', auth, role.check(ROLES.Admin), upload.single('image'), async (req, res) => {
   try {
   const image = req.file;
-  const { isActive, isDefault } = req.body;
+  const { isActive, isDefault, isPopup, buttonText, linkType, categorySlug, displayDuration } = req.body;
 
   if (!image) {
     return res.status(400).json({ error: 'You must upload an Image.' });
@@ -118,7 +118,12 @@ router.post('/add', auth, role.check(ROLES.Admin), upload.single('image'), async
     imageUrl,
     imageKey,
     isDefault,
-    isActive
+    isActive,
+    isPopup: isPopup || false,
+    buttonText: buttonText || 'Shop Now',
+    linkType: linkType || 'shop',
+    categorySlug: categorySlug || '',
+    displayDuration: displayDuration || 5
   });
 
   await banner.save();

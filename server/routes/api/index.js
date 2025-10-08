@@ -25,6 +25,7 @@ const queueRoutes = require('./queue');
 const servicesRoute = require('./services');
 const serviceRoute = require('./service');
 const bookingRoute = require('./booking');
+const surveyRoute = require('./survey');
 
 // api status
 router.use('/status', getServerStatus)
@@ -100,5 +101,8 @@ router.use('/service', serviceRoute);
 
 // booking routes
 router.use('/booking', bookingRoute);
+
+// survey routes
+router.use('/survey', surveyRoute);
 
 module.exports = router;

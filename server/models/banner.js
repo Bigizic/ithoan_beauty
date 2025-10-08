@@ -17,6 +17,27 @@ const BannerSchema = new Schema({
     type: Boolean,
     default: false
   },
+  isPopup: {
+    type: Boolean,
+    default: false
+  },
+  buttonText: {
+    type: String,
+    default: 'Shop Now'
+  },
+  linkType: {
+    type: String,
+    enum: ['shop', 'category'],
+    default: 'shop'
+  },
+  categorySlug: {
+    type: String,
+    default: ''
+  },
+  displayDuration: {
+    type: Number,
+    default: 5
+  },
   updated: Date,
   created: {
     type: Date,
