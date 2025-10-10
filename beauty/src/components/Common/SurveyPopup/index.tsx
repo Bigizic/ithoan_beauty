@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_URL } from '../../../constants';
 import './style.css';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const surveyOptions = [
   'Instagram',
@@ -35,7 +36,7 @@ const SurveyPopup = () => {
       const documentHeight = document.documentElement.scrollHeight;
       const scrollPercentage = (scrollPosition / (documentHeight - windowHeight)) * 100;
 
-      if (scrollPercentage > 30 && !hasTriggered) {
+      if (scrollPercentage > 30 && !hasTriggered) {  // trigger percentage 30 %
         if (lastClosedTime) {
           const timePassed = Date.now() - parseInt(lastClosedTime);
           const durationInMs = 3 * 60 * 1000;  // 5 mins trigger
@@ -63,7 +64,7 @@ const SurveyPopup = () => {
     setIsVisible(false);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     const source = selectedOption === 'Other' ? customSource : selectedOption;
@@ -75,7 +76,7 @@ const SurveyPopup = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post(`${API_URL}/survey/submit`, { source, type: 'skincare' });
+      await axios.post(`${API_URL}/survey/submit`, { source, type: 'beauty' });
       localStorage.setItem('survey_completed', 'true');
       setIsVisible(false);
     } catch (error) {

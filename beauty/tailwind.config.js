@@ -96,7 +96,7 @@ module.exports = {
     function ({ addUtilities }) {
       addUtilities({
         '.hero-bg': {
-          'background': "linear-gradient(0deg,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.5) 100%), url('/images/home_page/hero.jpg')",
+          'background': "linear-gradient(0deg,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.5) 100%), url('/images/home_page/hero1.png')",
           'background-position': 'center',
           'background-size': 'cover',
           'background-repeat': 'no-repeat'

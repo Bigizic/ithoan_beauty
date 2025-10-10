@@ -7,7 +7,7 @@ const role = require('../../middleware/role');
 
 router.post('/submit', async (req, res) => {
   try {
-    const { source } = req.body;
+    const { source, type } = req.body;
 
     if (!source || !source.trim()) {
       return res.status(400).json({
@@ -20,6 +20,7 @@ router.post('/submit', async (req, res) => {
 
     const survey = new Survey({
       source: source.trim(),
+      type,
       ipAddress,
       userAgent
     });

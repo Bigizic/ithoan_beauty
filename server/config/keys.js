@@ -38,8 +38,10 @@ module.exports = {
     news: process.env.MAILGUN_EMAIL_NEWS_SENDER,
     test_news: process.env.MAILGUN_EMAIL_TEST_NEWS,
     domain_unsubscribe: process.env.MAILGUN_DOMAIN_UNSUBSCRIBE,
-
-    booking: process.env.MAILGUN_BOOKING_EMAIL
+    domain_beauty_unsubscribe: process.env.MAILGUN_BEAUY_DOMAIN_UNSUBSCRIBE,
+    
+    booking: process.env.MAILGUN_BOOKING_EMAIL,
+    beautyNews: process.env.MAILGUN_BEAUTY_NEWS_EMAIL
   },
   adminEmail: {
     adminEmail: process.env.ADMIN_EMAIL,

@@ -33,8 +33,11 @@ export const bannerChange = (name, value) => {
 };
 
 export const resetBanner = () => {
-  //document.querySelector('input[name="images"]').value = "";
   return (dispatch, getState) => {
+    const fileInput = document.querySelector('input[name="image"]');
+    if (fileInput) {
+      fileInput.value = "";
+    }
     dispatch({ type: RESET_BANNER });
   };
 };
@@ -154,14 +157,20 @@ export const addBanner = () => {
       const newBanner= {
         image: banner.image,
         isActive: banner.isActive,
-        isDefault: banner.isDefault
+        isDefault: banner.isDefault,
+        isPopup: banner.isPopup,
+        buttonText: banner.buttonText,
+        linkType: banner.linkType,
+        categorySlug: banner.categorySlug,
+        displayDuration: banner.displayDuration
       };
 
       const errors = await fileValidation(newBanner.image)
 
       if (!errors) {
         dispatch({ type: SET_BANNER_FORM_ERRORS, payload: { image: ["Please upload files with jpg, jpeg, png format."] } });
-        return dispatch(resetBanner());
+        dispatch(setBannerLoading(false));
+        return;
       }
 
       const formData = new FormData();
@@ -194,7 +203,6 @@ export const addBanner = () => {
       }
     } catch (error) {
       handleError(error, dispatch);
-      dispatch(resetBanner());
     } finally {
       dispatch(setBannerLoading(false))
     }

@@ -53,11 +53,11 @@ class AddBanner extends React.Component {
         <Row>
           <Col xs='12' md='12'>
             <Input
-              type={'images'}
-              error={formErrors['images']}
-              name={'images'}
-              label={'Images'}
-              placeholder={'Select multiple or one'}
+              type={'file'}
+              error={formErrors['image']}
+              name={'image'}
+              label={'Banner Image'}
+              placeholder={'Select an image'}
               onInputChange={(name, value) => {
                 bannerChange(name, value);
               }}

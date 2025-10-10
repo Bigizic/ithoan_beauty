@@ -78,13 +78,10 @@ const getEmailPriority = (type) => {
     'signup': 2,
     'order-confirmation': 3,
     'admin-order-confirmation': 3,
-    'booking-confirmation': 3,
-    'admin-booking-confirmation': 3,
-    'booking-confirm': 2,
     'update-order': 4,
     'order-products-update': 4,
     'order-address-change': 4,
-    'newsletter': 1, // Lowest priority,
+    'newsletter': 1,
     'newsletter-specified': 1,
     'contact': 5,
     'merchant-application': 6,
@@ -94,6 +91,14 @@ const getEmailPriority = (type) => {
     'newsletter-subscription': 7,
     'reset-confirmation': 2,
     'admin-contact': 3,
+
+    'beauty-newsletter-otp': 1,
+    'admin-booking-confirmation': 3,
+    'booking-confirm': 2,
+    'booking-confirmation': 3,
+    'beauty-newsletter-specified': 1,
+    'beauty-newsletter': 1,
+    'beauty-newsletter-welcome': 1
   };
 
   return priorities[type] || 5; // Default priority

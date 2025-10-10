@@ -158,9 +158,10 @@ class Homepage extends React.PureComponent {
             times={6}
             onHover={true}
             className='bg-black text-white'
-            gradient={true}
+            //gradient={true}
             text={<span className='text-white'>&copy; {new Date().getFullYear()} {STORE_NAME}</span>}
-            gradientWidth={100}
+            //gradientWidth={50}
+            //gradientColor='rgb(218, 62, 142)'
           />
         </div>
         <div className="pd-default">

@@ -10,6 +10,7 @@ import { ClientFeedbackSection } from "../../components/Sections/HomePage/Client
 import { CallToActionSection } from "../../components/Sections/HomePage/CallToAction";
 import { HomePageProps } from "../../interface";
 import { PromiseToClient } from "../../components/Sections/HomePage/PromiseToClient";
+import SurveyPopup from "../../components/Common/SurveyPopup";
 
 const HomePage = (props: HomePageProps) => {
   const { services } = props
@@ -30,6 +31,7 @@ const HomePage = (props: HomePageProps) => {
       <AboutUsSection />
       <SpecialOffersSection />
       <WhyChooseUsSection />
+      <SurveyPopup />
       {/*<ClientFeedbackSection />*/}
       <PromiseToClient />
       <CallToActionSection />

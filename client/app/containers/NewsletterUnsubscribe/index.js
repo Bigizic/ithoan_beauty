@@ -5,13 +5,14 @@
  */
 
 import React from 'react';
-
+import { Buffer } from 'buffer';
 import { connect } from 'react-redux';
 import actions from '../../actions';
 
 import Input from '../../components/Common/Input';
 import Button from '../../components/Common/Button';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
+import { withRouter } from '@/withRouter';
 
 class NewsletterUnsubscribe extends React.PureComponent {
     componentDidMount() {
@@ -32,7 +33,7 @@ class NewsletterUnsubscribe extends React.PureComponent {
     };
 
     return (
-      <div className='unsubscribe-newsletter-form'>
+      <div className='unsubscribe-newsletter-form margin-top-compact'>
         { isLoading && <LoadingIndicator /> }
         <p>Confirm the email you want to unsubscribe</p>
         <form onSubmit={handleSubmit}>
@@ -69,4 +70,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, actions)(NewsletterUnsubscribe);
+export default connect(mapStateToProps, actions)(withRouter(NewsletterUnsubscribe));

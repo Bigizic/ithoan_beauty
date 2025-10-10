@@ -165,7 +165,7 @@ export const campaignTemplate = (campaign) => `
         <h1 style="text-align:center;padding:10px 8px 20px 8px;margin:0 0 20px 0;color:#fff;font-size:36px;font-weight:700;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
           ${campaign.heading || 'Welcome to Our Newsletter'}
         </h1>
-        <div style="text-align:justify;color:#fff;font-size:18px;padding:10px 8px 20px 8px;line-height:24px;max-width:100%;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <div style="text-align:justify;color:#fff;font-size:14px;padding:10px 8px 20px 8px;line-height:24px;max-width:100%;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
           ${campaign.sub_heading || ''}
         </div>
         ${campaign.links ? `

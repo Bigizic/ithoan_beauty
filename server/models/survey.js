@@ -7,6 +7,10 @@ const SurveySchema = new Schema({
     required: true,
     trim: true
   },
+  type: {
+    type: String,
+    default: 'skincare'
+  },
   ipAddress: {
     type: String
   },

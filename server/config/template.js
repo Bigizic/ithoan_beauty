@@ -1,13 +1,45 @@
-const { orderSuccess } = require("./htmlTemplates/orderSuccess");
-const { adminOrderSuccess } = require("./htmlTemplates/adminOrderSuccess");
-const { campaignTemplate } = require("./htmlTemplates/newsletterTemplate");
-const { orderUpdate } = require("./htmlTemplates/orderUpdate");
-const { orderProductsUpdate } = require("./htmlTemplates/orderProductsUpdate");
-const { orderShippingInfoUpdate } = require("./htmlTemplates/orderShippingInfoUpdate");
-const { bookingConfirmation } = require("./htmlTemplates/bookingConfirmation");
-const { adminBookingConfirmation } = require("./htmlTemplates/adminBookingConfirmation");
-const { bookingConfirm } = require("./htmlTemplates/bookingConfirm"); 
+const { orderSuccess } = require("./htmlTemplates/Skincare/orderSuccess");
+const { adminOrderSuccess } = require("./htmlTemplates/Skincare/adminOrderSuccess");
+const { campaignTemplate } = require("./htmlTemplates/Skincare/newsletterTemplate");
+const { orderUpdate } = require("./htmlTemplates/Skincare/orderUpdate");
+const { orderProductsUpdate } = require("./htmlTemplates/Skincare/orderProductsUpdate");
+const { orderShippingInfoUpdate } = require("./htmlTemplates/Skincare/orderShippingInfoUpdate");
+const { bookingConfirmation } = require("./htmlTemplates/Beauty/bookingConfirmation");
+const { adminBookingConfirmation } = require("./htmlTemplates/Beauty/adminBookingConfirmation");
+const { bookingConfirm } = require("./htmlTemplates/Beauty/bookingConfirm");
+const { beautyCampaignTemplate } = require('./htmlTemplates/Beauty/beautyCampaignTemplate');
+const { beautyNewsletterOtp } = require('./htmlTemplates/Beauty/beautyNewsletterOtpEmail');
+const { beautyNewsletterWelcome } = require('./htmlTemplates/Beauty/beautyNewsletterWelcome');
 
+exports.beautyNewsletterWelcomeEmail = () => {
+  const message = {
+    subject: 'Welcome to Our Wellness Community! 🎉',
+    text: 'Thank you for subscribing to our newsletter!',
+    html: beautyNewsletterWelcome(),
+    headers: { 'Content-Type': 'text/html' }
+  };
+  return message;
+}
+
+exports.beautyNewsletterOtpEmail = (data) => {
+  const message = {
+    subject: 'Verify Your Email - OTP Code',
+    text: `Your verification code is: ${data.otp}`,
+    html: beautyNewsletterOtp(data.otp),
+    headers: { 'Content-Type': 'text/html' }
+  };
+  return message;
+};
+
+exports.beautyNewsLetterEmail = (campaignData) => {
+  const message = {
+    subject: campaignData.heading,
+    text: campaignData.heading,
+    html: beautyCampaignTemplate(campaignData),
+    headers: { 'Content-Type': 'text/html' },
+  }
+  return message
+}
 
 exports.newsLetterEmail = (campaignData) => {
   const message = {
@@ -16,17 +48,15 @@ exports.newsLetterEmail = (campaignData) => {
     html: campaignTemplate(campaignData),
     headers: { 'Content-Type': 'text/html' },
   }
-  return message
+  return message;
 }
-
 
 exports.resetEmail = (host, resetToken) => {
   const message = {
     subject: 'Reset Password',
     text:
-      `${
-        'You are receiving this because you have requested to reset your password for your account.\n\n' +
-        'Please click on the following link, or paste this into your browser to complete the process:\n\n' 
+      `${'You are receiving this because you have requested to reset your password for your account.\n\n' +
+      'Please click on the following link, or paste this into your browser to complete the process:\n\n'
       }${host}/reset-password/${resetToken}\n\n` +
       `If you did not request this, please ignore this email and your password will remain unchanged.\n`
   };
@@ -48,11 +78,10 @@ exports.confirmResetPasswordEmail = () => {
 exports.merchantSignup = (host, { resetToken, email }) => {
   const message = {
     subject: 'Merchant Registration',
-    text: `${
-      'Congratulations! Your application has been accepted. Please complete your Merchant account signup by clicking on the link below. \n\n' +
+    text: `${'Congratulations! Your application has been accepted. Please complete your Merchant account signup by clicking on the link below. \n\n' +
       'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
       'http://'
-    }${host}/merchant-signup/${resetToken}?email=${email}\n\n`
+      }${host}/merchant-signup/${resetToken}?email=${email}\n\n`
   };
 
   return message;
@@ -162,7 +191,7 @@ exports.orderUpdateEmail = order => {
   }
   const message = {
     subject: `Update on your order #${order._id}`,
-    text:`Hi ${order.user.firstName}!`,
+    text: `Hi ${order.user.firstName}!`,
     html: orderUpdate(order, `Hi ${order.user.firstName}! Your order ${msg}`),
     headers: { 'Content-Type': 'text/html' },
   };
@@ -180,15 +209,15 @@ exports.orderProductsUpdateEmail = (order, selectedProductsLength) => {
   return message;
 }
 
-  exports.orderShippingInfoUpdateEmail = (order) => {
-    const message = {
-      subject: `Your Order #${order._id} Shipping Info Has Changed!`,
-      text: `Hi ${order.user.firstName}!`,
-      html: orderShippingInfoUpdate(order),
-      headers: { 'Content-Type': 'text/html' }
-    }
-    return message;
+exports.orderShippingInfoUpdateEmail = (order) => {
+  const message = {
+    subject: `Your Order #${order._id} Shipping Info Has Changed!`,
+    text: `Hi ${order.user.firstName}!`,
+    html: orderShippingInfoUpdate(order),
+    headers: { 'Content-Type': 'text/html' }
   }
+  return message;
+}
 
 exports.bookingConfirmationEmail = (booking) => {
   const message = {

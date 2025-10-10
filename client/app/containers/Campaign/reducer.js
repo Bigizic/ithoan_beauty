@@ -24,6 +24,7 @@ const initialState = {
   campaigns: [],
   campaign: {},
   campaignFormData: {
+    type: '',
     heading: '',
     subHeading: '',
     footer: '',
@@ -92,6 +93,7 @@ const campaignReducer = (state = initialState, action) => {
       return {
         ...state,
         campaignFormData: {
+          type: '',
           heading: '',
           subHeading: '',
           footer: '',

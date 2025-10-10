@@ -66,8 +66,14 @@ router.get(
 router.post('/add', auth, role.check(ROLES.Admin), upload.single('image'), async (req, res) => {
   try {
   const image = req.file;
-  const { isActive, isDefault, isPopup, buttonText, linkType, categorySlug, displayDuration } = req.body;
+  let { isActive, isDefault, isPopup, buttonText, linkType, categorySlug, displayDuration } = req.body;
+  
+  isActive = JSON.parse(isActive)
+  isDefault = JSON.parse(isDefault)
+  isPopup = JSON.parse(isPopup)
+  displayDuration = JSON.parse(displayDuration)
 
+ 
   if (!image) {
     return res.status(400).json({ error: 'You must upload an Image.' });
   }

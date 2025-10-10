@@ -56,10 +56,16 @@ export const fetchMailingListDetails = () => {
 }
 
 export const fetchSubscribers = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     dispatch(setCampaingLoading(true));
     try {
-      const response = await axios.get(`${API_URL}/newsletter/subscribers`);
+      const camp = getState().campaign.campaign;
+      let response = null;
+      if (camp?.type === 'beauty') {
+        response = await axios.get(`${API_URL}/newsletter/beauty/subscribers`);
+      } else {
+        response = await axios.get(`${API_URL}/newsletter/subscribers`);
+      }
 
       if (response.status === 200) {
         dispatch({
@@ -128,12 +134,23 @@ export const sendCampaign = (campaignId, userSelected, newsletterSelected, speci
   return async (dispatch, getState) => {
     dispatch(setCampaingLoading(true))
     try {
-      const response = await axios.post(`${API_URL}/newsletter/send`, {
-        campaignId,
-        newsletterSelected,
-        userSelected,
-        specificEmails
-      });
+      const camp = getState().campaign.campaign
+      let response = null;
+      if (camp?.type === 'beauty') {
+        response = await axios.post(`${API_URL}/newsletter/beauty/send`, {
+          campaignId,
+          newsletterSelected,
+          userSelected,
+          specificEmails
+        });
+      } else {
+        response = await axios.post(`${API_URL}/newsletter/send`, {
+          campaignId,
+          newsletterSelected,
+          userSelected,
+          specificEmails
+        });
+      }
 
       const { data } = response;
       const successfulOptions = {
@@ -193,25 +210,26 @@ export const addCampaign = () => {
       const rules = {
         // heading: 'required',
         subHeading: 'required|max:50000',
+        type: 'required',
         // isBestSellingSelected: 'required',
       };
 
       const campaign = getState().campaign.campaignFormData;
 
       let newCampaign = {
+        type: campaign?.type?.value || 'skincare',
         heading: campaign.heading,
         subHeading: campaign.subHeading,
         footer: campaign.footer,
         links: campaign.links,
-        image: campaign.image,
+        image: campaign.image.file,
         isBestSellingSelected: campaign.isBestSellingSelected,
         isDiscountedSelected: campaign.isDiscountedSelected,
         isNewArrivalsSelected: campaign.isNewArrivalsSelected,
       };
 
-
-
       const { isValid, errors } = allFieldsValidation(newCampaign, rules, {
+        'required.type': 'Campaign type is required',
         'required.heading': 'Heading is required.',
         'required.subHeading': 'Sub Heading  is required.',
         'max.subHeading':
@@ -236,20 +254,26 @@ export const addCampaign = () => {
 
 
       const formData = new FormData();
-      if (newCampaign.image) {
-        for (const key in newCampaign) {
-          if (newCampaign.hasOwnProperty(key)) {
-            if (key === 'brand' && newCampaign[key] === null) {
-              continue;
-            } else {
-              formData.set(key, newCampaign[key]);
-            }
+      for (const key in newCampaign) {
+        if (newCampaign.hasOwnProperty(key)) {
+          if (key === 'brand' && newCampaign[key] === null) {
+            continue;
+          } else {
+            formData.set(key, newCampaign[key]);
           }
         }
       }
-      const response = await axios.post(`${API_URL}/newsletter/create`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      console.log(formData)
+      let response = null;
+      if (newCampaign.type === 'beauty') {
+        response = await axios.post(`${API_URL}/newsletter/beauty/create`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+      } else {
+        response = await axios.post(`${API_URL}/newsletter/create`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+      }
 
       const successfulOptions = {
         title: `${response.data.message}`,

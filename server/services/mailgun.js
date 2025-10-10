@@ -14,7 +14,8 @@ const {
 const {
   order, security,
   auth, news,
-  management, domain_unsubscribe
+  management, domain_unsubscribe,
+  beautyNews, domain_beauty_unsubscribe
 } = keys.mailgun;
 
 
@@ -81,13 +82,9 @@ class MailgunService {
     }
   }
 
-
-
-
-
-  async fetchMembers() {
+  async fetchMembers(beautyNews = false) {
     try {
-      const result = await this.mailingG.lists.members.listMembers(news);
+      const result = await this.mailingG.lists.members.listMembers(beautyNews ? beautyNews : news);
       const tempRes = []
       if (result.items.length > 0) {
         for (const member of result.items) {
@@ -141,16 +138,16 @@ class MailgunService {
     }
   }
 
-  async createMember(email, firstName, lastName) {
+  async createMember(email, firstName, lastName, mailingListEmail = news) {
     try {
       const cBase = Buffer.from(email).toString('base64');
-      const result = await this.mailingG.lists.members.createMember(news, {
+      const result = await this.mailingG.lists.members.createMember(mailingListEmail, {
         address: email,
         name: `${firstName} ${lastName}`,
         subscribed: true,
         upsert: "yes",
         vars: {
-          unsubscribe_link: `${domain_unsubscribe}/${cBase}`,
+          unsubscribe_link: `${mailingListEmail === news ? domain_unsubscribe : domain_beauty_unsubscribe}/${cBase}`,
           name: firstName,
         },
       })
@@ -161,9 +158,9 @@ class MailgunService {
     }
   }
 
-  async createMembers(members) {
+  async createMembers(members, beautyNews = false) {
     try {
-      const result = await this.mailingG.lists.members.createMembers(news, {
+      const result = await this.mailingG.lists.members.createMembers(beautyNews ? beautyNews : news, {
         members: members,
         upsert: "yes",
       })
@@ -206,7 +203,15 @@ class MailgunService {
   async sendEmail(email, type, data, selectedProductsLength = null) {
     try {
       const message = prepareTemplate(type, host, data, selectedProductsLength);
-
+      const beauties = [
+        'booking-confirmation',
+        'admin-booking-confirmation',
+        'booking-confirm',
+        'beauty-newsletter-welcome',
+        'beauty-newsletter-otp',
+        'beauty-newsletter-specified',
+        'beauty-newsletter'
+      ]
       let config;
 
       if (type === 'admin-contact') {
@@ -220,7 +225,7 @@ class MailgunService {
         }
       } else {
         config = {
-          from: `Tohanniees Skincare <${message.sender}>`,
+          from: `${beauties.includes(type) ? 'Tohanniees Beauty' : 'Tohanniees Skincare'} <${message.sender}>`,
           to: email,
           subject: message.subject,
           text: message.text,
@@ -248,6 +253,22 @@ const prepareTemplate = (type, host, data, selectedProductsLength = null) => {
   let message;
 
   switch (type) {
+    case 'beauty-newsletter-welcome':
+      message = template.beautyNewsletterWelcomeEmail();
+      message.sender = beautyNews;
+      break;
+    case 'beauty-newsletter-otp':
+      message = template.beautyNewsletterOtpEmail(data);
+      message.sender = security;
+      break;
+    case 'beauty-newsletter-specified':
+      message = template.beautyNewsLetterEmail(data);
+      message.sender = beautyNews;
+      break;
+    case 'beauty-newsletter':
+      message = template.beautyNewsLetterEmail(data);
+      message.sender = beautyNews;
+      break;
     case 'newsletter-specified':
       message = template.newsLetterEmail(data);
       message.sender = news;

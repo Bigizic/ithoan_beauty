@@ -21,6 +21,7 @@ const CampaignList = props => {
     <div className='p-list'>
       {isLoading && <LoadingIndicator />}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '5em' }}>
+        <p style={{ fontSize: '24px', fontWeight: '700' }}>Showing Skincare data</p>
         <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap' }}>
           <div style={{ textAlign: 'left', background: 'lightgreen', padding: '10px 10px 0px 10px', borderRadius: '5px' }}>
             <p style={{ fontWeight: '900' }}>{campaignsLength}</p>
@@ -62,12 +63,15 @@ const CampaignList = props => {
           <img
             className='item-image'
             src={`${campaign && campaign.imageUrl
-                ? campaign.imageUrl
-                : '/images/placeholder-image.png'
+              ? campaign.imageUrl
+              : '/images/placeholder-image.png'
               }`}
           />
           <div style={{ maxHeight: '100px', marginLeft: '10px', overflow: 'hidden' }} className='d-flex flex-column px-3'>
-            <h4 className=''>{campaign.heading}</h4>
+            <div className='flex flex-row justify-between'>
+              <h4 className='' style={{ fontWeight: '600', fontSize: '18px' }}>{campaign.heading}</h4>
+              <p style={{ fontWeight: '600' }}>{campaign.type}</p>
+            </div>
             <div className='mb-2'><DescriptionComponent content={campaign.sub_heading} /></div>
           </div>
         </Link>

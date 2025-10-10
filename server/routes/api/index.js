@@ -26,6 +26,7 @@ const servicesRoute = require('./services');
 const serviceRoute = require('./service');
 const bookingRoute = require('./booking');
 const surveyRoute = require('./survey');
+const newsletterBeautyRoutes = require('./newsletter_beauty');
 
 // api status
 router.use('/status', getServerStatus)
@@ -104,5 +105,8 @@ router.use('/booking', bookingRoute);
 
 // survey routes
 router.use('/survey', surveyRoute);
+
+// beauty newsletter routes
+router.use('/newsletter/beauty', newsletterBeautyRoutes);
 
 module.exports = router;

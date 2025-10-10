@@ -4,6 +4,11 @@ const { Schema } = Mongoose;
 
 // Campaign Schema
 const CampaignSchema = new Schema({
+  type: {
+    type: String,
+    enum: ['skincare', 'beauty'],
+    default: 'skincare'
+  },
   heading: {
     type: String,
     default: null,

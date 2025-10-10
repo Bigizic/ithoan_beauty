@@ -8,6 +8,15 @@ export const INSTAGRAM_LINK="https://www.instagram.com/tohanniees_skincare";
 export const SNAPCHAT_LINK="https://snapchat.com/t/VE8G18OV";
 export const WHATSAPP_URL="https://wa.me/2349077692506";
 
+export const TH_BEAUTY = {
+  link: "https://beauty.tohannieesskincare.com",
+  instagram: "https://instagram.com/tohanniees_beauty001",
+  snapchat: "https://snapchat.com/t/VE8G18OV",
+  whatsapp: "https://wa.me/2349077692506",
+  policy: "https://beauty.tohannieesskincare.com/policy",
+  location: "https://maps.app.goo.gl/h1a1gvUfMj37m3bx6"
+}
+
 export const SOCKET_URL =
   window.location.host.indexOf('localhost') >= 0
     ? 'http://127.0.0.1:3000'

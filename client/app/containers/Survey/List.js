@@ -12,6 +12,7 @@ class List extends React.PureComponent {
 
   render() {
     const { surveys, stats, isLoading, totalCount } = this.props;
+    const beautyServyes = surveys.filter(i => i.type === 'beauty')
 
     return (
       <SubPage title='Survey Responses' actionTitle=''>

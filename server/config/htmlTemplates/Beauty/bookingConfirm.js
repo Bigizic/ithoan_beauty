@@ -1,7 +1,12 @@
-const { TH_BEAUTY } = require('../../constants/index')
+const { TH_BEAUTY } = require('../../../constants')
 
-exports.bookingConfirmation = (booking) =>
-  `
+exports.bookingConfirm = (booking) => {
+  let bkD = new Date(booking?.bookingDate)
+  bkD.getDate() + 1
+  bkD.setHours(0, 0, 0, 0)
+  const dateTime = new Date(`${bkD.getFullYear()}-${String(bkD.getMonth() + 1).padStart(2, '0')}-${String(bkD.getDate()).padStart(2, '0')}`).toDateString()
+  return (
+    `
 <!DOCTYPE html>
 <html lang="en" dir="ltr" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" style="color-scheme:light dark;supported-color-schemes:light dark;">
 <head>
@@ -9,7 +14,7 @@ exports.bookingConfirmation = (booking) =>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1 user-scalable=yes">
 <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
-<title>Booking Received</title>
+<title>Appointment Confirmed</title>
 <style>
 body{background-color:#f4f4f4;margin:0;padding:0;}
 table{border-collapse:collapse;}
@@ -25,6 +30,15 @@ p{color:#1c1c1c;font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:16px;
 .detail-value{color:#1c1c1c;}
 .button{background-color:#eabe30;color:#1c1c1c;padding:12px 30px;text-decoration:none;border-radius:5px;display:inline-block;font-weight:600;margin:20px 0;}
 .footer{background-color:#f4f4f4;padding:20px;text-align:center;font-size:14px;color:#666;}
+.alert-box{background-color:#fff3cd;border-left:4px solid #eabe30;padding:15px;margin:20px 0;border-radius:5px;}
+.alert-title{margin:0 0 10px;font-weight:600;color:#856404;}
+.alert-text{margin:0;font-size:14px;color:#856404;line-height:20px;}
+.info-box{background-color:#d1ecf1;border-left:4px solid #17a2b8;padding:15px;margin:20px 0;border-radius:5px;}
+.info-title{margin:0 0 10px;font-weight:600;color:#0c5460;}
+.info-text{margin:0;font-size:14px;color:#0c5460;line-height:20px;}
+.locate-us{margin-top:40px;text-align:center;}
+.locate-us h2{font-family:'Bricolage Grotesque',Helvetica,Arial,sans-serif;color:#1c1c1c;font-size:22px;margin-bottom:10px;}
+.locate-us p{font-size:14px;color:#555;margin-bottom:15px;}
 </style>
 </head>
 <body>
@@ -39,11 +53,9 @@ p{color:#1c1c1c;font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:16px;
         </tr>
         <tr>
           <td class="content">
-            <h1>Booking Received!</h1>
+            <h1>Your Appointment is Confirmed!</h1>
             <p>Hi ${booking.customerInfo.fullName},</p>
-            <p>thank you for choosing <strong>Tohanniees Beauty</strong>. we’re pleased to let you know that your appointment request has been successfully received.  
-            our team will review and confirm your booking shortly. You’ll receive a notification once your appointment is officially confirmed.
-            </p>
+            <p>Great news! Your appointment with <strong>Tohanniees Beauty</strong> has been confirmed by our team.</p>
 
             <div class="booking-details">
               <div class="detail-row">
@@ -56,7 +68,7 @@ p{color:#1c1c1c;font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:16px;
               </div>
               <div class="detail-row">
                 <span class="detail-label">Appointment Date:</span>
-                <span class="detail-value">${new Date(booking.bookingDate).toDateString()}</span>
+                <span class="detail-value">${dateTime}</span>
               </div>
               <div class="detail-row">
                 <span class="detail-label">Appointment Time:</span>
@@ -64,16 +76,27 @@ p{color:#1c1c1c;font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:16px;
               </div>
               <div class="detail-row">
                 <span class="detail-label">Amount:</span>
-                <span class="detail-value">₦${booking.price.toLocaleString()}</span>
+                <span class="detail-value">₦${booking.price?.toLocaleString()}</span>
               </div>
             </div>
 
-            <div style="background-color:#fff3cd;border-left:4px solid #eabe30;padding:15px;margin:20px 0;border-radius:5px;">
-              <p style="margin:0 0 10px;font-weight:600;color:#856404;">Important: Punctuality Policy</p>
-              <p style="margin:0;font-size:14px;color:#856404;line-height:20px;">
+            <p>We are excited to see you on <strong>${dateTime}</strong> at <strong>${booking.bookingTime}</strong>. Please arrive on time for your scheduled appointment.</p>
+
+            <div class="alert-box">
+              <p class="alert-title">⏰ Important: Punctuality Policy</p>
+              <p class="alert-text">
                 Please arrive on time for your appointment. If you arrive <strong>more than 15 minutes late</strong> after your scheduled appointment time, a penalty fee of <strong>₦5,000</strong> will be charged. We appreciate your understanding and cooperation.
               </p>
             </div>
+
+            <div class="info-box">
+              <p class="info-title">📋 Medical History Requirement</p>
+              <p class="info-text">
+                As part of our policy, you will be asked to complete a brief medical questionnaire before your treatment. This helps us ensure your safety and provide the best possible service tailored to your needs. Please review our full policy <a href="${TH_BEAUTY}/policy" style="color:#0c5460;font-weight:600;">here</a>.
+              </p>
+            </div>
+
+            <p style="margin-top:20px;">If you need to reschedule or have any questions about your appointment, please contact us as soon as possible.</p>
 
             <center>
               <a href="${TH_BEAUTY.link}/services" class="button">View Services</a>
@@ -108,3 +131,5 @@ p{color:#1c1c1c;font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:16px;
 </body>
 </html>
 `
+  )
+}

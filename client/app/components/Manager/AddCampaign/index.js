@@ -4,7 +4,7 @@
  *
  */
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import { Row, Col } from 'reactstrap';
 
@@ -45,8 +45,8 @@ const DescriptionBox = (props) => {
         }}
         placeholder="Enter sub heading.."
       />
-      <span style={{color: 'red'}} className='invalid-message'>{error && error[0]}</span>
-      </div>
+      <span style={{ color: 'red' }} className='invalid-message'>{error && error[0]}</span>
+    </div>
   );
 };
 
@@ -69,9 +69,24 @@ const AddCampaign = props => {
 
   return (
     <div className='add-product'>
-      { isLoading && <LoadingIndicator /> }
+      {isLoading && <LoadingIndicator />}
       <form onSubmit={handleSubmit} noValidate>
         <Row>
+          <Col xs='12' lg='6'>
+            <SelectOption
+              error={formErrors['type']}
+              label={'Select Newsletter type'}
+              name={'type'}
+              options={[
+                { label: 'Skincare', value: 'skincare' },
+                { label: 'Beauty', value: 'beauty' }
+              ]}
+              value={campaignFormData.type}
+              handleSelectChange={value => {
+                campaignChange('type', value);
+              }}
+            />
+          </Col>
           <Col xs='12' lg='6'>
             <Input
               type={'text'}
@@ -87,11 +102,11 @@ const AddCampaign = props => {
           </Col>
 
           <Col xs='12' lg='6'>
-          <DescriptionBox
-            error={formErrors['subHeading']}
-            campaignChange={campaignChange}
-            campaignFormData={campaignFormData}
-          />
+            <DescriptionBox
+              error={formErrors['subHeading']}
+              campaignChange={campaignChange}
+              campaignFormData={campaignFormData}
+            />
           </Col>
 
           {/*<Col style={{ marginTop: '20px' }} xs='12' md='12'>
