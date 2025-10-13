@@ -1,5 +1,14 @@
-exports.adminBookingConfirmation = (booking) =>
-`
+exports.adminBookingConfirmation = (booking) => {
+  const bkD = new Date(booking.bookingDate)
+  const dateTime = bkD.toLocaleDateString('en-NG', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Africa/Lagos'
+  })
+  return (
+    `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,7 +75,7 @@ p{color:#333;font-size:14px;line-height:22px;margin:0 0 10px;}
               </div>
               <div class="detail-row">
                 <span class="detail-label">Appointment Date:</span>
-                <span class="detail-value">${new Date(booking.bookingDate).toDateString()}</span>
+                <span class="detail-value">${dateTime}</span>
               </div>
               <div class="detail-row">
                 <span class="detail-label">Appointment Time:</span>
@@ -100,3 +109,5 @@ p{color:#333;font-size:14px;line-height:22px;margin:0 0 10px;}
 </body>
 </html>
 `
+  )
+}

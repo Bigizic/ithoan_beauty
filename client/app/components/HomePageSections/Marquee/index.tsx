@@ -47,7 +47,7 @@ const HomeMarquee: React.FC<MarqueeProps> = ({
         gradientWidth={gradientWidth}
         direction={direction}
         pauseOnHover={pauseOnHover}
-        className={className}
+        className='bg-black text-white py-1'
       >
         {text}
       </Marquee>

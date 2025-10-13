@@ -15,6 +15,7 @@ import {
   CLEAR_FIELD_ERROR,
   RESET_BOOKING,
   FETCH_BANKS,
+  SET_BOOKING_ID
 } from './constants'
 import { togglePayment, setBookingId } from '../PaymentGateway/actions'
 
@@ -278,4 +279,26 @@ export const resetBooking = () => (dispatch: any) => {
   dispatch({
     type: RESET_BOOKING
   })
+}
+
+export const getBookingById = (bookingId: string) => {
+  return async (dispatch: any) => {
+    dispatch(setLoading(true))
+    try {
+      if (bookingId) {
+        const response = await API_URL.get({ type: '/booking/get_info', params: { bookingId } })
+        if (response) {
+          const bookingHash = response.booking.bookingHash;
+          dispatch({
+            type: SET_BOOKING_ID,
+            payload: bookingHash
+          })
+        }
+      }
+    } catch (error) {
+      dispatch(setError('invalid booking id'))
+    } finally {
+      dispatch(setLoading(false))
+    }
+  }
 }

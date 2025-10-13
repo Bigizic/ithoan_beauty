@@ -14,6 +14,7 @@ import NotFound from '../../components/Common/NotFound';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import Banners from '@/components/HomePageSections/Banners';
 import ShopFiltersComp from '@/components/Common/ShopFilters';
+import Input from '@/components/Store/Tags/Input';
 
 class ProductsShop extends React.PureComponent {
   componentDidMount() {
@@ -78,6 +79,26 @@ class ProductsShop extends React.PureComponent {
             count={count}
             order={order}
             sortOptions={sortOptions}
+          />
+          <Input
+            type="autoSuggest"
+            searchIconClassName={`cursor-pointer text-white`}
+            onClick={() => setShowSearch(true)}
+            autoFocus={true}
+            placeholder="Search Products"
+            className="w-[12em] p-[5px] pl-[10px] text-xs border-0 bg-[rgba(255,255,255,0.3)] text-white placeholder-white focus:placeholder-white"
+            onBlur={() => setShowSearch(false)}
+            showSearch={showSearch}
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={renderSuggestion}
+            inputProps={inputProps}
+            history={navigate}
+            value={searchValue}
+            onSearch={onSearch}
+            toggleMenu={toggleMenu}
           />
           {displayProducts && (
             <ProductList

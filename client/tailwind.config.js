@@ -64,6 +64,8 @@ module.exports = {
 
     './app/containers/Navigation/index.js',
 
+    './app/containers/AboutUs/index.js',
+
     './app/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {

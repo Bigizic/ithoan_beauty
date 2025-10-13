@@ -12,7 +12,8 @@ class List extends React.PureComponent {
 
   render() {
     const { surveys, stats, isLoading, totalCount } = this.props;
-    const beautyServyes = surveys.filter(i => i.type === 'beauty')
+    const beautySurveys = surveys.filter(i => i.type === 'beauty');
+    const skincareSurveys = surveys.filter(i => i.type === 'skincare' || !i.type);
 
     return (
       <SubPage title='Survey Responses' actionTitle=''>
@@ -60,30 +61,67 @@ class List extends React.PureComponent {
               </div>
             )}
 
-            {surveys.length > 0 ? (
-              <div className='survey-table'>
-                <table className='table'>
-                  <thead>
-                    <tr>
-                      <th>Source</th>
-                      <th>Date Submitted</th>
-                      <th>IP Address</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {surveys.map((survey) => (
-                      <tr key={survey._id}>
-                        <td>{survey.source}</td>
-                        <td>{new Date(survey.created).toLocaleString()}</td>
-                        <td style={{ fontSize: '12px', color: '#666' }}>
-                          {survey.ipAddress || 'N/A'}
-                        </td>
+            {beautySurveys.length > 0 && (
+              <div className='survey-section mb-8'>
+                <h3 className='text-xl font-semibold mb-4' style={{ color: '#e91e63', fontSize: '20px', marginBottom: '16px' }}>
+                  Beauty Surveys ({beautySurveys.length})
+                </h3>
+                <div className='survey-table'>
+                  <table className='table'>
+                    <thead>
+                      <tr>
+                        <th>Source</th>
+                        <th>Date Submitted</th>
+                        <th>IP Address</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {beautySurveys.map((survey) => (
+                        <tr key={survey._id}>
+                          <td>{survey.source}</td>
+                          <td>{new Date(survey.created).toLocaleString()}</td>
+                          <td style={{ fontSize: '12px', color: '#666' }}>
+                            {survey.ipAddress || 'N/A'}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            ) : (
+            )}
+
+            {skincareSurveys.length > 0 && (
+              <div className='survey-section mb-8'>
+                <h3 className='text-xl font-semibold mb-4' style={{ color: '#4caf50', fontSize: '20px', marginBottom: '16px' }}>
+                  Skincare Surveys ({skincareSurveys.length})
+                </h3>
+                <div className='survey-table'>
+                  <table className='table'>
+                    <thead>
+                      <tr>
+                        <th>Source</th>
+                        <th>Date Submitted</th>
+                        <th>IP Address</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {skincareSurveys.map((survey) => (
+                        <tr key={survey._id}>
+                          <td>{survey.source}</td>
+                          <td>{new Date(survey.created).toLocaleString()}</td>
+                          <td style={{ fontSize: '12px', color: '#666' }}>
+                            {survey.ipAddress || 'N/A'}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {surveys.length === 0 && (
               <NotFound message='No survey responses yet.' />
             )}
           </>

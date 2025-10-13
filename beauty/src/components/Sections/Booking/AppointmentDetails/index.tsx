@@ -149,7 +149,7 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     return (
-      <section className="relative w-full bg-white rounded-[20px] rounded-tl-none rounded-tr-none overflow-hidden p-[40px] md:p-[80px]">
+      <section className="relative w-full bg-white rounded-[20px] rounded-tl-none rounded-tr-none overflow-hidden p-[24px] py-[40px] md:py-[80px] md:p-[80px]">
         {loading && (
           <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-10">
             <LoadingIndicator />
@@ -221,7 +221,7 @@ class AppointmentDetailsContainer extends React.PureComponent<AppointmentDetails
                     <button
                       key={index}
                       onClick={() => this.handleTimeClick(time)}
-                      className={`px-6 py-2 rounded-[20px] overflow-hidden [font-family:'Poppins',Helvetica] font-medium text-base tracking-[0] leading-6 ${bookingTime === time
+                      className={`px-4 py-2 rounded-[20px] overflow-hidden [font-family:'Poppins',Helvetica] font-medium text-base tracking-[0] leading-6 ${bookingTime === time
                           ? "bg-[#eabe30] text-black"
                           : "border border-solid border-[#1c1c1c7a] text-[#1c1c1c] hover:border-[#eabe30]"
                         }`}

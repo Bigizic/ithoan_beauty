@@ -38,7 +38,7 @@ export const AboutUsSection = () => {
 
             <div className="inline-flex items-center gap-6 relative flex-[0_0_auto]">
               <Button
-                onClick={() => navigate('/about-us')}
+                onClick={() => navigate('/about')}
                 variant="outline"
                 className="h-auto inline-flex items-center justify-center gap-2 px-6 py-3 relative flex-[0_0_auto] mt-[-1.00px] mb-[-1.00px] ml-[-1.00px] mr-[-1.00px] rounded-[5px] overflow-hidden border border-solid border-[#eabe30] bg-transparent hover:bg-[#eabe30]/10"
               >

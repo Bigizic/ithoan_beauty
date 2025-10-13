@@ -85,7 +85,6 @@ export const updateBooking = (id, bookingData, navigate) => {
   return async (dispatch, getState) => {
     try {
       dispatch(setBookingLoading(true));
-
       const response = await axios.put(`${API_URL}/booking/${id}`, bookingData);
 
       dispatch({

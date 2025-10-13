@@ -13,9 +13,9 @@ const CartItemSchema = new Schema({
   name: {
     type: String,
   },
-  image: {
+  image: [{
     type: String,
-  },
+  }],
   quantity: Number,
   purchasePrice: {
     type: Number,

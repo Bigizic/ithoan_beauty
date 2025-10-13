@@ -2,6 +2,9 @@ import React from "react"
 import { Route, Routes } from "react-router-dom"
 import HomePage from "../HomePage"
 import Services from "../Services"
+import AboutUs from "../AboutUs"
+import Policy from "../Policy"
+import NewsletterUnsubscribe from "../NewsletterUnsubscribe"
 import { connect } from "react-redux"
 import { actions } from "../../actions"
 import { ACTIONSTYPE } from "../../actions"
@@ -30,6 +33,9 @@ class Application extends React.PureComponent<ApplicationStateProps & ACTIONSTYP
           <Route path="/" element={<HomePage services={services} />} />
           <Route path="/services/*" element={<Services services={services} />} />
           <Route path="/booking/*" element={<Booking />} />
+          <Route path="/about" element={<AboutUs services={services}/>} />
+          <Route path="/policy" element={<Policy />} />
+          <Route path="/newsletter/unsubscribe/:email" element={<NewsletterUnsubscribe />} />
         </Routes>
         <Footer services={services} />
         <PaymentGateway />

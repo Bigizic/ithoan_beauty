@@ -193,9 +193,9 @@ const Navigation = React.forwardRef((props, ref) => {
               <HomeMarquee
                 text={<span className='mx-3'>{websiteInfo}</span>}
                 type='new'
-                className='bg-white text-black py-1'
-                gradient={true}
-                gradientWidth={"100px"}
+                className='bg-black text-white py-1'
+                //gradient={true}
+                //gradientWidth={"100px"}
                 autoFill={true}
               />
             </div>

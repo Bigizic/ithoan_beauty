@@ -13,6 +13,7 @@ import {
   CLEAR_FIELD_ERROR,
   RESET_BOOKING,
   FETCH_BANKS,
+  SET_BOOKING_ID,
 } from './constants'
 
 const initialState = {
@@ -32,7 +33,8 @@ const initialState = {
   },
   bookingSuccess: false,
   bookingData: null as any,
-  banks: [] as any[]
+  banks: [] as any[],
+  bookingId: '' as string,
 }
 
 type actionProps = {
@@ -42,6 +44,11 @@ type actionProps = {
 
 export default function bookingReducer(state = initialState, action: actionProps) {
   switch (action.type) {
+    case SET_BOOKING_ID:
+      return {
+        ...state,
+        bookingId: action.payload
+      }
     case BOOKING_LOADING:
       return {
         ...state,

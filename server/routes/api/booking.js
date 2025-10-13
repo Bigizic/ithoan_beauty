@@ -56,8 +56,12 @@ router.get('/available-times', async (req, res) => {
         error: 'Sub service not found'
       });
     }
+
     const selectedDate = new Date(date);
-    selectedDate.setUTCHours(23, 59, 59, 999);
+    const startOfDay = new Date(selectedDate);
+    startOfDay.setUTCHours(0, 0, 0, 0);
+    const endOfDay = new Date(selectedDate);
+    endOfDay.setUTCHours(23, 59, 59, 999);
 
     const dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][selectedDate.getDay()];
 
@@ -68,10 +72,6 @@ router.get('/available-times', async (req, res) => {
         availableTimes: []
       });
     }
-
-    const startOfDay = new Date(selectedDate);
-    const endOfDay = new Date(selectedDate);
-    endOfDay.setHours(23, 59, 59, 999);
 
     const bookingsOnDate = await Booking.find({
       subServiceId: subServiceId,
@@ -236,7 +236,7 @@ router.put('/payment', upload.fields([
       created: updatedBooking.created
     };
 
-    await emailService.sendEmail(
+    /*await emailService.sendEmail(
       updatedBooking.customerInfo.email,
       'booking-confirmation',
       bookingData
@@ -247,7 +247,7 @@ router.put('/payment', upload.fields([
     }
     if (adminEmail) {
       await emailService.sendEmail(adminEmail, 'admin-booking-confirmation', bookingData);
-    }
+    }*/
 
     return res.status(200).json({
       success: true,
@@ -402,6 +402,26 @@ router.get('/list', auth, role.check(ROLES.Admin), async (req, res) => {
   }
 });
 
+router.get('/get_info', async (req, res) => {
+  try {
+    const { bookingId } = req.query;
+    const booking = await Booking.findOne({ bookingHash: bookingId })
+    if (!booking) {
+      return res.status(400).json({
+        error: 'invalid booking hash'
+      })
+    }
+
+    return res.status(200).json({
+      booking
+    })
+  } catch (error) {
+    return res.status(400).json({
+      error: 'request could not be processed at the moment'
+    })
+  }
+})
+
 router.get('/:id', auth, role.check(ROLES.Admin), async (req, res) => {
   try {
     const { id } = req.params;
@@ -458,9 +478,18 @@ router.put('/:id', auth, role.check(ROLES.Admin), async (req, res) => {
     if (serviceId) updateData.serviceId = serviceId;
     if (subServiceId) updateData.subServiceId = subServiceId;
     if (bookingDate) {
-      const selectedDate = new Date(bookingDate);
-      //selectedDate.setUTCHours(23, 59, 59, 999);
-      updateData.bookingDate = selectedDate;
+      const d1 = new Date(booking.bookingDate);
+      const d2 = new Date(bookingDate);
+
+      const diff = Math.abs(d1.getTime() - d2.getTime());
+
+      if (diff === 1 && d2.getDate() === d1.getDate()) {
+        updateData.bookingData = booking.bookingDate
+      } else {
+        const selectedDate = new Date(bookingDate);
+        selectedDate.setUTCHours(23, 59, 59, 999);
+        updateData.bookingDate = selectedDate;
+      }
     }
     if (bookingTime) updateData.bookingTime = bookingTime;
     if (status) updateData.status = status;
@@ -493,7 +522,7 @@ router.put('/:id', auth, role.check(ROLES.Admin), async (req, res) => {
         created: updatedBooking.created
       };
 
-      try {
+      /*try {
         await emailService.sendEmail(
           updatedBooking.customerInfo.email,
           'booking-confirm',
@@ -501,7 +530,7 @@ router.put('/:id', auth, role.check(ROLES.Admin), async (req, res) => {
         );
       } catch (emailError) {
         console.log('Error sending confirmation email:', emailError);
-      }
+      }*/
     }
 
     return res.status(200).json({

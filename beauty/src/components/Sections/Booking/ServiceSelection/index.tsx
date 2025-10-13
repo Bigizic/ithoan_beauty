@@ -47,7 +47,7 @@ class ServiceSelectionContainer extends React.PureComponent<ServiceSelectionProp
           Select the perfect service for your needs.
         </p>
 
-        <div className="flex flex-col gap-4 w-full mt-6 bg-white p-[40px] md:p-[80px] rounded-[20px] rounded-br-none rounded-bl-none">
+        <div className="flex flex-col gap-4 w-full mt-6 bg-white p-[24px] py-[40px] md:py-[80px] md:p-[80px] rounded-[20px] rounded-br-none rounded-bl-none">
           <div className="flex flex-col gap-2">
             <label className="text-[20px] md:text-[32px] font-bold text-[#EABE30] [font-family:'Bricolage_Grotesque',Helvetica]">
               Select Service
@@ -100,13 +100,13 @@ class ServiceSelectionContainer extends React.PureComponent<ServiceSelectionProp
           )}
 
           {selectedSubService && (
-            <div className="bg-white rounded-[10px] p-6 border border-solid border-[#1c1c1c82] mt-2">
+            <div className="bg-white rounded-[10px] py-6 px-3 border border-solid border-[#1c1c1c82] mt-2">
               <div className="flex flex-col gap-4">
                 <div>
                   <h3 className="font-bold text-[#1c1c1c] text-xl [font-family:'Bricolage_Grotesque',Helvetica]">
                     {selectedSubService.name}
                   </h3>
-                  <p dangerouslySetInnerHTML={{ __html: selectedSubService.description }} className="text-[#1c1c1c] text-sm [font-family:'Poppins',Helvetica] mt-1">
+                  <p dangerouslySetInnerHTML={{ __html: selectedSubService.description }} className="text-[#1c1c1c] text-sm [font-family:'Poppins',Helvetica] mt-1 text-justify">
                   </p>
                 </div>
                 <div className="flex items-center justify-between">

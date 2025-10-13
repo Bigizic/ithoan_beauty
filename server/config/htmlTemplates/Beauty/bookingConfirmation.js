@@ -1,10 +1,14 @@
 const { TH_BEAUTY } = require('../../../constants')
 
 exports.bookingConfirmation = (booking) => {
-  let bkD = new Date(booking?.bookingDate)
-  bkD.getDate() + 1
-  bkD.setHours(0, 0, 0, 0)
-  const dateTime = new Date(`${bkD.getFullYear()}-${String(bkD.getMonth() + 1).padStart(2, '0')}-${String(bkD.getDate()).padStart(2, '0')}`).toDateString()
+  const bkD = new Date(booking.bookingDate)
+  const dateTime = bkD.toLocaleDateString('en-NG', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Africa/Lagos'
+  })
   return (
     `
 <!DOCTYPE html>

@@ -80,3 +80,15 @@ export interface AppointmentDetailsProps {
   fieldErrors: any;
 }
 
+export interface BookingIdParams {
+  bookingId: string;
+}
+
+export interface bookingSuccessProps {
+  bookingId: string,
+  match: { params: BookingIdParams };
+}
+
+export interface bookingSuccessContainerProps {
+  bookingId: string,
+}

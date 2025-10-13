@@ -27,6 +27,7 @@ import OrderPage from "../OrderPage";
 import AuthSuccess from "../AuthSuccess";
 import NewsletterUnsubscribe from "../NewsletterUnsubscribe";
 import Terms from "../Terms";
+import AboutUs from "../AboutUs";
 import Footer from "../../components/Common/Footer";
 import Page404 from "../../components/Common/Page404";
 import FaqPage from "../FAQ";
@@ -185,6 +186,7 @@ export function initializeApplication(options = {}) {
                   <Route exact path="/" element={<HomePage />} />
                   <Route path="/shop/*" element={<Shop />} />
                   <Route path="/terms" element={<Terms />} />
+                  <Route path="/about-us" element={<AboutUs />} />
                   <Route path="/faq" element={<FaqPage />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/brands" element={<BrandsPage />} />

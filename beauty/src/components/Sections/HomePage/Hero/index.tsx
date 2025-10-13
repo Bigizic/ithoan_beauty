@@ -30,7 +30,7 @@ export const HeroSection = () => {
             </p>
           </ScrollTranslate>
 
-          <div className="inline-flex items-start gap-8 relative flex-[0_0_auto]">
+          <div className="inline-flex items-start gap-8 relative flex-[0_0_auto] flex-wrap justify-center">
             <a
               className="h-auto bg-[#eabe30] hover:bg-[#d4a82a] text-[#1c1c1c] px-6 py-3 rounded-lg font-text-regular-normal font-[number:var(--text-regular-normal-font-weight)] text-[16px] sm:text-[length:var(--text-regular-normal-font-size)] tracking-[var(--text-regular-normal-letter-spacing)] leading-[var(--text-regular-normal-line-height)] [font-style:var(--text-regular-normal-font-style)]"
               onClick={() => navigate('/booking')}

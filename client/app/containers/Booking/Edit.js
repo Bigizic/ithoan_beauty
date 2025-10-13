@@ -58,9 +58,9 @@ class Edit extends React.PureComponent {
           note: booking.note || '',
           bookingDate: booking.bookingDate
             ?
-              `${bkD.getFullYear()}-${String(bkD.getMonth() + 1).padStart(2, '0')}-${String(bkD.getDate()).padStart(2, '0')}`
+            `${bkD.getFullYear()}-${String(bkD.getMonth() + 1).padStart(2, '0')}-${String(bkD.getDate()).padStart(2, '0')}`
             :
-              '',
+            '',
           bookingTime: booking.bookingTime || '',
           paymentReceipt: booking.paymentReceipt || '',
           subServiceId: booking.subServiceId || {},
@@ -115,7 +115,6 @@ class Edit extends React.PureComponent {
       status: bookingData.status,
       note: bookingData.note
     };
-
     if (selectedService) {
       updateData.serviceId = selectedService._id ? selectedService : { _id: selectedService.value, name: selectedService.label };
     }
@@ -179,7 +178,18 @@ class Edit extends React.PureComponent {
           <div className='booking-edit-form'>
             <div className='row'>
               <div className='col-md-6'>
-                <h4 className='text-lg font-semibold'>Customer Information</h4>
+                <div className='flex justify-between w-full'>
+                  <h4 className='text-lg font-semibold'>Customer Information</h4>
+                  {bookingData.status !== 'confirmed' &&
+                    <Button
+                      text="Confirm booking"
+                      onClick={async (v) => {
+                        await this.handleInputChange("status", "confirmed")
+                        this.handleSubmit()
+                      }}
+                    />
+                  }
+                </div>
                 <Input
                   type='text'
                   label='Full Name'
