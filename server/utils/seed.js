@@ -106,7 +106,6 @@ const seedDB = async () => {
     }
   } catch (error) {
     console.log(`${chalk.red('x')} ${chalk.red('Error while seeding database')}`);
-    console.log(error);
     return null;
   } finally {
     await mongoose.connection.close();

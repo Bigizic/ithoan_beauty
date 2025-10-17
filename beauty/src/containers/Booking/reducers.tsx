@@ -1,3 +1,4 @@
+import { ACTIONPROPS } from '../../types'
 import {
   SET_SELECTED_SERVICE,
   SET_SELECTED_SUBSERVICE,
@@ -37,12 +38,9 @@ const initialState = {
   bookingId: '' as string,
 }
 
-type actionProps = {
-  type: string
-  payload?: any
-}
 
-export default function bookingReducer(state = initialState, action: actionProps) {
+
+export default function bookingReducer(state = initialState, action: ACTIONPROPS) {
   switch (action.type) {
     case SET_BOOKING_ID:
       return {

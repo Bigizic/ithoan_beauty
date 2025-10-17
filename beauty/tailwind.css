@@ -288,6 +288,7 @@ a {
 .nav-dropdown:hover>.nav-dropdown-hover {
   visibility: visible;
 }
+
 .nav-dropdown:hover>.nav-dropdown-chev-hover {
   --tw-rotate: 180deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -296,14 +297,105 @@ a {
 .nav-dropdown-m:hover>.nav-dropdown-hover-m {
   display: block;
 }
-.nav-dropdown-m:focus-within > .nav-dropdown-chev-hover-m {
+
+.nav-dropdown-m:focus-within>.nav-dropdown-chev-hover-m {
   --tw-rotate: 180deg;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
-    rotate(var(--tw-rotate))
-    skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .PhoneInputInput {
   outline: none;
+}
+
+.maintenance_homepage_application {
+  background: #fff;
+  padding: 0px 20px;
+  height: 100vh;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HOMEPAGE MAINTENANCE MODE*/
+
+.maintenance_homepage {
+  padding: 0px;
+}
+
+.maintenance_homepage .maintenance_homepage_body {
+  margin: 0;
+  display: flex;
+  color: #fff;
+  flex-wrap: wrap;
+}
+
+.maintenance_homepage .container {
+  max-width: 720px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.maintenance_homepage .container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.maintenance_homepage h1 {
+  font-size: 2.5rem;
+  margin: 20px 0;
+}
+
+.maintenance_homepage p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+  .maintenance_homepage h1 {
+    font-size: 2rem;
+  }
+
+  .maintenance_homepage p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .maintenance_homepage h1 {
+    font-size: 1.8rem;
+  }
+
+  .maintenance_homepage p {
+    font-size: 0.85rem;
+  }
+}
+
+.maintenance_homepage .maintenance_text {
+  text-align: center;
+}
+
+.maintenance_homepage .maintenance_text h1,
+.maintenance_homepage .maintenance_text h2 {
+  color: black !important;
+}
+
+.maintenance_one_logo {
+  background: url('/images/other_icons/maintenance_1.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 100px;
+  width: 100px;
+  display: inline-flex;
+  margin-right: 10px;
+}
+
+.maintenance_two_logo {
+  background: url('/images/other_icons/maintenance_2.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 100px;
+  width: 100px;
+  display: inline-flex;
+  margin-right: 10px;
 }

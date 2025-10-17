@@ -6,13 +6,25 @@ const SettingSchema = new Schema({
   _id: {
     type: String,
   },
-  isMaintenanceMode:{
-    type: Boolean,
-    default: false,
+  isMaintenanceMode: {
+    beauty: {
+      type: Boolean,
+      default: false,
+    },
+    skincare: {
+      type: Boolean,
+      default: false,
+    }
   },
   maintenanceText: {
-    type: String,
-    default: null
+    beauty: {
+      type: String,
+      default: '',
+    },
+    skincare: {
+      type: String,
+      default: '',
+    }
   },
   websiteInfo: {
     type: String,

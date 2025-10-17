@@ -39,8 +39,20 @@ class ProductsShop extends React.PureComponent {
       right,
       count,
       order,
-      sortOptions
+      sortOptions,
+
+      searchItem,
+      setSearchTerm,
+      shopProducts,
+      onShopSuggestionsFetchRequested,
+      onShopSuggestionsClearRequested,
     } = this.props;
+
+    const handleSearch = (value) => {
+      setSearchTerm(value)
+      onShopSuggestionsFetchRequested(value)
+      //setSearchTerm(value);
+    };
 
     const displayProducts = products && products.length > 0;
     const bannerss = [{
@@ -81,26 +93,12 @@ class ProductsShop extends React.PureComponent {
             sortOptions={sortOptions}
           />
           <Input
-            type="autoSuggest"
-            searchIconClassName={`cursor-pointer text-white`}
-            onClick={() => setShowSearch(true)}
-            autoFocus={true}
-            placeholder="Search Products"
-            className="w-[12em] p-[5px] pl-[10px] text-xs border-0 bg-[rgba(255,255,255,0.3)] text-white placeholder-white focus:placeholder-white"
-            onBlur={() => setShowSearch(false)}
-            showSearch={showSearch}
-            suggestions={suggestions}
-            onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={onSuggestionsClearRequested}
-            getSuggestionValue={getSuggestionValue}
-            renderSuggestion={renderSuggestion}
-            inputProps={inputProps}
-            history={navigate}
-            value={searchValue}
-            onSearch={onSearch}
-            toggleMenu={toggleMenu}
+            placeholder="Search Products by Name"
+            className="my-[2em] md:my-[2em] md:mx-[2em]"
+            style={{ borderRadius: '5px', color: 'black', border: '1px solid black' }}
+            onInputChange={(n, v) => handleSearch(v)}
           />
-          {displayProducts && (
+          {displayProducts && searchItem.length < 3 && (
             <ProductList
               parentClassName={'flex flex-wrap justify-around'}
               products={products}
@@ -115,7 +113,23 @@ class ProductsShop extends React.PureComponent {
 
             />
           )}
-          {!isLoading && !displayProducts && (
+          {searchItem.length > 2 && shopProducts.length > 0 && (
+            <ProductList
+              parentClassName={'flex flex-wrap justify-around mb-5'}
+              products={shopProducts}
+              authenticated={authenticated}
+              updateWishlist={updateWishlist}
+              all_currency={all_currency}
+              current_currency={currentCurrency}
+              itemInCart={itemInCart}
+              shopFormErrors={shopFormErrors}
+              handleAddToCart={handleAddToCart}
+              handleRemoveFromCart={handleRemoveFromCart}
+
+            />
+          )}
+
+          {(!isLoading && !displayProducts) || (searchItem.length > 2 && shopProducts.length === 0) && (
             <NotFound message='No products found.' />
           )}
         </div>
@@ -139,6 +153,9 @@ const mapStateToProps = state => {
     currentCurrency: state.currency.select_currency.length > 0 ? state.currency.select_currency : state.currency.default_currency,
     itemInCart: itemInCart,
     shopFormErrors: state.product.shopFormErrors,
+
+    searchItem: state.shop.searchItem,
+    shopProducts: state.shop.shopProducts
   };
 };
 

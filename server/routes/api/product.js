@@ -134,18 +134,28 @@ router.get('/list/search/:name', async (req, res) => {
   try {
     const name = req.params.name;
 
+    const userDoc = await checkAuth(req);
+
     const productDoc = await Product.find(
       { name: { $regex: new RegExp(name), $options: 'is' }, isActive: true },
-      { name: 1, slug: 1, imageUrl: 1, price: 1, _id: 1 }
+      { name: 1, slug: 1, imageUrl: 1, price: 1, _id: 1, discountPrice: 1 }
     );
     if (productDoc.length < 0) {
       return res.status(404).json({
         message: 'No product found.'
       });
     }
+    let products = null
+
+    if (userDoc) {
+      const wishListQuery = getStoreProductsWishListQuery(userDoc.id)
+      products = await Product.aggregate(wishListQuery);
+    } else {
+      products = productDoc;
+    }
 
     return res.status(200).json({
-      products: productDoc
+      products
     });
   } catch (error) {
     return res.status(400).json({
@@ -506,7 +516,6 @@ router.put(
         message: 'Product has been updated successfully!'
       });
     } catch (error) {
-      console.log(error)
       return res.status(400).json({
         error: 'Your request could not be processed. Please try again.'
       });

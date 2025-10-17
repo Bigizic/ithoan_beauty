@@ -21,7 +21,10 @@ class API_URL {
   static async get({ type, id, params, config }: RequestOptions) {
     const url = this.buildUrl(type, id)
     const response = await axios.get(url, { params, ...config })
-    return response.data
+    return {
+      status: response.status,
+      data: response.data
+    }
   }
 
   static async post({ type, id, data, config }: RequestOptions) {

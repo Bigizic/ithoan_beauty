@@ -60,6 +60,7 @@ class Cart extends React.PureComponent {
 
       newPlaceOrder,
       orderIsLoading,
+      websiteInfoStatus
     } = this.props;
 
     const addressLength = address.length;
@@ -69,7 +70,7 @@ class Cart extends React.PureComponent {
 
 
     return (
-      <div className='cart'>
+      <div className={`cart`}>
         <div className='cart-header'>
           {isCartOpen && (
             <Button
@@ -249,6 +250,8 @@ const mapStateToProps = state => {
     selectedShipping: state.shipping.selectedShipping,
     shippingFormErrors: state.shipping.formErrors,
     orderIsLoading: state.payment.orderIsLoading,
+
+    websiteInfoStatus: state.navigation.websiteInfoStatus,
   };
 };
 

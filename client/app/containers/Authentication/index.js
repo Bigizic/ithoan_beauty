@@ -15,6 +15,7 @@ const Authentication = (props) => {
   const { children, authenticated } = props
   if (!authenticated) {
     return <Navigate to='/login' />;
+    //return <Navigate to='/' />
   } else {
     return children
   }

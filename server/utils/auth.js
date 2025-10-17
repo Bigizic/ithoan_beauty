@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const checkAuth = async req => {
+/*const checkAuth = async req => {
   try {
     if (!req.headers.authorization) {
       return null;
@@ -18,6 +18,23 @@ const checkAuth = async req => {
   } catch (error) {
     return null;
   }
-};
+};*/
+
+const checkAuth = async req => {
+  try {
+    if (!req.cookies.access_token) {
+      return null
+    }
+    const T = req.cookies.access_token;
+    const token = (await jwt.decode(T.split(' ')[1])) || T
+    if (!token) {
+      return null
+    }
+    return token
+
+  } catch (error) {
+    return null
+  }
+}
 
 module.exports = checkAuth;

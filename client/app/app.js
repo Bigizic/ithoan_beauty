@@ -34,21 +34,27 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'rc-slider/assets/index.css';
 
 // Authentication
-const token = localStorage.getItem('token');
+//const token = localStorage.getItem('token');
 
-if (token) {
+/*if (token) {
   // authenticate api authorization
   setToken(token);
 
   // authenticate routes
   store.dispatch({ type: SET_AUTH });
+}*/
+//const authe
+setToken(true)
+const token = localStorage.getItem('is_logged_in');
+if (token === 'true') {
+  store.dispatch({ type: SET_AUTH })
 }
 
 const app = () => (
   <Provider store={store}>
     <BrowserRouter>
       <SocketProvider>
-        <ScrollToTop/>
+        <ScrollToTop />
         <Application />
       </SocketProvider>
     </BrowserRouter>

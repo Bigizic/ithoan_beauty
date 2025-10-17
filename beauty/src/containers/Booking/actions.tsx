@@ -81,7 +81,7 @@ export const setUserInfo = (userInfo: any) => (dispatch: any) => {
 export const fetchAvailableTimes = (subServiceId: string, date: Date) => async (dispatch: any) => {
   dispatch(setLoading(true))
   try {
-    const data = await API_URL.get({
+    const { data } = await API_URL.get({
       type: '/booking/available-times',
       params: {
         subServiceId,
@@ -263,7 +263,7 @@ export const createBooking = (bookingData: any) => async (dispatch: any) => {
 
 export const fetchBanks = () => async (dispatch: any) => {
   try {
-    const data = await API_URL.get({
+    const { data } = await API_URL.get({
       type: '/account/banks'
     })
     dispatch({
@@ -286,9 +286,9 @@ export const getBookingById = (bookingId: string) => {
     dispatch(setLoading(true))
     try {
       if (bookingId) {
-        const response = await API_URL.get({ type: '/booking/get_info', params: { bookingId } })
-        if (response) {
-          const bookingHash = response.booking.bookingHash;
+        const { data } = await API_URL.get({ type: '/booking/get_info', params: { bookingId } })
+        if (data) {
+          const bookingHash = data.booking.bookingHash;
           dispatch({
             type: SET_BOOKING_ID,
             payload: bookingHash

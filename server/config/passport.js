@@ -13,8 +13,16 @@ const { google, facebook } = keys;
 const User = mongoose.model('User');
 const secret = keys.jwt.secret;
 
+const cookieExtractor = function (req) {
+  if (req && req.cookies) {
+    return req.cookies['access_token'] || null;
+  }
+  return null;
+};
+
 const opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+//opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = secret;
 
 passport.use(
@@ -69,11 +77,11 @@ const googleAuth = async () => {
               });
 
               const pnu = await newUser.save()
-                if (!pnu) {
-                  return done(err, false);
-                }
+              if (!pnu) {
+                return done(err, false);
+              }
 
-                return done(null, user);
+              return done(null, user);
             })
             .catch(err => {
               return done(err, false);
@@ -120,11 +128,11 @@ const facebookAuth = async () => {
               });
 
               const pnu = await newUser.save()
-                if (!pnu) {
-                  return done(err, false);
-                }
+              if (!pnu) {
+                return done(err, false);
+              }
 
-                return done(null, user);
+              return done(null, user);
             })
             .catch(err => {
               return done(err, false);

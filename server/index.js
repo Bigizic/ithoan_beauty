@@ -9,6 +9,7 @@ const routes = require('./routes');
 const socket = require('./socket');
 const setupDB = require('./utils/db');
 const emailWorker = require('./workers/emailWorker');
+const cookieParser = require('cookie-parser')
 
 const { port } = keys;
 const app = express();
@@ -21,7 +22,32 @@ app.use(
     frameguard: true
   })
 );
-app.use(cors());
+
+const allowedOrigins = [
+  'http://tohannieesskincare.com',
+  'https://tohannieesskincare.com',
+  'http://www.tohannieesskincare.com',
+  'https://www.tohannieesskincare.com',
+  'http://beauty.tohannieesskincare.com',
+  'https://beauty.tohannieesskincare.com',
+  'http://localhost:8080',
+  'http://localhost:5173',
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('not allowed by cors'));
+    }
+  },
+  credentials: true,
+}));
+app.use(cookieParser());
 
 setupDB();
 require('./config/passport')(app);

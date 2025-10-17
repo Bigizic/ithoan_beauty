@@ -51,11 +51,11 @@ export const getMaintenanceStats = () => {
       if (response.status === 200) {
           dispatch({
             type: SET_USER_MAINTENANCE_STATUS,
-            payload: response.data.setting[0].isMaintenanceMode
+            payload: response.data.setting[0].isMaintenanceMode.skincare
           });
           return dispatch({
             type: SET_USER_MAINTENANCE_TEXT,
-            payload: response.data.setting[0].maintenanceText
+            payload: response.data.setting[0].maintenanceText.skincare
           })
       }
     } catch (error) {

@@ -46,3 +46,7 @@ export type SERVICESMENU = {
   serviceArray: [SERVICEMENU]
 }
 
+export type ACTIONPROPS = {
+  type: string
+  payload?: any
+}

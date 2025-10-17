@@ -54,10 +54,15 @@ class AdminDashboard extends React.PureComponent {
 
       isLoading,
       handleMaintenance,
-      maintenanceStatus,
 
-      inputMaintenanceText,
+      skincareMaintenanceStatus,
+      beautyMaintenanceStatus,
+
+      skincareInputMaintenanceText,
+      beautyInputMaintenanceText,
+
       setInputMaintenanceText,
+      setMaintenanceStatus,
       websiteInfo,
       setInputWebsiteInfo,
       websiteInfoText,
@@ -65,7 +70,6 @@ class AdminDashboard extends React.PureComponent {
       websiteInfoStatus
 
     } = this.props;
-    const maintenanceText = inputMaintenanceText || "";
 
     let sF = {};
     if (selectedOverview.dateRange.startDate && selectedOverview.dateRange.endDate) {
@@ -287,20 +291,46 @@ class AdminDashboard extends React.PureComponent {
           <h1 className='text-3xl mb-3'>Hello {user.firstName} {user.lastName} </h1>
           <div className='maintenance_button'>
             <ToggleSwitch
-              label={"Maintenance Mode"}
-              checked={maintenanceStatus}
-              onChange={(v) => handleMaintenance(v, inputMaintenanceText)}
+              label={"Skincare Maintenance Mode"}
+              checked={skincareMaintenanceStatus}
+              onChange={(v) => {
+                setMaintenanceStatus('skincare', v)
+                handleMaintenance()
+              }}
             />
             <Input
               type={"text"}
               className={"maintenance_input_text"}
-              placeholder={!maintenanceStatus && "enter maintenance text" || maintenanceStatus && "Disable maintenance mode to enter text"}
-              disabled={maintenanceStatus}
-              value={maintenanceText}
+              placeholder={!skincareMaintenanceStatus && "enter skincare maintenance text" || skincareMaintenanceStatus && "Disable skincare maintenance mode to enter text"}
+              disabled={skincareMaintenanceStatus}
+              value={skincareInputMaintenanceText}
               onInputChange={(name, value) => {
-                setInputMaintenanceText(value)
-              }} />
+                setInputMaintenanceText('skincare', value)
+              }}
+            />
+
             <br></br>
+
+            <ToggleSwitch
+              label={"Beauty Maintenance Mode"}
+              checked={beautyMaintenanceStatus}
+              onChange={(v) => {
+                setMaintenanceStatus('beauty', v)
+                handleMaintenance()
+              }}
+            />
+            <Input
+              type={"text"}
+              className={"maintenance_input_text"}
+              placeholder={!beautyMaintenanceStatus && "enter beauty maintenance text" || beautyMaintenanceStatus && "Disable beauty maintenance mode to enter text"}
+              disabled={beautyMaintenanceStatus}
+              value={beautyInputMaintenanceText}
+              onInputChange={(name, value) => {
+                setInputMaintenanceText('beauty', value)
+              }}
+            />
+            <br></br>
+
             <hr style={{ width: '70%' }}></hr>
             <ToggleSwitch
               label={"Website Information"}
@@ -512,13 +542,15 @@ const mapStateToProps = state => {
 
     isLoading: state.adminDashboard.isLoading,
 
-    maintenanceStatus: state.adminDashboard.maintenanceStatus,
+    skincareMaintenanceStatus: state.adminDashboard.maintenanceStatus.skincare,
+    beautyMaintenanceStatus: state.adminDashboard.maintenanceStatus.beauty,
+
+    skincareInputMaintenanceText: state.adminDashboard.inputMaintenanceText.skincare,
+    beautyInputMaintenanceText: state.adminDashboard.inputMaintenanceText.beauty,
 
     websiteInfo: state.navigation.websiteInfo,
     websiteInfoText: state.adminDashboard.websiteInfoText,
     websiteInfoStatus: state.adminDashboard.websiteInfoStatus,
-
-    inputMaintenanceText: state.adminDashboard.inputMaintenanceText,
   };
 };
 

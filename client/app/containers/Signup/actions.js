@@ -87,9 +87,11 @@ export const googleSignup = (credential) => {
         autoDismiss: 1
       };
 
-      localStorage.setItem('token', response.data.token);
+      //localStorage.setItem('token', response.data.token);
+      localStorage.setItem('is_logged_in', true);
 
-      setToken(response.data.token);
+      //setToken(response.data.token);
+      setToken(true)
 
       dispatch(setAuth());
       dispatch(success(successfulOptions));
@@ -179,9 +181,11 @@ export const signUp = (default_currency) => {
         autoDismiss: 1
       };
 
-      localStorage.setItem('token', response.data.token);
+      //localStorage.setItem('token', response.data.token);
+      localStorage.setItem('is_logged_in', true);
 
-      setToken(response.data.token);
+      //setToken(response.data.token);
+      setToken(true)
 
       dispatch(setAuth());
       dispatch(success(successfulOptions));

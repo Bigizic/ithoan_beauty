@@ -444,7 +444,6 @@ export const addProduct = () => {
         'discount.max': 'Discount cannot be greater than 100.',
         'discount.numeric': 'Discount must be a number.',
       });
-      console.log(errors)
 
       if (!isValid) {
         return dispatch({ type: SET_PRODUCT_FORM_ERRORS, payload: errors });

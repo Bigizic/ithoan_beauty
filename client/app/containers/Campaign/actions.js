@@ -263,7 +263,6 @@ export const addCampaign = () => {
           }
         }
       }
-      console.log(formData)
       let response = null;
       if (newCampaign.type === 'beauty') {
         response = await axios.post(`${API_URL}/newsletter/beauty/create`, formData, {

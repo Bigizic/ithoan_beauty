@@ -24,6 +24,7 @@ import {
 import handleError from '../../utils/error';
 import { API_URL } from '../../constants';
 import { allFieldsValidation } from '../../utils/validation';
+import { setAuth } from '../Authentication/actions';
 
 
 export const resetBanks = () => {
@@ -60,9 +61,10 @@ export const fetchProfile = () => {
   return async (dispatch, getState) => {
     try {
       dispatch(setProfileLoading(true));
-      const response = await axios.get(`${API_URL}/user/me`);
+      const response = await axios.get(`${API_URL}/user/me`, { withCredentials: true });
 
       dispatch({ type: FETCH_PROFILE, payload: response.data.user });
+      //dispatch(setAuth())
     } catch (error) {
       handleError(error, dispatch);
     } finally {

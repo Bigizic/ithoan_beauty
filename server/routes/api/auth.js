@@ -17,7 +17,8 @@ const { EMAIL_PROVIDER, JWT_COOKIE } = require('../../constants');
 const { OAuth2Client } = require('google-auth-library');
 const { clientID } = keys.google
 const client = new OAuth2Client(clientID);
-const { secret, tokenLife } = keys.jwt;
+const { secret, tokenLife, tokenLifee } = keys.jwt;
+const checkAuth = require('../../utils/auth');
 
 
 /**
@@ -33,6 +34,26 @@ const verifyGoogleToken = async (token) => {
   const payload = ticket.getPayload();
   return payload;
 };
+
+router.post('/logout', auth, async (req, res) => {
+  try {
+    // check auth
+    const userDoc = await checkAuth(req);
+    if (userDoc) {
+      res.clearCookie('access_token', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        //  domain: '.example.com'
+      });
+      return res.status(200).json({ success: true });
+    } else {
+      throw new Error()
+    }
+  } catch (error) {
+    return res.status(400).json({ error: 'error logging out, try again later!' })
+  }
+})
 
 
 router.post('/login', async (req, res) => {
@@ -89,9 +110,16 @@ router.post('/login', async (req, res) => {
       user
     );
 
+    res.cookie('access_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: parseInt(tokenLifee) * 24 * 1000 * 60 * 60
+    });
+
     return res.status(200).json({
       success: true,
-      token: `Bearer ${token}`,
+      //token: `Bearer ${token}`,
       user: {
         id: user.id,
         firstName: user.firstName,
@@ -176,10 +204,17 @@ router.post('/register', async (req, res) => {
 
     const token = jwt.sign(payload, secret, { expiresIn: tokenLife });
 
+    res.cookie('access_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: parseInt(tokenLifee) * 24 * 1000 * 60 * 60
+    });
+
     return res.status(200).json({
       success: true,
       subscribed,
-      token: `Bearer ${token}`,
+      //token: `Bearer ${token}`,
       user: {
         id: registeredUser.id,
         firstName: registeredUser.firstName,
@@ -393,10 +428,17 @@ router.post('/register/google', async (req, res) => {
 
     const token = jwt.sign(payload, secret, { expiresIn: tokenLife });
 
+    res.cookie('access_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: parseInt(tokenLifee) * 24 * 1000 * 60 * 60
+    });
+
     return res.status(200).json({
       success: true,
       subscribed,
-      token: `Bearer ${token}`,
+      //token: `Bearer ${token}`,
       user: {
         id: registeredUser.id,
         firstName: registeredUser.firstName,
@@ -454,9 +496,16 @@ router.post('/google/signin', async (req, res) => {
       existingEmail
     );
 
+    res.cookie('access_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: parseInt(tokenLifee) * 24 * 1000 * 60 * 60
+    });
+
     return res.status(200).json({
       success: true,
-      token: `Bearer ${token}`,
+      //token: `Bearer ${token}`,
       user: {
         id: existingEmail.id,
         firstName: existingEmail.firstName,

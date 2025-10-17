@@ -40,7 +40,8 @@ class Shop extends React.PureComponent {
     const {
       products, advancedFilters,
       filterProducts, min,
-      max, all_currency, selectCurrency
+      max, all_currency, selectCurrency,
+      searchItem
     } = this.props;
     const { totalPages, currentPage, count, limit, order } = advancedFilters;
     const displayPagination = totalPages > 1;
@@ -98,7 +99,7 @@ class Shop extends React.PureComponent {
         <div>
 
           <div>
-            {displayPagination && (
+            {displayPagination && searchItem.length < 3 && (
               <div className='pagination_container d-flex justify-content-center text-center mt-4'>
                 <Pagination
                   totalPages={totalPages}
@@ -124,6 +125,8 @@ const mapStateToProps = state => {
     max: state.product.maxPriceValue,
     all_currency: state.currency.all_currency,
     selectCurrency: sL > 0 ? state.currency.select_currency : state.currency.default_currency,
+
+    searchItem: state.shop.searchItem,
   };
 };
 

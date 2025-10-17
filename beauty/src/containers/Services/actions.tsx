@@ -16,7 +16,7 @@ const setLoading = (value: boolean) => ({
 export const fetchServices = () => async (dispatch: any) => {
   dispatch(setLoading(true))
   try {
-    const data = await API_URL.get({ type: '/services/fetch_all' })
+    const { data } = await API_URL.get({ type: '/services/fetch_all' })
     dispatch({
       type: FETCH_SERVICES,
       payload: data.services
@@ -29,7 +29,7 @@ export const fetchServices = () => async (dispatch: any) => {
 export const fetchService = (slug: string) => async (dispatch: any) => {
   dispatch(setLoading(true))
   try {
-    const data = await API_URL.get({ type: '/services/fetch', id: slug })
+    const { data } = await API_URL.get({ type: '/services/fetch', id: slug })
     dispatch({
       type: FETCH_SERVICE,
       payload: data.service

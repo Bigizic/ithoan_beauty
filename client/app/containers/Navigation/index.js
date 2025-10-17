@@ -211,19 +211,19 @@ const Navigation = React.forwardRef((props, ref) => {
 
           <Header
             toggleBrand={this.toggleBrand}
-            {...this.props}
             getSuggestionValue={this.getSuggestionValue}
             renderSuggestion={this.renderSuggestion}
             inputProps={inputProps}
             history={history}
+            {...this.props}
           />
 
           {/* hidden cart drawer */}
           <div
-            className={isCartOpen ? 'mini-cart-open' : 'hidden-mini-cart'}
+            className={`${isCartOpen ? 'mini-cart-open' : 'hidden-mini-cart'}`}
             aria-hidden={`${isCartOpen ? false : true}`}
           >
-            <div className='mini-cart'>
+            <div className={`${websiteInfoStatus ? 'top-5' : 'top-0'} mini-cart`}>
               <Cart />
             </div>
             <div

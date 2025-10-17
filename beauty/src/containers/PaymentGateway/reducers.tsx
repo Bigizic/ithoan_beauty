@@ -1,3 +1,4 @@
+import { ACTIONPROPS } from '../../types'
 import {
   SET_BOOKING_ID,
   TOGGLE_PAYMENT,
@@ -19,12 +20,7 @@ const initialState = {
   note: ''
 }
 
-type ActionProps = {
-  type: string
-  payload?: any
-}
-
-export default function paymentReducer(state = initialState, action: ActionProps) {
+export default function paymentReducer(state = initialState, action: ACTIONPROPS) {
   switch (action.type) {
     case SET_PAYMENT_NOTE:
       return {

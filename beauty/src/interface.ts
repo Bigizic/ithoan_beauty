@@ -2,7 +2,11 @@ import { SERVICEMENU, SERVICESMENU } from "./types";
 import { Location, NavigateFunction } from 'react-router-dom';
 
 export interface ApplicationStateProps {
-  services: SERVICESMENU[]
+  services: SERVICESMENU[],
+  maintenanceText: string,
+  homePageLoading: boolean,
+  maintenanceStatus: boolean,
+  isSearchOpen: boolean
 }
 
 export interface HomePageProps {

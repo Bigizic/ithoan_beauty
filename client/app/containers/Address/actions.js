@@ -62,8 +62,8 @@ export const setAddressLoading = value => {
 
 export const fetchAddresses = () => {
   return async (dispatch, getState) => {
+    dispatch(setAddressLoading(true));
     try {
-      dispatch(setAddressLoading(true));
       const response = await axios.get(`${API_URL}/address`);
       dispatch({ type: FETCH_ADDRESSES, payload: response.data.addresses });
     } catch (error) {
@@ -77,7 +77,7 @@ export const fetchAddresses = () => {
 
 // handle fetch adderss to cart
 export const setShippingAddress = () => {
-  return async(dispatch, getState) => {
+  return async (dispatch, getState) => {
     try {
       const authenticated = getState().authentication.authenticated;
 

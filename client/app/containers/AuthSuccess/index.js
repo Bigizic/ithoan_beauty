@@ -12,10 +12,11 @@ import { Navigate } from 'react-router-dom';
 import actions from '../../actions';
 import setToken from '../../utils/token';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
+import { withRouter } from '@/withRouter';
 
 class AuthSuccess extends React.PureComponent {
   componentDidMount() {
-    const tokenParam = this.props.location.search;
+    const tokenParam = this.props?.location?.search;
     const jwtCookie = tokenParam
       .slice(tokenParam.indexOf('=') + 1)
       .replace('%20', ' ');
@@ -41,4 +42,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, actions)(AuthSuccess);
+export default connect(mapStateToProps, actions)(withRouter(AuthSuccess));

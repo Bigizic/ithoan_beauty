@@ -4,7 +4,7 @@
  *
  */
 
-import { SET_AUTH, CLEAR_AUTH } from './constants';
+import { SET_AUTH, CLEAR_AUTH, SET_IS_LOADING } from './constants';
 
 const initialState = {
   authenticated: false,
@@ -13,6 +13,11 @@ const initialState = {
 
 const authenticationReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload
+      }
     case SET_AUTH:
       return {
         ...state,

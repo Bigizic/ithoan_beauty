@@ -62,14 +62,16 @@ export function initializeApplication(options = {}) {
     };
 
     componentDidMount() {
-      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-
-      if (token) {
+      const token = typeof window !== "undefined" ? localStorage.getItem("is_logged_in") : null;
+      if (token === 'true') {
         this.props.fetchProfile && this.props.fetchProfile();
       }
 
-      this.props.handleCart && this.props.handleCart();
+      /*if (token) {
+        this.props.fetchProfile && this.props.fetchProfile();
+      }*/
       this.props.setShippingAddress && this.props.setShippingAddress();
+      this.props.handleCart && this.props.handleCart();
       this.props.getMaintenanceStats && this.props.getMaintenanceStats();
 
       document.addEventListener("keydown", this.handleTabbing);
@@ -199,7 +201,7 @@ export function initializeApplication(options = {}) {
                   <Route path="/forgot-password" element={<ForgotPassword />} />
                   <Route path="/reset-password/:token" element={<ResetPassword />} />
                   <Route path="/newsletter/unsubscribe/:email" element={<NewsletterUnsubscribe />} />
-                  <Route path="/auth/success" element={<AuthSuccess />} />
+                  {/*<Route path="/auth/success" element={<AuthSuccess />} />*/}
                   <Route path="/support" element={<Authentication><Support /></Authentication>} />
                   <Route path="/dashboard/*" element={<Authentication><Dashboard /></Authentication>} />
                   <Route path="/404" element={<Page404 />} />

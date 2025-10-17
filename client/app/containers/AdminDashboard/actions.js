@@ -912,21 +912,21 @@ export const setAdminDashboardIsLoading = (stats) => {
 }
 
 
-export const setMaintenanceStatus = (status) => {
+export const setMaintenanceStatus = (type, status) => {
   return (dispatch, getState) => {
     dispatch({
       type: SET_MAINTENANCE_STATUS,
-      payload: status,
+      payload: typeof (status) === 'object' ? { ...status } : { [type]: status },
     })
   }
 }
 
 
-export const setInputMaintenanceText = (v) => {
+export const setInputMaintenanceText = (type, v) => {
   return (dispatch) => {
     dispatch({
       type: SET_INPUT_MAINTENANCE_TEXT,
-      payload: v
+      payload: typeof (v) === 'object' ? { ...v } : { [type]: v }
     })
   }
 }
@@ -951,12 +951,17 @@ export const setWebsiteInfoStatus = (v) => {
 
 
 // updates maintenance action
-export const handleMaintenance = (value, txt) => {
-  return async(dispatch, getState) => {
+export const handleMaintenance = () => {
+  return async (dispatch, getState) => {
+    dispatch(setAdminDashboardIsLoading(true))
     try {
-      const text = value ? txt : ''
-      dispatch(setAdminDashboardIsLoading(true))
-      const response = await axios.put(`${API_URL}/setting`, { settings: value, text });
+      //const text = value ? txt : ''
+      const text = getState().adminDashboard.inputMaintenanceText
+      const settings = getState().adminDashboard.maintenanceStatus
+      const response = await axios.put(`${API_URL}/setting`, {
+        settings,
+        text
+      });
       if (response.status === 200) {
         const successfulOptions = {
           title: `${response.data.message}`,
@@ -964,8 +969,6 @@ export const handleMaintenance = (value, txt) => {
           autoDismiss: 1
         };
         dispatch(success(successfulOptions));
-        dispatch(setMaintenanceStatus(value));
-        return dispatch(setInputMaintenanceText(text));
       }
     } catch (error) {
       handleError(error, dispatch)
@@ -977,7 +980,7 @@ export const handleMaintenance = (value, txt) => {
 
 // update website info text
 export const handleSetWebsiteInfo = (value, txt) => {
-  return async(dispatch, getState) => {
+  return async (dispatch, getState) => {
     try {
       const text = value ? txt : "";
       dispatch(setAdminDashboardIsLoading(true))
@@ -992,7 +995,7 @@ export const handleSetWebsiteInfo = (value, txt) => {
         dispatch(setWebsiteInfoStatus(value));
         return dispatch(setInputWebsiteInfo(text));
       }
-    } catch(error) {
+    } catch (error) {
       handleError(error, dispatch)
     } finally {
       dispatch(setAdminDashboardIsLoading(false));
@@ -1001,23 +1004,23 @@ export const handleSetWebsiteInfo = (value, txt) => {
 }
 
 export const getMaintenanceStatus = () => {
-  return async(dispatch, getState) => {
+  return async (dispatch, getState) => {
     dispatch(setAdminDashboardIsLoading(true))
     try {
-      const response  = await axios.get(`${API_URL}/setting`)
+      const response = await axios.get(`${API_URL}/setting`)
       if (response.status === 201 && response.data.setting.length === 0) {
         // empty setting, create setting
         const createSetting = await axios.post(`${API_URL}/setting`, { settings: false });
         if (createSetting.status === 200) {
           // default is false
-          return dispatch(setMaintenanceStatus(false))
+          return dispatch(setMaintenanceStatus('', createSetting.data.setting[0].isMaintenanceMode))
         }
       } else if (response.status === 200 && response.data.setting.length > 0) {
         // we have a setting
         dispatch(setWebsiteInfoStatus(response.data.setting[0].websiteInfoStatus));
         dispatch(setInputWebsiteInfo(response.data.setting[0].websiteInfo));
-        dispatch(setMaintenanceStatus(response.data.setting[0].isMaintenanceMode));
-        return dispatch(setInputMaintenanceText(response.data.setting[0].maintenanceText));
+        dispatch(setMaintenanceStatus('', response.data.setting[0].isMaintenanceMode));
+        return dispatch(setInputMaintenanceText('', response.data.setting[0].maintenanceText));
       }
     } catch (error) {
       handleError(error, dispatch)

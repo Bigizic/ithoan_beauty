@@ -4,12 +4,36 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import {
+  DEFAULT_ACTION,
+  SEARCH_ITEM,
+  RESET_SEARCH_ITEM,
+  SHOP_PRODUCTS
+} from './constants';
 
-const initialState = {};
+const initialState = {
+  shopProducts: [],
+  searchItem: ''
+};
 
-const productsReducer = (state = initialState, action) => {
+const shopReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SHOP_PRODUCTS:
+      return {
+        ...state,
+        shopProducts: action.payload
+      }
+    case RESET_SEARCH_ITEM:
+      return {
+        ...state,
+        shopProducts: [],
+        searchItem: ''
+      }
+    case SEARCH_ITEM:
+      return {
+        ...state,
+        searchItem: action.payload
+      }
     case DEFAULT_ACTION:
       return {
         ...state
@@ -19,4 +43,4 @@ const productsReducer = (state = initialState, action) => {
   }
 };
 
-export default productsReducer;
+export default shopReducer;

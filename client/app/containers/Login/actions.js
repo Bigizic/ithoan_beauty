@@ -96,9 +96,11 @@ export const login = (default_currency) => {
         autoDismiss: 1
       };
 
-      localStorage.setItem('token', response.data.token);
+      //localStorage.setItem('token', response.data.token);
+      localStorage.setItem('is_logged_in', true);
 
-      setToken(response.data.token);
+      //setToken(response.data.token);
+      setToken(true)
 
       dispatch(setAuth());
       dispatch(success(successfulOptions));
@@ -161,9 +163,10 @@ export const googleSignin = (credential) => {
         autoDismiss: 1
       };
 
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('is_logged_in', true);
 
-      setToken(response.data.token);
+      //setToken(response.data.token);
+      setToken(true)
 
       dispatch(setAuth());
       dispatch(success(successfulOptions));
@@ -183,19 +186,27 @@ export const googleSignin = (credential) => {
 }
 
 export const signOut = () => {
-  return (dispatch, getState) => {
-    const successfulOptions = {
-      title: `You have signed out!`,
-      position: 'tr',
-      autoDismiss: 1
-    };
+  return async (dispatch, getState) => {
+    try {
+      const response = await axios.post(`${API_URL}/auth/logout`, {})
+      if (response.status === 200) {
+        const successfulOptions = {
+          title: `You have signed out!`,
+          position: 'tr',
+          autoDismiss: 1
+        };
 
-    dispatch(clearAuth());
-    dispatch(clearAccount());
+        dispatch(clearAuth());
+        dispatch(clearAccount());
 
-    localStorage.removeItem('token');
+        //localStorage.removeItem('token');
+        localStorage.removeItem('is_logged_in');
 
-    dispatch(success(successfulOptions));
-    dispatch(clearCart());
+        dispatch(success(successfulOptions));
+        dispatch(clearCart());
+      }
+    } catch (error) {
+      handleError(error, dispatch)
+    }
   };
 };

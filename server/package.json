@@ -18,6 +18,7 @@
     "bson": "^6.10.2",
     "bull": "^4.12.9",
     "cloudinary": "^2.5.1",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dompurify": "^3.2.4",
