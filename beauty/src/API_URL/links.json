@@ -1,9 +1,0 @@
-{
-  "services": "/services",
-  "service": "/service",
-  "/booking/available-times": "/booking/available-times",
-  "/booking/create": "/booking/create",
-  "/booking/payment": "/booking/payment",
-  "/account/banks": "/admin_account_bank",
-  "newsletter_beauty_unsubscribe": "/newsletter/beauty/unsubscribe"
-}
